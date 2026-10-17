@@ -1,0 +1,501 @@
+Gadget_ID,Category,Brand,Model_Name,Processor,RAM_GB,Storage_GB,Screen_Size_inch,Battery_mAh,OS,Connectivity,Price_INR,Launch_Year,Country_Origin,Popular_in_India,Description
+E0001,Tablet,Apple,Neo 617,MediaTek Helio,6.0,128.0,9.1,5839.0,Chrome OS,"USB-C, WiFi",23905,2007,USA,Yes,Portable tablet with powerful performance
+E0002,Tablet,Asus,Alpha 204,Intel i5,12.0,512.0,9.1,9827.0,macOS,"4G, USB-C",64597,2013,USA,Yes,Portable tablet with powerful performance
+E0003,Laptop,HP,Go 982,M2,16.0,1024.0,13.0,6763.0,Linux,"USB-C, Bluetooth",319428,2014,Germany,Yes,High-performance laptop suitable for work and gaming
+E0004,Mobile,Xiaomi,Alpha 314,Snapdragon 720G,4.0,64.0,6.3,4185.0,Chrome OS,"Bluetooth, USB-C, 4G",126858,2025,Japan,Yes,Feature-rich smartphone with sleek design
+E0005,Tablet,Huawei,X 334,Apple A14,3.0,1024.0,11.1,9375.0,Chrome OS,"HDMI, USB-C, 4G",103886,2022,USA,No,Portable tablet with powerful performance
+E0006,Notebook,Camlin,Go 997,,,,,,None,None,255,2013,India,Yes,Durable notebook for writing and studying
+E0007,Tablet,Samsung,Go 538,Apple A14,8.0,512.0,12.3,8758.0,Chrome OS,"4G, 5G, USB 3.0, USB 2.0",90644,2013,Germany,Yes,Portable tablet with powerful performance
+E0008,Keyboard,HP,X 981,,,,,,None,"WiFi, Bluetooth",17196,2020,India,Yes,Ergonomic keyboard with responsive keys
+E0009,Laptop,Lenovo,Alpha 214,M1,32.0,256.0,17.0,6126.0,None,"Ethernet, WiFi, USB 3.0, USB-C",90058,2022,Japan,Yes,High-performance laptop suitable for work and gaming
+E0010,Laptop,Lenovo,X 713,Intel i5,4.0,1024.0,14.0,7158.0,Android,"Ethernet, 5G, Bluetooth, 4G",114698,2022,China,Yes,High-performance laptop suitable for work and gaming
+E0011,Mobile,Samsung,Ultra 775,Apple A15,8.0,256.0,5.5,3986.0,Windows,"Bluetooth, HDMI",26143,2022,USA,Yes,Feature-rich smartphone with sleek design
+E0012,Mobile,Google,Neo 330,Snapdragon 865,8.0,1024.0,6.7,4733.0,macOS,"USB 2.0, USB-C, USB 3.0",105889,2019,China,No,Feature-rich smartphone with sleek design
+E0013,Laptop,Dell,Neo 385,Intel i3,8.0,512.0,13.0,3581.0,iOS,"Bluetooth, WiFi, USB-C",203239,2007,China,Yes,High-performance laptop suitable for work and gaming
+E0014,Tablet,Samsung,Mini 984,Snapdragon 870,4.0,1024.0,10.8,6990.0,iOS,"5G, Bluetooth, WiFi, USB 3.0, Ethernet",66438,2018,South Korea,Yes,Portable tablet with powerful performance
+E0015,Tablet,Huawei,Mini 355,Apple M1,3.0,64.0,10.0,7779.0,Chrome OS,"5G, Ethernet, USB 2.0",78800,2009,South Korea,Yes,Portable tablet with powerful performance
+E0016,Keyboard,Logitech,Neo 270,,,,,,None,"WiFi, Bluetooth",18213,2005,India,Yes,Ergonomic keyboard with responsive keys
+E0017,Mobile,Motorola,X 693,Apple A14,12.0,64.0,5.3,3008.0,macOS,"HDMI, USB 2.0, 5G, USB 3.0",135577,2009,USA,Yes,Feature-rich smartphone with sleek design
+E0018,Tablet,Apple,Pro 791,MediaTek Helio,6.0,64.0,8.2,8905.0,Chrome OS,"WiFi, Bluetooth, USB-C",44356,2007,China,Yes,Portable tablet with powerful performance
+E0019,Keyboard,HP,Go 183,,,,,,None,WiFi,19470,2024,India,Yes,Ergonomic keyboard with responsive keys
+E0020,Mobile,Google,Pro 109,Snapdragon 865,8.0,128.0,6.3,4286.0,Linux,"USB-C, 4G, USB 3.0, Ethernet",86642,2019,Japan,No,Feature-rich smartphone with sleek design
+E0021,Mobile,Apple,Air 820,Snapdragon 888,16.0,128.0,6.0,3542.0,Windows,"5G, USB 3.0",82707,2010,South Korea,Yes,Feature-rich smartphone with sleek design
+E0022,Mobile,Google,Alpha 308,Snapdragon 865,16.0,256.0,6.9,3424.0,Windows,"Bluetooth, Ethernet, USB 3.0, USB 2.0",48749,2013,Japan,No,Feature-rich smartphone with sleek design
+E0023,Tablet,Lenovo,Mini 664,Apple M1,8.0,256.0,12.4,5416.0,iOS,"USB 2.0, WiFi, HDMI, 4G, Bluetooth",103507,2013,USA,Yes,Portable tablet with powerful performance
+E0024,Tablet,Asus,X 466,MediaTek Helio,3.0,64.0,12.6,6221.0,Windows,"USB 3.0, 4G",76333,2009,India,Yes,Portable tablet with powerful performance
+E0025,Laptop,Apple,Neo 373,Intel i9,4.0,1024.0,17.0,4266.0,Chrome OS,"4G, USB-C, WiFi",124036,2015,South Korea,Yes,High-performance laptop suitable for work and gaming
+E0026,Laptop,HP,Z 985,M1,4.0,2048.0,14.0,4634.0,Android,"USB 2.0, 5G, Bluetooth, WiFi",131255,2017,Japan,Yes,High-performance laptop suitable for work and gaming
+E0027,Laptop,Asus,Alpha 546,AMD Ryzen 3,32.0,1024.0,13.0,3944.0,Linux,"USB 2.0, WiFi, HDMI",342775,2018,Japan,No,High-performance laptop suitable for work and gaming
+E0028,Tablet,Asus,Alpha 738,Snapdragon 870,8.0,1024.0,8.9,5363.0,Windows,"Ethernet, 5G",67739,2018,India,No,Portable tablet with powerful performance
+E0029,Mobile,Apple,Z 515,Snapdragon 888,8.0,1024.0,5.6,4672.0,Chrome OS,"USB 2.0, 4G, Bluetooth, 5G, USB 3.0",53620,2024,China,Yes,Feature-rich smartphone with sleek design
+E0030,Mobile,Samsung,Ultra 774,Apple A15,8.0,128.0,5.9,5375.0,Linux,"HDMI, Ethernet, 5G, USB 3.0",64020,2021,South Korea,Yes,Feature-rich smartphone with sleek design
+E0031,Laptop,Samsung,Pro 566,Intel i9,16.0,256.0,14.0,5542.0,Chrome OS,"4G, WiFi, HDMI",158368,2020,China,Yes,High-performance laptop suitable for work and gaming
+E0032,Mobile,Xiaomi,X 670,MediaTek Dimensity 9000,12.0,512.0,5.8,3604.0,Chrome OS,"Bluetooth, USB-C",65367,2010,Germany,No,Feature-rich smartphone with sleek design
+E0033,Laptop,HP,Z 884,M2,8.0,2048.0,15.6,6625.0,Android,"Ethernet, HDMI, Bluetooth, USB 3.0, 5G",265966,2013,USA,Yes,High-performance laptop suitable for work and gaming
+E0034,Notebook,Reynolds,Z 340,,,,,,None,None,370,2012,Japan,No,Durable notebook for writing and studying
+E0035,Laptop,Acer,X 311,AMD Ryzen 7,4.0,512.0,14.0,4894.0,iOS,"5G, Bluetooth, Ethernet",243699,2015,China,No,High-performance laptop suitable for work and gaming
+E0036,Notebook,Reynolds,Go 489,,,,,,None,None,444,2023,Germany,Yes,Durable notebook for writing and studying
+E0037,Mobile,Realme,Max 841,Apple A15,12.0,512.0,6.1,5236.0,Linux,"HDMI, 5G, 4G",122251,2020,India,Yes,Feature-rich smartphone with sleek design
+E0038,Laptop,Toshiba,Alpha 445,AMD Ryzen 7,4.0,2048.0,13.0,3687.0,macOS,"HDMI, 4G, WiFi",166396,2017,Japan,Yes,High-performance laptop suitable for work and gaming
+E0039,Notebook,Reynolds,Mini 119,,,,,,None,None,192,2018,Japan,No,Durable notebook for writing and studying
+E0040,Tablet,Apple,Mini 785,Apple M1,4.0,64.0,11.8,5329.0,Linux,"5G, WiFi, USB 2.0",39973,2012,USA,Yes,Portable tablet with powerful performance
+E0041,Laptop,Apple,Max 506,Intel i5,16.0,1024.0,14.0,7963.0,Android,"USB 2.0, Bluetooth, Ethernet",43462,2014,China,Yes,High-performance laptop suitable for work and gaming
+E0042,Mouse,Razer,Pro 915,,,,,,None,WiFi,1969,2014,Germany,No,Precision mouse suitable for gaming and work
+E0043,Headphones,Sony,X 969,,,,,1011.0,None,"Bluetooth, WiFi",34158,2025,Japan,Yes,Comfortable headphones with high-quality sound
+E0044,Mobile,Motorola,Air 893,MediaTek Dimensity 9000,12.0,256.0,6.3,4883.0,Windows,"USB-C, 4G, USB 3.0",144772,2025,Japan,No,Feature-rich smartphone with sleek design
+E0045,Mobile,Oppo,Alpha 286,Snapdragon 720G,16.0,256.0,5.6,4005.0,None,"HDMI, 5G, USB-C, Ethernet",107349,2015,India,No,Feature-rich smartphone with sleek design
+E0046,Mobile,Realme,Air 876,MediaTek Dimensity 9000,8.0,256.0,5.6,5441.0,None,"Ethernet, WiFi, USB 2.0, Bluetooth",30442,2012,Germany,No,Feature-rich smartphone with sleek design
+E0047,Laptop,Toshiba,Alpha 535,AMD Ryzen 3,32.0,2048.0,13.0,3762.0,Chrome OS,"USB-C, 5G, 4G",334902,2016,South Korea,No,High-performance laptop suitable for work and gaming
+E0048,Headphones,Skullcandy,Neo 423,,,,,977.0,None,"Bluetooth, WiFi",21094,2013,USA,Yes,Comfortable headphones with high-quality sound
+E0049,Laptop,Samsung,X 825,AMD Ryzen 3,8.0,512.0,14.0,6966.0,None,"Bluetooth, 5G, 4G, Ethernet",219205,2010,Japan,Yes,High-performance laptop suitable for work and gaming
+E0050,Mobile,Vivo,X 358,MediaTek Dimensity 9000,4.0,1024.0,5.6,3517.0,Windows,"Bluetooth, WiFi, USB 2.0, 4G, 5G",133492,2019,Japan,Yes,Feature-rich smartphone with sleek design
+E0051,Mouse,Dell,Go 744,,,,,,None,WiFi,6865,2020,India,Yes,Precision mouse suitable for gaming and work
+E0052,Tablet,Samsung,Go 735,Apple M1,12.0,256.0,8.4,7033.0,macOS,"5G, USB-C, Ethernet, HDMI, 4G",97139,2018,Japan,Yes,Portable tablet with powerful performance
+E0053,Laptop,HP,Go 581,Intel i7,8.0,512.0,15.6,3665.0,None,"4G, Bluetooth, HDMI",31402,2018,South Korea,Yes,High-performance laptop suitable for work and gaming
+E0054,Laptop,Apple,Z 946,AMD Ryzen 3,16.0,2048.0,13.0,4912.0,Linux,"USB-C, Bluetooth, USB 2.0",147864,2025,USA,Yes,High-performance laptop suitable for work and gaming
+E0055,Laptop,Dell,Go 140,M1,16.0,1024.0,17.0,4018.0,macOS,"USB-C, USB 2.0, HDMI, Ethernet",288890,2019,India,Yes,High-performance laptop suitable for work and gaming
+E0056,Keyboard,Razer,Z 690,,,,,,None,"WiFi, Bluetooth",8001,2023,China,No,Ergonomic keyboard with responsive keys
+E0057,Laptop,Lenovo,Alpha 521,AMD Ryzen 7,32.0,1024.0,14.0,7795.0,Android,"Bluetooth, HDMI, 4G, 5G, USB-C",198326,2008,USA,Yes,High-performance laptop suitable for work and gaming
+E0058,Tablet,Lenovo,Air 573,Intel i5,8.0,1024.0,8.2,5721.0,Chrome OS,"USB 3.0, Bluetooth, USB-C, 5G",87449,2005,Germany,Yes,Portable tablet with powerful performance
+E0059,Mobile,Xiaomi,Mini 224,Apple A14,8.0,1024.0,6.5,5561.0,iOS,"5G, USB 2.0",42344,2014,South Korea,No,Feature-rich smartphone with sleek design
+E0060,Laptop,Apple,Ultra 610,AMD Ryzen 7,8.0,1024.0,13.0,7524.0,Chrome OS,"5G, Bluetooth",271931,2008,Germany,Yes,High-performance laptop suitable for work and gaming
+E0061,Mouse,HP,Air 248,,,,,,None,"Bluetooth, WiFi",8036,2012,South Korea,Yes,Precision mouse suitable for gaming and work
+E0062,Mobile,Google,Alpha 440,Snapdragon 888,6.0,64.0,5.6,4699.0,Chrome OS,"WiFi, USB 2.0, USB 3.0, 4G",136356,2009,South Korea,No,Feature-rich smartphone with sleek design
+E0063,Mobile,Google,Ultra 607,Snapdragon 865,12.0,256.0,6.7,5856.0,Android,"5G, USB-C, WiFi, 4G, Ethernet",107937,2017,Germany,No,Feature-rich smartphone with sleek design
+E0064,Headphones,Bose,X 839,,,,,1328.0,None,"WiFi, Bluetooth",7534,2021,South Korea,Yes,Comfortable headphones with high-quality sound
+E0065,Laptop,Lenovo,Go 170,Intel i5,32.0,1024.0,15.6,6256.0,Windows,"Ethernet, USB-C, 4G, USB 3.0",285825,2022,India,Yes,High-performance laptop suitable for work and gaming
+E0066,Laptop,Asus,Max 249,M1,4.0,2048.0,13.0,3823.0,macOS,"USB 2.0, WiFi, HDMI",200065,2006,Japan,Yes,High-performance laptop suitable for work and gaming
+E0067,Laptop,MSI,X 923,AMD Ryzen 7,8.0,512.0,14.0,3646.0,iOS,"HDMI, 4G, Bluetooth",271775,2025,Japan,No,High-performance laptop suitable for work and gaming
+E0068,Mobile,Vivo,Max 685,Apple A15,16.0,128.0,5.1,4415.0,Chrome OS,"USB-C, USB 2.0, 5G, 4G",60223,2017,South Korea,Yes,Feature-rich smartphone with sleek design
+E0069,Mobile,Vivo,Alpha 324,Apple A14,8.0,64.0,7.0,5696.0,Chrome OS,"WiFi, Ethernet, USB 2.0, USB 3.0",138214,2014,USA,No,Feature-rich smartphone with sleek design
+E0070,Tablet,Asus,Neo 235,Intel i5,4.0,64.0,12.4,5322.0,Linux,"WiFi, USB 3.0, HDMI, Bluetooth, Ethernet",58680,2015,Germany,No,Portable tablet with powerful performance
+E0071,Notebook,Camlin,Z 944,,,,,,None,None,321,2021,Japan,No,Durable notebook for writing and studying
+E0072,Mouse,HP,Max 966,,,,,,None,"WiFi, Bluetooth",1533,2009,USA,Yes,Precision mouse suitable for gaming and work
+E0073,Notebook,Camlin,Pro 565,,,,,,None,None,96,2017,India,Yes,Durable notebook for writing and studying
+E0074,Mobile,Vivo,Mini 817,Apple A14,12.0,256.0,5.2,3957.0,iOS,"Ethernet, USB 3.0",66030,2025,India,No,Feature-rich smartphone with sleek design
+E0075,Mobile,Oppo,Air 529,Apple A14,6.0,64.0,6.9,4246.0,Windows,"Bluetooth, 5G",148914,2009,South Korea,No,Feature-rich smartphone with sleek design
+E0076,Mobile,OnePlus,Alpha 657,Snapdragon 720G,4.0,512.0,6.2,4145.0,Android,"5G, HDMI, Ethernet, Bluetooth",103075,2008,Germany,Yes,Feature-rich smartphone with sleek design
+E0077,Mouse,HP,Mini 193,,,,,,None,Bluetooth,4820,2011,India,Yes,Precision mouse suitable for gaming and work
+E0078,Tablet,Huawei,Neo 436,Apple A14,12.0,64.0,8.2,7732.0,Chrome OS,"5G, Bluetooth, USB-C",92641,2011,China,Yes,Portable tablet with powerful performance
+E0079,Notebook,Classmate,Ultra 212,,,,,,None,None,191,2009,USA,No,Durable notebook for writing and studying
+E0080,Tablet,Apple,Pro 863,MediaTek Helio,3.0,256.0,11.9,6949.0,macOS,"WiFi, 4G, HDMI, Ethernet",36614,2018,China,Yes,Portable tablet with powerful performance
+E0081,Laptop,Toshiba,Mini 967,Intel i9,16.0,256.0,17.0,7127.0,None,"Ethernet, USB 2.0",270146,2025,India,Yes,High-performance laptop suitable for work and gaming
+E0082,Mobile,Apple,Air 401,Apple A15,12.0,64.0,6.8,4319.0,Android,"Bluetooth, 4G, HDMI",93245,2017,China,Yes,Feature-rich smartphone with sleek design
+E0083,Mobile,Oppo,Z 483,Apple A14,4.0,1024.0,6.4,3880.0,Windows,"5G, USB-C, 4G, Ethernet, USB 3.0",117049,2008,Japan,No,Feature-rich smartphone with sleek design
+E0084,Headphones,Boat,Alpha 931,,,,,1271.0,None,WiFi,6594,2007,South Korea,Yes,Comfortable headphones with high-quality sound
+E0085,Laptop,Dell,Air 317,AMD Ryzen 7,16.0,256.0,17.0,5896.0,iOS,"USB 2.0, Ethernet",214363,2008,China,Yes,High-performance laptop suitable for work and gaming
+E0086,Laptop,Toshiba,Z 447,AMD Ryzen 3,4.0,1024.0,15.6,3941.0,macOS,"USB-C, WiFi, USB 2.0",170219,2005,USA,Yes,High-performance laptop suitable for work and gaming
+E0087,Mobile,OnePlus,Alpha 261,Snapdragon 865,6.0,1024.0,6.3,3285.0,None,"Bluetooth, 5G",106617,2018,South Korea,Yes,Feature-rich smartphone with sleek design
+E0088,Mobile,Realme,Max 379,Snapdragon 865,16.0,1024.0,5.2,3215.0,None,"WiFi, Bluetooth, 4G",124159,2018,South Korea,No,Feature-rich smartphone with sleek design
+E0089,Laptop,Samsung,Z 316,M1,16.0,2048.0,13.0,5320.0,Windows,"WiFi, 5G, HDMI, USB 2.0",58721,2005,USA,Yes,High-performance laptop suitable for work and gaming
+E0090,Notebook,Camlin,Max 279,,,,,,None,None,198,2015,India,Yes,Durable notebook for writing and studying
+E0091,Laptop,Samsung,Max 396,Intel i3,8.0,1024.0,13.0,6252.0,Chrome OS,"WiFi, HDMI, Ethernet, 4G, USB 2.0",255068,2023,South Korea,Yes,High-performance laptop suitable for work and gaming
+E0092,Laptop,Dell,Pro 505,AMD Ryzen 7,8.0,2048.0,15.6,3721.0,Linux,"5G, USB-C",338738,2017,China,Yes,High-performance laptop suitable for work and gaming
+E0093,Keyboard,Razer,Air 622,,,,,,None,Bluetooth,6009,2007,China,No,Ergonomic keyboard with responsive keys
+E0094,Laptop,Acer,Go 878,AMD Ryzen 3,8.0,512.0,13.0,4199.0,Linux,"4G, Ethernet, USB-C",69506,2010,Germany,No,High-performance laptop suitable for work and gaming
+E0095,Mobile,Realme,X 477,Apple A14,8.0,128.0,5.9,4920.0,None,"USB 2.0, WiFi, 4G, Ethernet",27448,2014,South Korea,No,Feature-rich smartphone with sleek design
+E0096,Notebook,Classmate,Max 573,,,,,,None,None,380,2007,China,No,Durable notebook for writing and studying
+E0097,Mobile,Samsung,Ultra 140,Apple A15,16.0,128.0,5.6,4948.0,Android,"WiFi, HDMI, Ethernet",98030,2007,China,Yes,Feature-rich smartphone with sleek design
+E0098,Laptop,Toshiba,Max 390,AMD Ryzen 7,8.0,1024.0,15.6,5317.0,Android,"USB 3.0, WiFi, USB-C, Ethernet, 4G",64556,2015,India,No,High-performance laptop suitable for work and gaming
+E0099,Laptop,Lenovo,Ultra 786,AMD Ryzen 7,4.0,512.0,15.6,5541.0,Linux,"Bluetooth, USB 2.0, HDMI",227488,2025,Japan,Yes,High-performance laptop suitable for work and gaming
+E0100,Tablet,Huawei,Ultra 258,MediaTek Helio,12.0,64.0,11.2,8468.0,Chrome OS,"WiFi, USB 3.0, 4G, Bluetooth",48074,2015,South Korea,Yes,Portable tablet with powerful performance
+E0101,Laptop,HP,Max 473,AMD Ryzen 7,4.0,1024.0,14.0,7892.0,iOS,"4G, Ethernet, USB-C",116790,2019,India,Yes,High-performance laptop suitable for work and gaming
+E0102,Tablet,Samsung,Go 551,Apple A14,12.0,256.0,11.7,8677.0,Android,"USB 2.0, HDMI, USB-C",45430,2016,Germany,Yes,Portable tablet with powerful performance
+E0103,Mobile,Vivo,Air 971,Snapdragon 865,12.0,1024.0,6.1,3663.0,None,"USB 2.0, WiFi, USB 3.0",133983,2016,China,No,Feature-rich smartphone with sleek design
+E0104,Laptop,HP,Max 614,Intel i7,8.0,1024.0,17.0,7205.0,None,"Bluetooth, 5G, USB-C, HDMI, 4G",43982,2018,India,Yes,High-performance laptop suitable for work and gaming
+E0105,Mobile,Oppo,Go 105,MediaTek Dimensity 9000,8.0,128.0,5.1,3405.0,Windows,"4G, Ethernet, WiFi, HDMI",131851,2009,Germany,No,Feature-rich smartphone with sleek design
+E0106,Mouse,Logitech,Max 213,,,,,,None,"WiFi, Bluetooth",9291,2024,China,Yes,Precision mouse suitable for gaming and work
+E0107,Notebook,Navneet,Go 568,,,,,,None,None,204,2008,India,Yes,Durable notebook for writing and studying
+E0108,Laptop,Toshiba,Pro 636,AMD Ryzen 7,4.0,512.0,14.0,5386.0,iOS,"USB 3.0, 5G",329192,2018,USA,No,High-performance laptop suitable for work and gaming
+E0109,Headphones,Sony,Max 482,,,,,1377.0,None,Bluetooth,31810,2006,Germany,Yes,Comfortable headphones with high-quality sound
+E0110,Laptop,Dell,Mini 812,AMD Ryzen 5,4.0,1024.0,14.0,3849.0,Linux,"WiFi, USB 3.0, USB 2.0",207496,2025,USA,Yes,High-performance laptop suitable for work and gaming
+E0111,Mobile,OnePlus,Air 507,Snapdragon 720G,6.0,64.0,6.4,4874.0,None,"5G, WiFi, USB-C, Bluetooth",18985,2015,Japan,Yes,Feature-rich smartphone with sleek design
+E0112,Headphones,Skullcandy,Alpha 379,,,,,1269.0,None,"WiFi, Bluetooth",19750,2016,India,No,Comfortable headphones with high-quality sound
+E0113,Laptop,Acer,Ultra 658,Intel i7,32.0,2048.0,17.0,5777.0,Android,"HDMI, USB 3.0, USB-C, USB 2.0, 4G",73312,2018,India,No,High-performance laptop suitable for work and gaming
+E0114,Laptop,HP,Max 381,AMD Ryzen 7,16.0,1024.0,15.6,6652.0,Windows,"HDMI, USB 3.0, 5G",52206,2016,China,Yes,High-performance laptop suitable for work and gaming
+E0115,Tablet,Apple,Alpha 470,Apple M1,8.0,256.0,10.5,6310.0,Windows,"HDMI, WiFi, Bluetooth",28812,2012,Germany,Yes,Portable tablet with powerful performance
+E0116,Mobile,Samsung,Z 355,Apple A14,6.0,512.0,6.9,4523.0,iOS,"4G, USB 3.0",112342,2015,Germany,Yes,Feature-rich smartphone with sleek design
+E0117,Headphones,Sony,Pro 368,,,,,1806.0,None,Bluetooth,34930,2017,China,Yes,Comfortable headphones with high-quality sound
+E0118,Notebook,Reynolds,Mini 304,,,,,,None,None,159,2024,Japan,No,Durable notebook for writing and studying
+E0119,Laptop,HP,Ultra 912,AMD Ryzen 5,8.0,2048.0,13.0,5618.0,Android,"Ethernet, USB 2.0",187263,2010,Germany,Yes,High-performance laptop suitable for work and gaming
+E0120,Mobile,Xiaomi,Max 834,Snapdragon 720G,6.0,128.0,5.5,5023.0,Windows,"Ethernet, USB 3.0, 5G, USB 2.0",42018,2024,India,Yes,Feature-rich smartphone with sleek design
+E0121,Tablet,Asus,X 951,Apple M1,8.0,1024.0,8.4,7597.0,Android,"HDMI, USB 3.0, Bluetooth, USB 2.0, Ethernet",43850,2009,South Korea,No,Portable tablet with powerful performance
+E0122,Laptop,Lenovo,Z 729,AMD Ryzen 5,8.0,512.0,15.6,4847.0,Linux,"Bluetooth, USB 2.0, Ethernet, USB 3.0",318799,2013,USA,Yes,High-performance laptop suitable for work and gaming
+E0123,Mobile,Google,Max 732,Snapdragon 865,6.0,1024.0,6.9,3631.0,Chrome OS,"WiFi, Ethernet, HDMI, USB-C",77377,2025,USA,No,Feature-rich smartphone with sleek design
+E0124,Tablet,Microsoft,Mini 575,Snapdragon 870,12.0,256.0,11.1,7474.0,Chrome OS,"USB-C, USB 2.0, 5G",29564,2006,USA,No,Portable tablet with powerful performance
+E0125,Laptop,Lenovo,Mini 353,AMD Ryzen 5,16.0,1024.0,17.0,4071.0,Linux,"USB 3.0, 5G",274565,2008,Japan,Yes,High-performance laptop suitable for work and gaming
+E0126,Laptop,Dell,Mini 123,AMD Ryzen 5,32.0,2048.0,14.0,4308.0,Linux,"5G, 4G, Ethernet, USB 2.0",274745,2020,Japan,Yes,High-performance laptop suitable for work and gaming
+E0127,Laptop,MSI,Z 649,AMD Ryzen 5,32.0,512.0,14.0,7778.0,iOS,"WiFi, USB 2.0",289467,2024,Germany,No,High-performance laptop suitable for work and gaming
+E0128,Laptop,HP,Alpha 666,AMD Ryzen 5,8.0,1024.0,15.6,6303.0,Android,"USB-C, WiFi",328991,2022,USA,Yes,High-performance laptop suitable for work and gaming
+E0129,Laptop,MSI,X 146,Intel i5,32.0,1024.0,13.0,4054.0,iOS,"USB 3.0, Ethernet, USB 2.0, 4G, Bluetooth",134363,2024,China,No,High-performance laptop suitable for work and gaming
+E0130,Laptop,Acer,Go 444,M2,32.0,2048.0,14.0,7966.0,None,"USB 3.0, Ethernet, Bluetooth",236021,2024,Germany,No,High-performance laptop suitable for work and gaming
+E0131,Mobile,Google,Go 691,Snapdragon 888,12.0,1024.0,5.6,3068.0,iOS,"Bluetooth, USB-C, USB 2.0, 4G",14985,2024,South Korea,Yes,Feature-rich smartphone with sleek design
+E0132,Laptop,Dell,Max 255,Intel i9,32.0,512.0,17.0,4210.0,iOS,"Bluetooth, 5G",39928,2019,Japan,Yes,High-performance laptop suitable for work and gaming
+E0133,Mobile,Xiaomi,Ultra 570,Snapdragon 720G,16.0,1024.0,6.8,5979.0,Android,"Ethernet, 5G, USB 2.0",93209,2020,China,Yes,Feature-rich smartphone with sleek design
+E0134,Mouse,HP,Air 405,,,,,,None,"Bluetooth, WiFi",3450,2012,Japan,Yes,Precision mouse suitable for gaming and work
+E0135,Laptop,Asus,Max 938,M1,16.0,512.0,17.0,5597.0,None,"Ethernet, USB 2.0, 4G, WiFi",330667,2022,South Korea,No,High-performance laptop suitable for work and gaming
+E0136,Mobile,OnePlus,Z 240,Snapdragon 888,4.0,256.0,6.9,3323.0,Linux,"USB 2.0, HDMI, Bluetooth, USB-C, Ethernet",79075,2022,Germany,Yes,Feature-rich smartphone with sleek design
+E0137,Laptop,Apple,Max 768,Intel i5,4.0,512.0,14.0,3430.0,macOS,"USB 3.0, HDMI, WiFi, Ethernet, Bluetooth",32716,2022,USA,Yes,High-performance laptop suitable for work and gaming
+E0138,Mouse,Dell,X 887,,,,,,None,"WiFi, Bluetooth",5562,2014,Germany,Yes,Precision mouse suitable for gaming and work
+E0139,Laptop,Apple,Go 209,Intel i3,4.0,512.0,17.0,4440.0,iOS,"HDMI, 4G, USB 3.0, Ethernet, WiFi",34858,2014,China,Yes,High-performance laptop suitable for work and gaming
+E0140,Mouse,HP,Mini 379,,,,,,None,"Bluetooth, WiFi",14869,2009,China,Yes,Precision mouse suitable for gaming and work
+E0141,Laptop,HP,Alpha 188,Intel i3,8.0,2048.0,15.6,4525.0,Linux,"USB 2.0, 5G, Bluetooth, Ethernet",242593,2018,China,Yes,High-performance laptop suitable for work and gaming
+E0142,Mobile,Apple,Go 111,Snapdragon 720G,6.0,512.0,5.6,4016.0,macOS,"USB-C, 5G, HDMI, 4G",94409,2014,China,Yes,Feature-rich smartphone with sleek design
+E0143,Laptop,Acer,Neo 324,AMD Ryzen 3,8.0,256.0,13.0,6812.0,Chrome OS,"USB-C, USB 2.0, USB 3.0",91559,2025,Japan,Yes,High-performance laptop suitable for work and gaming
+E0144,Headphones,Sennheiser,Neo 880,,,,,613.0,None,"Bluetooth, WiFi",47002,2022,South Korea,No,Comfortable headphones with high-quality sound
+E0145,Laptop,HP,Ultra 435,Intel i5,32.0,1024.0,13.0,7621.0,iOS,"Ethernet, 5G",330260,2022,USA,Yes,High-performance laptop suitable for work and gaming
+E0146,Notebook,Reynolds,Pro 622,,,,,,None,None,109,2011,Germany,No,Durable notebook for writing and studying
+E0147,Mobile,Samsung,X 533,Snapdragon 720G,6.0,1024.0,5.8,5309.0,Android,"USB 2.0, WiFi, 5G, 4G, HDMI",65121,2023,India,Yes,Feature-rich smartphone with sleek design
+E0148,Mobile,Apple,Mini 990,Snapdragon 720G,4.0,64.0,7.0,4933.0,iOS,"USB-C, 4G, Ethernet, Bluetooth",118195,2016,South Korea,Yes,Feature-rich smartphone with sleek design
+E0149,Mouse,Dell,Ultra 650,,,,,,None,"WiFi, Bluetooth",11007,2016,India,Yes,Precision mouse suitable for gaming and work
+E0150,Mobile,OnePlus,Z 293,Apple A14,6.0,64.0,6.5,4222.0,Chrome OS,"Ethernet, USB-C, HDMI, Bluetooth, USB 3.0",128750,2016,USA,Yes,Feature-rich smartphone with sleek design
+E0151,Mouse,Logitech,Neo 168,,,,,,None,Bluetooth,10374,2005,USA,Yes,Precision mouse suitable for gaming and work
+E0152,Laptop,Dell,Z 339,M1,4.0,512.0,13.0,6295.0,Android,"Ethernet, 5G, USB-C",59592,2009,China,Yes,High-performance laptop suitable for work and gaming
+E0153,Notebook,Camlin,Neo 409,,,,,,None,None,345,2024,Germany,No,Durable notebook for writing and studying
+E0154,Keyboard,Dell,Air 705,,,,,,None,Bluetooth,10346,2013,India,Yes,Ergonomic keyboard with responsive keys
+E0155,Keyboard,Corsair,Air 426,,,,,,None,"Bluetooth, WiFi",11785,2025,Germany,Yes,Ergonomic keyboard with responsive keys
+E0156,Tablet,Microsoft,Air 522,Snapdragon 870,6.0,512.0,8.9,9406.0,macOS,"5G, USB 2.0, USB-C",112743,2009,South Korea,No,Portable tablet with powerful performance
+E0157,Headphones,Skullcandy,Pro 560,,,,,1385.0,None,Bluetooth,16915,2013,USA,Yes,Comfortable headphones with high-quality sound
+E0158,Notebook,Classmate,Go 717,,,,,,None,None,324,2011,India,Yes,Durable notebook for writing and studying
+E0159,Laptop,HP,Go 820,AMD Ryzen 3,8.0,2048.0,14.0,5727.0,macOS,"5G, Ethernet",91507,2020,USA,Yes,High-performance laptop suitable for work and gaming
+E0160,Laptop,Apple,Mini 879,M2,16.0,1024.0,17.0,6819.0,iOS,"USB 2.0, Ethernet, 4G, HDMI",290716,2019,India,Yes,High-performance laptop suitable for work and gaming
+E0161,Notebook,Navneet,Neo 859,,,,,,None,None,239,2015,South Korea,Yes,Durable notebook for writing and studying
+E0162,Laptop,Asus,Mini 840,AMD Ryzen 5,32.0,1024.0,14.0,4607.0,iOS,"USB-C, 5G, HDMI",318695,2025,Germany,Yes,High-performance laptop suitable for work and gaming
+E0163,Tablet,Microsoft,X 522,Snapdragon 870,4.0,256.0,8.8,9477.0,Android,"Ethernet, WiFi, USB 2.0",24433,2007,Germany,Yes,Portable tablet with powerful performance
+E0164,Laptop,Apple,Air 521,M1,8.0,256.0,14.0,7142.0,Windows,"WiFi, HDMI, USB 3.0, 5G",38247,2005,China,Yes,High-performance laptop suitable for work and gaming
+E0165,Laptop,Samsung,Go 639,AMD Ryzen 7,16.0,1024.0,13.0,7114.0,Chrome OS,"Bluetooth, Ethernet, USB 2.0",108065,2012,USA,Yes,High-performance laptop suitable for work and gaming
+E0166,Laptop,Acer,Pro 515,M1,32.0,256.0,15.6,6326.0,Linux,"5G, USB 2.0, USB 3.0",72266,2025,Germany,No,High-performance laptop suitable for work and gaming
+E0167,Mobile,Google,Pro 800,Apple A14,4.0,64.0,6.4,3338.0,Android,"USB 3.0, Bluetooth, USB 2.0, WiFi, HDMI",63421,2023,South Korea,Yes,Feature-rich smartphone with sleek design
+E0168,Mouse,SteelSeries,Go 247,,,,,,None,WiFi,14233,2015,India,No,Precision mouse suitable for gaming and work
+E0169,Tablet,Huawei,Alpha 154,Apple A14,8.0,64.0,9.5,9619.0,None,"Ethernet, USB 3.0, 5G, HDMI, Bluetooth",110349,2007,China,No,Portable tablet with powerful performance
+E0170,Laptop,Apple,Ultra 796,Intel i3,4.0,1024.0,17.0,5673.0,None,"HDMI, Ethernet, Bluetooth, 4G",319951,2017,South Korea,Yes,High-performance laptop suitable for work and gaming
+E0171,Mobile,Oppo,Alpha 469,Snapdragon 720G,16.0,256.0,6.6,5920.0,Windows,"USB 2.0, 4G",107614,2025,USA,No,Feature-rich smartphone with sleek design
+E0172,Laptop,Dell,Air 517,Intel i7,32.0,1024.0,15.6,3837.0,Linux,"4G, USB-C",265323,2022,China,Yes,High-performance laptop suitable for work and gaming
+E0173,Laptop,HP,Max 273,AMD Ryzen 3,4.0,1024.0,17.0,3101.0,Linux,"USB-C, Bluetooth, USB 3.0, USB 2.0, HDMI",329871,2021,USA,Yes,High-performance laptop suitable for work and gaming
+E0174,Laptop,Asus,Mini 708,AMD Ryzen 7,32.0,512.0,13.0,4369.0,Linux,"USB-C, USB 2.0, 5G, WiFi",219333,2013,USA,No,High-performance laptop suitable for work and gaming
+E0175,Tablet,Microsoft,Neo 590,Intel i5,4.0,256.0,8.0,8241.0,Windows,"USB 3.0, HDMI, 4G, 5G, USB 2.0",37842,2014,Japan,No,Portable tablet with powerful performance
+E0176,Mobile,Oppo,Air 127,Snapdragon 888,8.0,512.0,6.9,3992.0,Linux,"USB 2.0, USB-C, 4G, WiFi, Ethernet",60376,2023,China,Yes,Feature-rich smartphone with sleek design
+E0177,Headphones,Sennheiser,Ultra 748,,,,,1750.0,None,Bluetooth,20092,2007,South Korea,No,Comfortable headphones with high-quality sound
+E0178,Mobile,Vivo,Pro 887,Apple A14,6.0,512.0,6.6,3302.0,Chrome OS,"USB-C, Ethernet, USB 2.0, WiFi, 4G",148746,2024,Germany,No,Feature-rich smartphone with sleek design
+E0179,Laptop,Acer,Go 804,Intel i5,4.0,2048.0,15.6,6526.0,macOS,"Bluetooth, USB 2.0",146392,2021,Germany,No,High-performance laptop suitable for work and gaming
+E0180,Mobile,Motorola,Pro 218,MediaTek Dimensity 9000,12.0,512.0,6.5,5410.0,Linux,"USB 3.0, WiFi, 5G",35406,2014,South Korea,No,Feature-rich smartphone with sleek design
+E0181,Notebook,Navneet,Neo 633,,,,,,None,None,228,2014,Japan,No,Durable notebook for writing and studying
+E0182,Mobile,Motorola,Ultra 665,Snapdragon 720G,12.0,512.0,5.6,4229.0,Windows,"WiFi, USB 3.0",36668,2010,Germany,Yes,Feature-rich smartphone with sleek design
+E0183,Laptop,Samsung,Max 104,Intel i7,32.0,512.0,17.0,4511.0,Android,"USB-C, WiFi, USB 3.0, USB 2.0, Bluetooth",265706,2023,South Korea,Yes,High-performance laptop suitable for work and gaming
+E0184,Tablet,Samsung,Alpha 711,Apple A14,3.0,1024.0,8.5,9398.0,Linux,"USB 3.0, 5G, HDMI, WiFi",54387,2020,China,Yes,Portable tablet with powerful performance
+E0185,Mobile,Oppo,Pro 287,Apple A15,4.0,256.0,5.7,4875.0,iOS,"USB 2.0, Bluetooth, USB 3.0",43113,2015,India,Yes,Feature-rich smartphone with sleek design
+E0186,Mobile,OnePlus,Ultra 291,Apple A14,12.0,512.0,6.2,5354.0,iOS,"4G, HDMI, USB 3.0, USB 2.0, Bluetooth",51742,2020,Japan,Yes,Feature-rich smartphone with sleek design
+E0187,Mobile,Motorola,Mini 271,Snapdragon 865,4.0,256.0,6.9,4984.0,iOS,"USB-C, HDMI, 5G",136902,2018,Germany,No,Feature-rich smartphone with sleek design
+E0188,Laptop,Dell,Pro 686,Intel i9,8.0,1024.0,13.0,5251.0,None,"4G, HDMI, USB 2.0, USB 3.0",289686,2022,China,Yes,High-performance laptop suitable for work and gaming
+E0189,Laptop,Samsung,Mini 986,Intel i9,16.0,256.0,17.0,7475.0,None,"Bluetooth, 5G, 4G, WiFi, HDMI",167790,2016,India,Yes,High-performance laptop suitable for work and gaming
+E0190,Headphones,Bose,Neo 924,,,,,729.0,None,"Bluetooth, WiFi",41380,2009,USA,Yes,Comfortable headphones with high-quality sound
+E0191,Laptop,Acer,Ultra 355,AMD Ryzen 3,16.0,512.0,15.6,5397.0,iOS,"Ethernet, Bluetooth, HDMI, 5G",61082,2013,Germany,Yes,High-performance laptop suitable for work and gaming
+E0192,Laptop,Acer,Alpha 565,AMD Ryzen 3,8.0,2048.0,17.0,4164.0,None,"USB-C, HDMI, WiFi, USB 3.0, Ethernet",241209,2021,Germany,Yes,High-performance laptop suitable for work and gaming
+E0193,Headphones,JBL,Alpha 970,,,,,1491.0,None,WiFi,48902,2019,Germany,No,Comfortable headphones with high-quality sound
+E0194,Laptop,Samsung,Alpha 798,AMD Ryzen 3,8.0,2048.0,14.0,7052.0,Android,"USB 2.0, USB 3.0, Ethernet, USB-C",98468,2023,South Korea,Yes,High-performance laptop suitable for work and gaming
+E0195,Notebook,Classmate,Ultra 551,,,,,,None,None,100,2025,South Korea,Yes,Durable notebook for writing and studying
+E0196,Mobile,Oppo,Neo 539,Snapdragon 720G,6.0,256.0,5.3,4122.0,macOS,"USB 2.0, Bluetooth, 4G, USB 3.0",51391,2006,South Korea,No,Feature-rich smartphone with sleek design
+E0197,Tablet,Huawei,Max 810,MediaTek Helio,3.0,128.0,10.3,6087.0,Windows,"Ethernet, HDMI, WiFi",21056,2015,India,No,Portable tablet with powerful performance
+E0198,Laptop,HP,Go 108,AMD Ryzen 5,32.0,256.0,13.0,3845.0,macOS,"USB 2.0, 4G, 5G, Bluetooth",104896,2007,China,Yes,High-performance laptop suitable for work and gaming
+E0199,Tablet,Samsung,Max 422,Snapdragon 870,6.0,128.0,11.1,6240.0,Android,"5G, Bluetooth, WiFi, HDMI, USB-C",97276,2017,Japan,Yes,Portable tablet with powerful performance
+E0200,Notebook,Navneet,Go 714,,,,,,None,None,191,2025,India,Yes,Durable notebook for writing and studying
+E0201,Tablet,Lenovo,Max 215,MediaTek Helio,3.0,256.0,9.0,9971.0,None,"USB-C, USB 2.0, USB 3.0",27152,2012,South Korea,Yes,Portable tablet with powerful performance
+E0202,Laptop,HP,X 368,AMD Ryzen 7,4.0,1024.0,15.6,4081.0,iOS,"USB 3.0, 4G, USB-C, 5G, WiFi",38750,2023,India,Yes,High-performance laptop suitable for work and gaming
+E0203,Laptop,Dell,Pro 623,AMD Ryzen 7,32.0,1024.0,17.0,6469.0,None,"Ethernet, 4G",175473,2007,Japan,Yes,High-performance laptop suitable for work and gaming
+E0204,Mouse,Razer,Neo 159,,,,,,None,"Bluetooth, WiFi",5381,2018,Germany,No,Precision mouse suitable for gaming and work
+E0205,Laptop,MSI,Z 270,Intel i5,32.0,256.0,15.6,4438.0,Windows,"4G, WiFi",115895,2020,Japan,No,High-performance laptop suitable for work and gaming
+E0206,Mobile,Vivo,Mini 979,Snapdragon 888,4.0,64.0,5.7,4758.0,Chrome OS,"USB 2.0, Bluetooth",138062,2019,China,Yes,Feature-rich smartphone with sleek design
+E0207,Mobile,Realme,Alpha 492,MediaTek Dimensity 9000,8.0,64.0,6.8,5761.0,macOS,"5G, WiFi",19544,2005,USA,Yes,Feature-rich smartphone with sleek design
+E0208,Mouse,Razer,Alpha 377,,,,,,None,Bluetooth,3978,2015,USA,No,Precision mouse suitable for gaming and work
+E0209,Notebook,Camlin,Ultra 328,,,,,,None,None,111,2021,Germany,No,Durable notebook for writing and studying
+E0210,Notebook,Classmate,Z 435,,,,,,None,None,255,2007,South Korea,No,Durable notebook for writing and studying
+E0211,Laptop,Toshiba,Neo 254,AMD Ryzen 3,16.0,512.0,15.6,7618.0,Windows,"HDMI, USB 3.0, USB 2.0",288663,2011,Germany,No,High-performance laptop suitable for work and gaming
+E0212,Laptop,MSI,Ultra 828,Intel i3,8.0,1024.0,13.0,5744.0,Windows,"USB 2.0, Bluetooth, HDMI, Ethernet, USB-C",250104,2020,India,No,High-performance laptop suitable for work and gaming
+E0213,Laptop,Dell,Ultra 342,Intel i5,32.0,1024.0,17.0,3695.0,macOS,"USB-C, Bluetooth, USB 2.0",327701,2006,South Korea,Yes,High-performance laptop suitable for work and gaming
+E0214,Laptop,Acer,Mini 577,AMD Ryzen 3,32.0,1024.0,15.6,6708.0,None,"Bluetooth, 5G, Ethernet",336555,2008,USA,Yes,High-performance laptop suitable for work and gaming
+E0215,Mobile,Apple,Neo 955,Snapdragon 888,8.0,128.0,5.9,4897.0,iOS,"Bluetooth, 4G",87748,2024,India,Yes,Feature-rich smartphone with sleek design
+E0216,Notebook,Navneet,X 793,,,,,,None,None,96,2012,Japan,Yes,Durable notebook for writing and studying
+E0217,Laptop,Lenovo,Ultra 302,M1,32.0,2048.0,14.0,3775.0,Windows,"4G, Bluetooth",36268,2006,USA,Yes,High-performance laptop suitable for work and gaming
+E0218,Notebook,Camlin,Go 365,,,,,,None,None,401,2025,Germany,Yes,Durable notebook for writing and studying
+E0219,Mouse,Logitech,Ultra 194,,,,,,None,WiFi,3539,2025,South Korea,Yes,Precision mouse suitable for gaming and work
+E0220,Mouse,HP,Go 543,,,,,,None,WiFi,7852,2006,USA,Yes,Precision mouse suitable for gaming and work
+E0221,Notebook,Reynolds,Ultra 462,,,,,,None,None,304,2005,South Korea,No,Durable notebook for writing and studying
+E0222,Laptop,Lenovo,Max 240,Intel i9,16.0,2048.0,14.0,3283.0,Linux,"HDMI, USB-C, USB 2.0, 5G",61970,2007,Japan,Yes,High-performance laptop suitable for work and gaming
+E0223,Mobile,Google,Alpha 711,Snapdragon 888,16.0,64.0,7.0,5921.0,macOS,"Ethernet, HDMI, 4G, USB 2.0, USB 3.0",92306,2017,Japan,Yes,Feature-rich smartphone with sleek design
+E0224,Laptop,Asus,Max 463,Intel i5,32.0,1024.0,14.0,4307.0,Windows,"5G, USB 2.0, HDMI",59312,2012,China,No,High-performance laptop suitable for work and gaming
+E0225,Mouse,Razer,Go 128,,,,,,None,WiFi,10007,2015,Germany,No,Precision mouse suitable for gaming and work
+E0226,Tablet,Lenovo,Neo 120,Snapdragon 870,12.0,128.0,10.8,6542.0,iOS,"4G, HDMI, WiFi, USB-C",27362,2012,China,Yes,Portable tablet with powerful performance
+E0227,Mobile,Samsung,Ultra 892,MediaTek Dimensity 9000,16.0,128.0,6.6,4395.0,Linux,"USB 3.0, WiFi, HDMI",46721,2023,Germany,Yes,Feature-rich smartphone with sleek design
+E0228,Laptop,Samsung,Alpha 278,Intel i5,16.0,256.0,15.6,6240.0,None,"USB 2.0, USB 3.0, Bluetooth, USB-C",259044,2025,South Korea,Yes,High-performance laptop suitable for work and gaming
+E0229,Tablet,Asus,Go 133,Apple A14,12.0,256.0,9.1,9824.0,Chrome OS,"USB 2.0, Ethernet, Bluetooth, USB-C, WiFi",112013,2023,South Korea,No,Portable tablet with powerful performance
+E0230,Laptop,Acer,Pro 941,AMD Ryzen 5,8.0,256.0,17.0,4152.0,None,"5G, USB 3.0",197519,2010,Germany,No,High-performance laptop suitable for work and gaming
+E0231,Tablet,Huawei,Max 270,Apple A14,6.0,512.0,8.1,6717.0,Chrome OS,"USB 3.0, USB 2.0",34160,2005,India,Yes,Portable tablet with powerful performance
+E0232,Keyboard,HP,Neo 266,,,,,,None,"Bluetooth, WiFi",3823,2020,China,Yes,Ergonomic keyboard with responsive keys
+E0233,Mobile,Samsung,Alpha 708,Snapdragon 720G,4.0,256.0,5.5,3428.0,Linux,"4G, USB-C, Bluetooth, USB 3.0",27661,2022,India,Yes,Feature-rich smartphone with sleek design
+E0234,Headphones,Sennheiser,Ultra 154,,,,,1742.0,None,Bluetooth,43836,2010,China,No,Comfortable headphones with high-quality sound
+E0235,Laptop,Apple,Ultra 155,Intel i9,32.0,1024.0,15.6,5436.0,macOS,"WiFi, USB-C",329772,2022,South Korea,Yes,High-performance laptop suitable for work and gaming
+E0236,Mobile,Oppo,Mini 600,Snapdragon 720G,8.0,1024.0,6.0,3397.0,Windows,"4G, USB 2.0, WiFi",132143,2008,Japan,No,Feature-rich smartphone with sleek design
+E0237,Keyboard,Razer,Mini 145,,,,,,None,Bluetooth,6558,2016,South Korea,Yes,Ergonomic keyboard with responsive keys
+E0238,Laptop,Toshiba,Max 938,Intel i5,8.0,1024.0,13.0,4238.0,Linux,"USB 3.0, USB-C",339186,2012,China,Yes,High-performance laptop suitable for work and gaming
+E0239,Mobile,Google,Go 250,Snapdragon 888,12.0,1024.0,6.8,4950.0,Chrome OS,"USB-C, WiFi",139622,2023,China,No,Feature-rich smartphone with sleek design
+E0240,Laptop,Toshiba,Pro 189,Intel i3,8.0,512.0,14.0,4033.0,macOS,"Bluetooth, USB-C, Ethernet, USB 3.0, HDMI",341976,2013,Japan,No,High-performance laptop suitable for work and gaming
+E0241,Mobile,Oppo,Z 988,MediaTek Dimensity 9000,8.0,256.0,6.0,3050.0,iOS,"Bluetooth, USB-C, Ethernet, HDMI, USB 2.0",34267,2008,China,No,Feature-rich smartphone with sleek design
+E0242,Mobile,Realme,Alpha 807,Apple A15,8.0,512.0,6.3,5343.0,Android,"WiFi, 4G, HDMI, 5G, Bluetooth",113308,2006,South Korea,No,Feature-rich smartphone with sleek design
+E0243,Laptop,Toshiba,Alpha 375,AMD Ryzen 3,16.0,256.0,15.6,5482.0,Linux,"HDMI, Bluetooth, USB-C, Ethernet",100456,2014,Germany,No,High-performance laptop suitable for work and gaming
+E0244,Tablet,Asus,Air 682,Snapdragon 870,3.0,128.0,10.2,8335.0,Chrome OS,"WiFi, 4G, Ethernet, HDMI",113004,2021,South Korea,Yes,Portable tablet with powerful performance
+E0245,Laptop,Apple,Air 506,M1,8.0,256.0,14.0,3270.0,None,"USB 3.0, 5G",173643,2016,South Korea,Yes,High-performance laptop suitable for work and gaming
+E0246,Tablet,Apple,Pro 391,Snapdragon 870,3.0,128.0,9.8,9866.0,Chrome OS,"HDMI, USB 3.0, 4G",41432,2013,Germany,Yes,Portable tablet with powerful performance
+E0247,Laptop,Dell,Ultra 715,AMD Ryzen 3,8.0,512.0,14.0,4693.0,macOS,"Ethernet, WiFi, USB-C, USB 3.0, HDMI",278563,2009,Germany,Yes,High-performance laptop suitable for work and gaming
+E0248,Notebook,Navneet,Z 533,,,,,,None,None,179,2024,Japan,No,Durable notebook for writing and studying
+E0249,Keyboard,Razer,Go 506,,,,,,None,"Bluetooth, WiFi",15792,2014,Germany,No,Ergonomic keyboard with responsive keys
+E0250,Mobile,Samsung,Z 367,Snapdragon 888,8.0,1024.0,6.3,5494.0,iOS,"Bluetooth, HDMI, WiFi, 4G",80478,2025,Japan,Yes,Feature-rich smartphone with sleek design
+E0251,Tablet,Huawei,X 697,Apple M1,4.0,128.0,10.5,6968.0,Linux,"USB 3.0, 4G, Ethernet, WiFi, 5G",58745,2013,South Korea,No,Portable tablet with powerful performance
+E0252,Tablet,Asus,Z 842,MediaTek Helio,4.0,256.0,11.6,6821.0,None,"USB 3.0, USB 2.0, USB-C, Bluetooth, HDMI",43741,2014,India,No,Portable tablet with powerful performance
+E0253,Notebook,Navneet,Alpha 328,,,,,,None,None,398,2015,Germany,Yes,Durable notebook for writing and studying
+E0254,Tablet,Lenovo,Go 172,Snapdragon 870,6.0,256.0,9.3,7408.0,Android,"HDMI, WiFi",103151,2023,China,Yes,Portable tablet with powerful performance
+E0255,Mobile,Xiaomi,Ultra 897,Snapdragon 720G,4.0,512.0,6.1,4692.0,iOS,"4G, 5G, Ethernet",115267,2023,South Korea,Yes,Feature-rich smartphone with sleek design
+E0256,Laptop,Acer,Max 513,M1,8.0,1024.0,13.0,3038.0,Chrome OS,"5G, 4G, USB 2.0, Bluetooth",286679,2007,USA,No,High-performance laptop suitable for work and gaming
+E0257,Mobile,Motorola,Neo 810,Snapdragon 888,4.0,64.0,6.1,5992.0,Android,"USB 3.0, 5G",12696,2005,Germany,No,Feature-rich smartphone with sleek design
+E0258,Keyboard,Razer,Pro 943,,,,,,None,WiFi,13068,2021,China,Yes,Ergonomic keyboard with responsive keys
+E0259,Laptop,Asus,Ultra 316,M1,16.0,2048.0,14.0,5807.0,Android,"5G, 4G, USB-C, Ethernet",40026,2012,USA,No,High-performance laptop suitable for work and gaming
+E0260,Tablet,Asus,X 806,Snapdragon 870,4.0,64.0,9.8,5306.0,iOS,"Ethernet, WiFi, USB 2.0, HDMI",106765,2008,Germany,No,Portable tablet with powerful performance
+E0261,Laptop,Toshiba,Ultra 528,Intel i9,4.0,1024.0,17.0,4254.0,Android,"USB 2.0, USB-C",82942,2021,Japan,No,High-performance laptop suitable for work and gaming
+E0262,Notebook,Classmate,Pro 609,,,,,,None,None,311,2024,India,Yes,Durable notebook for writing and studying
+E0263,Laptop,Apple,X 113,AMD Ryzen 3,16.0,512.0,15.6,6356.0,None,"WiFi, HDMI, Bluetooth",282006,2015,USA,Yes,High-performance laptop suitable for work and gaming
+E0264,Tablet,Apple,Z 370,MediaTek Helio,12.0,512.0,8.7,5737.0,None,"Bluetooth, USB 2.0",104454,2012,South Korea,Yes,Portable tablet with powerful performance
+E0265,Mobile,Apple,Ultra 436,MediaTek Dimensity 9000,6.0,64.0,6.7,4475.0,None,"USB-C, Bluetooth, WiFi, Ethernet",10535,2009,Germany,Yes,Feature-rich smartphone with sleek design
+E0266,Mobile,Motorola,Mini 919,Snapdragon 865,8.0,64.0,5.7,4403.0,iOS,"USB-C, Ethernet",127678,2013,South Korea,No,Feature-rich smartphone with sleek design
+E0267,Mobile,OnePlus,Ultra 594,Snapdragon 720G,6.0,64.0,7.0,3652.0,Windows,"HDMI, Ethernet, Bluetooth, USB 2.0, 5G",102004,2024,India,Yes,Feature-rich smartphone with sleek design
+E0268,Mouse,Logitech,Alpha 112,,,,,,None,"Bluetooth, WiFi",1337,2013,Germany,Yes,Precision mouse suitable for gaming and work
+E0269,Tablet,Huawei,Max 252,MediaTek Helio,12.0,1024.0,9.1,7771.0,iOS,"USB-C, 5G",83167,2016,Germany,No,Portable tablet with powerful performance
+E0270,Notebook,Classmate,Mini 972,,,,,,None,None,55,2025,USA,No,Durable notebook for writing and studying
+E0271,Mobile,OnePlus,Mini 920,Snapdragon 720G,12.0,256.0,5.5,4139.0,Windows,"Ethernet, USB-C, 5G",69603,2007,South Korea,Yes,Feature-rich smartphone with sleek design
+E0272,Mobile,Apple,Air 100,MediaTek Dimensity 9000,12.0,512.0,5.6,5037.0,None,"Bluetooth, USB-C",116092,2006,China,Yes,Feature-rich smartphone with sleek design
+E0273,Notebook,Camlin,Mini 449,,,,,,None,None,310,2022,USA,No,Durable notebook for writing and studying
+E0274,Mobile,Samsung,Z 660,Apple A15,6.0,512.0,5.7,5538.0,None,"USB 3.0, HDMI, WiFi, USB-C, Bluetooth",8575,2015,Japan,Yes,Feature-rich smartphone with sleek design
+E0275,Mobile,Apple,Mini 944,MediaTek Dimensity 9000,6.0,512.0,5.3,5936.0,Windows,"Bluetooth, USB 2.0, HDMI, Ethernet, USB 3.0",39652,2017,USA,Yes,Feature-rich smartphone with sleek design
+E0276,Notebook,Camlin,Go 226,,,,,,None,None,105,2018,India,No,Durable notebook for writing and studying
+E0277,Notebook,Reynolds,Mini 104,,,,,,None,None,284,2023,China,Yes,Durable notebook for writing and studying
+E0278,Mobile,Samsung,Max 723,Snapdragon 865,12.0,1024.0,6.0,5082.0,iOS,"4G, Bluetooth, 5G",92369,2021,South Korea,Yes,Feature-rich smartphone with sleek design
+E0279,Mouse,Razer,Go 816,,,,,,None,"Bluetooth, WiFi",5119,2019,USA,Yes,Precision mouse suitable for gaming and work
+E0280,Keyboard,Dell,Z 803,,,,,,None,"Bluetooth, WiFi",7082,2011,China,Yes,Ergonomic keyboard with responsive keys
+E0281,Mobile,OnePlus,Max 927,Snapdragon 888,6.0,1024.0,6.1,5608.0,Chrome OS,"USB 3.0, HDMI",117439,2022,Japan,Yes,Feature-rich smartphone with sleek design
+E0282,Laptop,HP,Z 308,Intel i9,32.0,512.0,13.0,3463.0,Windows,"4G, USB 2.0, USB 3.0, Ethernet",106770,2006,Germany,Yes,High-performance laptop suitable for work and gaming
+E0283,Tablet,Apple,Alpha 665,Apple A14,8.0,64.0,11.0,9602.0,Linux,"5G, USB 2.0, USB 3.0, USB-C, WiFi",70014,2017,South Korea,Yes,Portable tablet with powerful performance
+E0284,Laptop,Asus,Air 222,M2,32.0,512.0,15.6,7820.0,macOS,"5G, USB 2.0, Ethernet",123022,2007,USA,No,High-performance laptop suitable for work and gaming
+E0285,Mobile,Oppo,Go 152,Snapdragon 888,16.0,256.0,5.3,5392.0,Linux,"USB 3.0, HDMI",48581,2006,USA,No,Feature-rich smartphone with sleek design
+E0286,Notebook,Camlin,Alpha 638,,,,,,None,None,301,2023,China,Yes,Durable notebook for writing and studying
+E0287,Laptop,Lenovo,Neo 870,M2,4.0,512.0,17.0,7448.0,iOS,"Bluetooth, USB 3.0, Ethernet, USB-C, 4G",203574,2016,Japan,Yes,High-performance laptop suitable for work and gaming
+E0288,Tablet,Microsoft,Z 125,Apple A14,3.0,64.0,11.3,8650.0,iOS,"WiFi, USB 3.0, 5G",34860,2017,Japan,No,Portable tablet with powerful performance
+E0289,Mouse,HP,Alpha 626,,,,,,None,"Bluetooth, WiFi",5156,2025,USA,Yes,Precision mouse suitable for gaming and work
+E0290,Laptop,HP,Mini 834,AMD Ryzen 7,4.0,256.0,14.0,4746.0,macOS,"5G, USB-C",67811,2009,India,Yes,High-performance laptop suitable for work and gaming
+E0291,Mobile,Apple,Max 423,Snapdragon 720G,4.0,128.0,6.6,5285.0,Windows,"USB 2.0, USB-C, 5G",126259,2025,South Korea,Yes,Feature-rich smartphone with sleek design
+E0292,Laptop,HP,Mini 490,AMD Ryzen 5,4.0,256.0,13.0,3594.0,iOS,"USB 2.0, Ethernet",348015,2007,Japan,Yes,High-performance laptop suitable for work and gaming
+E0293,Mobile,Samsung,Air 244,Apple A15,6.0,1024.0,5.4,4601.0,Android,"4G, USB 2.0, USB 3.0, USB-C",105813,2005,China,Yes,Feature-rich smartphone with sleek design
+E0294,Laptop,Dell,Z 298,AMD Ryzen 5,32.0,256.0,15.6,4720.0,iOS,"USB-C, 4G, Bluetooth",126465,2012,China,Yes,High-performance laptop suitable for work and gaming
+E0295,Laptop,Dell,Neo 202,AMD Ryzen 3,32.0,256.0,15.6,3551.0,None,"5G, HDMI",203461,2016,USA,Yes,High-performance laptop suitable for work and gaming
+E0296,Laptop,HP,Neo 904,AMD Ryzen 3,16.0,2048.0,17.0,5689.0,macOS,"USB 3.0, Ethernet, 5G",118415,2005,Japan,Yes,High-performance laptop suitable for work and gaming
+E0297,Laptop,MSI,Z 979,M1,16.0,512.0,15.6,6931.0,Linux,"USB 3.0, USB 2.0, 5G, HDMI, WiFi",122154,2025,China,Yes,High-performance laptop suitable for work and gaming
+E0298,Notebook,Navneet,X 969,,,,,,None,None,184,2025,India,No,Durable notebook for writing and studying
+E0299,Mobile,Samsung,Ultra 474,Snapdragon 865,16.0,1024.0,5.8,5416.0,None,"Ethernet, USB 2.0",149473,2020,Germany,Yes,Feature-rich smartphone with sleek design
+E0300,Mobile,Vivo,Go 679,Snapdragon 888,12.0,1024.0,6.0,4625.0,macOS,"5G, 4G",142777,2009,South Korea,Yes,Feature-rich smartphone with sleek design
+E0301,Tablet,Samsung,Neo 630,Apple A14,8.0,256.0,8.2,8994.0,Chrome OS,"USB 2.0, USB 3.0",50673,2006,Germany,Yes,Portable tablet with powerful performance
+E0302,Mouse,HP,Alpha 205,,,,,,None,"Bluetooth, WiFi",14743,2006,India,Yes,Precision mouse suitable for gaming and work
+E0303,Tablet,Asus,Neo 628,Apple A14,6.0,256.0,10.8,9670.0,Chrome OS,"USB-C, USB 3.0, USB 2.0, HDMI, WiFi",87720,2013,South Korea,No,Portable tablet with powerful performance
+E0304,Mobile,Realme,Alpha 716,Apple A14,12.0,1024.0,5.0,3569.0,Android,"5G, Bluetooth, USB 2.0",81612,2011,USA,Yes,Feature-rich smartphone with sleek design
+E0305,Tablet,Apple,Ultra 687,Snapdragon 870,4.0,512.0,12.0,5928.0,Chrome OS,"HDMI, 5G, USB 2.0, Bluetooth, Ethernet",22942,2012,India,Yes,Portable tablet with powerful performance
+E0306,Mobile,OnePlus,X 999,Snapdragon 720G,16.0,64.0,6.8,3601.0,Chrome OS,"USB 2.0, 4G, Ethernet",114287,2024,China,Yes,Feature-rich smartphone with sleek design
+E0307,Tablet,Huawei,Air 370,Snapdragon 870,6.0,64.0,9.1,9968.0,None,"4G, 5G, USB-C, HDMI, USB 2.0",38705,2023,USA,No,Portable tablet with powerful performance
+E0308,Laptop,Acer,Ultra 720,Intel i7,4.0,512.0,17.0,6157.0,Android,"WiFi, 5G",304051,2021,Germany,No,High-performance laptop suitable for work and gaming
+E0309,Laptop,Toshiba,Neo 921,Intel i7,4.0,256.0,13.0,6950.0,iOS,"USB-C, Ethernet",224184,2006,Germany,No,High-performance laptop suitable for work and gaming
+E0310,Mobile,Oppo,X 691,Snapdragon 888,16.0,1024.0,5.2,3548.0,Linux,"5G, Bluetooth, 4G, USB 2.0, USB 3.0",115124,2013,USA,Yes,Feature-rich smartphone with sleek design
+E0311,Mobile,Google,Alpha 726,Apple A14,12.0,128.0,6.4,4293.0,Windows,"Bluetooth, 4G, 5G, USB 3.0",74488,2013,China,No,Feature-rich smartphone with sleek design
+E0312,Laptop,MSI,Ultra 202,AMD Ryzen 5,8.0,2048.0,17.0,4464.0,None,"USB 2.0, Ethernet, HDMI, 4G, 5G",102387,2008,Germany,Yes,High-performance laptop suitable for work and gaming
+E0313,Laptop,MSI,Neo 479,Intel i3,16.0,256.0,14.0,6187.0,None,"4G, HDMI",344701,2018,India,Yes,High-performance laptop suitable for work and gaming
+E0314,Laptop,Dell,Neo 134,Intel i3,32.0,2048.0,15.6,7894.0,Chrome OS,"HDMI, Ethernet, WiFi",135752,2021,Japan,Yes,High-performance laptop suitable for work and gaming
+E0315,Notebook,Navneet,Neo 770,,,,,,None,None,364,2010,Germany,Yes,Durable notebook for writing and studying
+E0316,Laptop,Lenovo,Z 843,AMD Ryzen 7,16.0,2048.0,15.6,6237.0,Windows,"Ethernet, WiFi, USB 3.0",65975,2007,China,Yes,High-performance laptop suitable for work and gaming
+E0317,Notebook,Camlin,Neo 565,,,,,,None,None,227,2013,USA,No,Durable notebook for writing and studying
+E0318,Mouse,SteelSeries,Pro 615,,,,,,None,Bluetooth,3167,2018,China,Yes,Precision mouse suitable for gaming and work
+E0319,Laptop,HP,Mini 219,M1,16.0,1024.0,17.0,6089.0,None,"USB 3.0, HDMI, Ethernet",271550,2023,India,Yes,High-performance laptop suitable for work and gaming
+E0320,Laptop,MSI,Alpha 177,AMD Ryzen 5,8.0,512.0,15.6,6378.0,Chrome OS,"USB 2.0, 5G",180622,2007,South Korea,No,High-performance laptop suitable for work and gaming
+E0321,Mobile,OnePlus,Neo 993,Snapdragon 888,8.0,256.0,5.4,5349.0,Android,"5G, HDMI, USB 3.0",60341,2012,Germany,Yes,Feature-rich smartphone with sleek design
+E0322,Laptop,Apple,Alpha 735,Intel i5,8.0,1024.0,14.0,3873.0,macOS,"HDMI, WiFi",313888,2006,South Korea,Yes,High-performance laptop suitable for work and gaming
+E0323,Mobile,Vivo,Ultra 568,Apple A15,6.0,1024.0,5.6,3909.0,Android,"WiFi, USB-C, 5G",149759,2006,China,Yes,Feature-rich smartphone with sleek design
+E0324,Headphones,Boat,Alpha 470,,,,,1361.0,None,"Bluetooth, WiFi",1774,2011,South Korea,No,Comfortable headphones with high-quality sound
+E0325,Tablet,Lenovo,Alpha 473,MediaTek Helio,12.0,256.0,9.2,8861.0,macOS,"USB 3.0, 4G, 5G, USB-C",47594,2018,Germany,Yes,Portable tablet with powerful performance
+E0326,Notebook,Camlin,Go 802,,,,,,None,None,280,2010,China,Yes,Durable notebook for writing and studying
+E0327,Laptop,HP,Mini 237,Intel i9,16.0,512.0,17.0,6120.0,Chrome OS,"4G, HDMI, USB-C",35107,2010,South Korea,Yes,High-performance laptop suitable for work and gaming
+E0328,Headphones,Boat,Pro 807,,,,,1358.0,None,"Bluetooth, WiFi",17447,2022,China,Yes,Comfortable headphones with high-quality sound
+E0329,Laptop,Apple,Max 224,AMD Ryzen 5,16.0,2048.0,13.0,6685.0,None,"USB 3.0, Ethernet, USB 2.0, USB-C",165116,2016,India,Yes,High-performance laptop suitable for work and gaming
+E0330,Mobile,Xiaomi,Mini 746,Snapdragon 888,16.0,1024.0,5.3,4165.0,iOS,"Ethernet, HDMI, USB-C, USB 3.0",125160,2007,South Korea,No,Feature-rich smartphone with sleek design
+E0331,Headphones,Bose,Alpha 333,,,,,1611.0,None,"Bluetooth, WiFi",5675,2007,USA,Yes,Comfortable headphones with high-quality sound
+E0332,Mobile,Vivo,Z 861,Apple A14,8.0,1024.0,6.3,4111.0,Chrome OS,"Ethernet, HDMI, 5G, Bluetooth",56204,2005,USA,No,Feature-rich smartphone with sleek design
+E0333,Tablet,Apple,Z 732,Snapdragon 870,4.0,512.0,8.5,5522.0,macOS,"WiFi, USB-C",88679,2007,India,Yes,Portable tablet with powerful performance
+E0334,Laptop,MSI,Mini 991,Intel i7,8.0,512.0,15.6,6630.0,Linux,"Ethernet, 4G, WiFi",48431,2016,Japan,No,High-performance laptop suitable for work and gaming
+E0335,Mobile,Vivo,Neo 924,Apple A15,12.0,128.0,6.9,5857.0,iOS,"HDMI, USB-C, USB 2.0",147928,2014,Japan,No,Feature-rich smartphone with sleek design
+E0336,Laptop,Asus,Mini 873,Intel i3,32.0,1024.0,14.0,5486.0,Linux,"Ethernet, 4G",210294,2014,South Korea,No,High-performance laptop suitable for work and gaming
+E0337,Mobile,Samsung,Max 948,Apple A15,12.0,256.0,6.2,3029.0,None,"5G, USB-C, USB 2.0, Ethernet",111481,2012,USA,Yes,Feature-rich smartphone with sleek design
+E0338,Mobile,Vivo,Mini 732,MediaTek Dimensity 9000,12.0,128.0,6.0,5511.0,Windows,"USB 2.0, Ethernet, 5G, Bluetooth",25947,2010,USA,Yes,Feature-rich smartphone with sleek design
+E0339,Mobile,Motorola,Pro 254,Snapdragon 720G,8.0,64.0,5.3,5191.0,macOS,"Bluetooth, USB 2.0, 4G",40778,2019,Germany,Yes,Feature-rich smartphone with sleek design
+E0340,Laptop,Apple,Max 173,M1,32.0,1024.0,17.0,6042.0,Linux,"USB 3.0, Bluetooth",106592,2006,Japan,Yes,High-performance laptop suitable for work and gaming
+E0341,Mobile,OnePlus,Pro 633,MediaTek Dimensity 9000,8.0,512.0,6.7,3499.0,macOS,"USB-C, HDMI, Bluetooth",16784,2011,South Korea,Yes,Feature-rich smartphone with sleek design
+E0342,Tablet,Samsung,Alpha 153,Apple M1,8.0,256.0,12.6,6299.0,Android,"USB 2.0, HDMI",103692,2014,USA,Yes,Portable tablet with powerful performance
+E0343,Keyboard,Corsair,Z 698,,,,,,None,WiFi,14726,2015,India,Yes,Ergonomic keyboard with responsive keys
+E0344,Laptop,Apple,X 464,Intel i5,4.0,2048.0,14.0,6042.0,Windows,"4G, HDMI, WiFi",207430,2025,India,Yes,High-performance laptop suitable for work and gaming
+E0345,Tablet,Huawei,X 596,MediaTek Helio,3.0,128.0,10.4,7594.0,iOS,"HDMI, 5G, WiFi, USB 3.0",69514,2016,Germany,Yes,Portable tablet with powerful performance
+E0346,Tablet,Asus,Mini 402,MediaTek Helio,12.0,512.0,8.9,6528.0,Linux,"USB 3.0, HDMI, 4G, USB 2.0",92682,2010,India,No,Portable tablet with powerful performance
+E0347,Notebook,Camlin,Ultra 119,,,,,,None,None,282,2005,Germany,No,Durable notebook for writing and studying
+E0348,Tablet,Lenovo,Max 756,MediaTek Helio,12.0,128.0,9.6,5518.0,None,"5G, HDMI, USB-C, USB 2.0, Bluetooth",100352,2014,Japan,Yes,Portable tablet with powerful performance
+E0349,Mobile,Apple,X 684,Snapdragon 865,4.0,64.0,6.7,3531.0,iOS,"5G, Bluetooth",135236,2011,India,Yes,Feature-rich smartphone with sleek design
+E0350,Tablet,Microsoft,Neo 771,Intel i5,8.0,1024.0,11.1,9835.0,Chrome OS,"USB 3.0, 5G",99423,2007,India,No,Portable tablet with powerful performance
+E0351,Mobile,Apple,Neo 631,Snapdragon 888,4.0,256.0,6.1,4703.0,Android,"USB 2.0, WiFi",26451,2014,India,Yes,Feature-rich smartphone with sleek design
+E0352,Laptop,Apple,Alpha 790,Intel i9,32.0,512.0,14.0,7310.0,iOS,"Ethernet, USB-C, USB 3.0",85319,2025,China,Yes,High-performance laptop suitable for work and gaming
+E0353,Mobile,Oppo,Max 882,Snapdragon 888,6.0,128.0,6.1,5067.0,Windows,"Ethernet, HDMI, 4G",90615,2022,Japan,No,Feature-rich smartphone with sleek design
+E0354,Tablet,Huawei,Air 238,Snapdragon 870,12.0,128.0,10.8,6752.0,Linux,"USB 3.0, HDMI, 5G, USB-C",20025,2006,Japan,No,Portable tablet with powerful performance
+E0355,Headphones,JBL,Air 623,,,,,313.0,None,"WiFi, Bluetooth",21637,2005,Germany,No,Comfortable headphones with high-quality sound
+E0356,Mobile,OnePlus,Go 322,Snapdragon 888,4.0,512.0,5.7,3566.0,Windows,"5G, Ethernet, 4G, USB-C",32092,2023,South Korea,Yes,Feature-rich smartphone with sleek design
+E0357,Tablet,Huawei,Pro 990,Apple M1,8.0,128.0,10.4,9720.0,Linux,"WiFi, USB-C, Ethernet, HDMI",63829,2016,South Korea,No,Portable tablet with powerful performance
+E0358,Notebook,Classmate,Air 142,,,,,,None,None,374,2025,South Korea,Yes,Durable notebook for writing and studying
+E0359,Mobile,OnePlus,Alpha 184,MediaTek Dimensity 9000,16.0,128.0,5.3,5759.0,Linux,"HDMI, Bluetooth, Ethernet, 5G, 4G",111369,2009,USA,Yes,Feature-rich smartphone with sleek design
+E0360,Mobile,Samsung,Go 300,Apple A14,12.0,256.0,5.2,5055.0,iOS,"4G, HDMI, USB 2.0",59932,2020,South Korea,Yes,Feature-rich smartphone with sleek design
+E0361,Mobile,Google,Alpha 708,Snapdragon 888,6.0,64.0,5.5,4761.0,macOS,"Bluetooth, USB-C",119028,2016,Japan,Yes,Feature-rich smartphone with sleek design
+E0362,Tablet,Lenovo,Alpha 259,MediaTek Helio,6.0,1024.0,12.0,8622.0,macOS,"HDMI, WiFi, USB-C",50603,2011,Germany,Yes,Portable tablet with powerful performance
+E0363,Tablet,Apple,X 439,Intel i5,3.0,128.0,12.6,6209.0,Windows,"USB 3.0, Bluetooth",59992,2019,South Korea,Yes,Portable tablet with powerful performance
+E0364,Laptop,Samsung,Go 377,Intel i3,8.0,1024.0,17.0,4157.0,macOS,"Ethernet, WiFi, 4G, Bluetooth, HDMI",178904,2011,Germany,Yes,High-performance laptop suitable for work and gaming
+E0365,Laptop,Dell,Go 644,Intel i3,32.0,1024.0,15.6,3883.0,Windows,"USB-C, 5G, HDMI, USB 2.0",82221,2015,South Korea,Yes,High-performance laptop suitable for work and gaming
+E0366,Laptop,Apple,Alpha 463,M2,32.0,256.0,13.0,5026.0,iOS,"USB 3.0, HDMI, 5G, Ethernet",112315,2005,Japan,Yes,High-performance laptop suitable for work and gaming
+E0367,Tablet,Samsung,Max 633,Apple M1,6.0,64.0,11.1,8171.0,iOS,"5G, 4G, HDMI, Ethernet",106105,2009,India,Yes,Portable tablet with powerful performance
+E0368,Headphones,Skullcandy,Z 719,,,,,1581.0,None,Bluetooth,16752,2023,USA,No,Comfortable headphones with high-quality sound
+E0369,Mobile,Google,Alpha 169,Snapdragon 865,6.0,128.0,6.2,5801.0,macOS,"USB 2.0, 4G, 5G",46050,2025,China,No,Feature-rich smartphone with sleek design
+E0370,Mobile,Apple,Ultra 289,Apple A14,8.0,128.0,6.5,4305.0,macOS,"USB 2.0, HDMI, USB 3.0, USB-C, 4G",47834,2011,India,Yes,Feature-rich smartphone with sleek design
+E0371,Laptop,Asus,Alpha 288,AMD Ryzen 5,8.0,512.0,14.0,3213.0,iOS,"HDMI, 4G",293362,2024,South Korea,No,High-performance laptop suitable for work and gaming
+E0372,Notebook,Reynolds,X 518,,,,,,None,None,292,2009,USA,Yes,Durable notebook for writing and studying
+E0373,Notebook,Classmate,Neo 875,,,,,,None,None,188,2018,USA,No,Durable notebook for writing and studying
+E0374,Laptop,Lenovo,Air 756,AMD Ryzen 7,32.0,1024.0,17.0,5021.0,Android,"WiFi, USB-C, USB 3.0, 4G, 5G",329858,2024,China,Yes,High-performance laptop suitable for work and gaming
+E0375,Keyboard,Logitech,Air 650,,,,,,None,Bluetooth,15471,2006,USA,Yes,Ergonomic keyboard with responsive keys
+E0376,Mobile,Samsung,Z 727,Snapdragon 865,12.0,1024.0,6.5,3201.0,iOS,"HDMI, USB-C, 4G, Ethernet",128939,2010,South Korea,Yes,Feature-rich smartphone with sleek design
+E0377,Mouse,SteelSeries,Air 215,,,,,,None,Bluetooth,13896,2025,South Korea,Yes,Precision mouse suitable for gaming and work
+E0378,Laptop,Samsung,Ultra 835,Intel i3,32.0,2048.0,15.6,6693.0,macOS,"HDMI, 5G, Ethernet",77280,2013,Japan,Yes,High-performance laptop suitable for work and gaming
+E0379,Tablet,Apple,Ultra 266,MediaTek Helio,8.0,256.0,8.4,8146.0,Windows,"USB-C, Ethernet, WiFi",42398,2015,China,Yes,Portable tablet with powerful performance
+E0380,Keyboard,Corsair,Mini 395,,,,,,None,Bluetooth,10594,2014,Germany,No,Ergonomic keyboard with responsive keys
+E0381,Tablet,Apple,Go 775,Apple M1,4.0,64.0,11.1,7073.0,macOS,"HDMI, Ethernet, USB 2.0, WiFi, USB-C",84679,2012,USA,Yes,Portable tablet with powerful performance
+E0382,Mobile,Oppo,Ultra 974,Apple A15,4.0,1024.0,6.2,4002.0,Android,"Ethernet, 5G, WiFi, Bluetooth",46864,2006,Germany,Yes,Feature-rich smartphone with sleek design
+E0383,Laptop,Asus,Z 430,Intel i7,4.0,256.0,13.0,6415.0,Linux,"USB 2.0, 4G, 5G",333545,2016,India,Yes,High-performance laptop suitable for work and gaming
+E0384,Mobile,Oppo,Neo 726,Snapdragon 888,4.0,512.0,6.7,3265.0,None,"4G, Bluetooth, USB 3.0, Ethernet, USB-C",146163,2018,China,Yes,Feature-rich smartphone with sleek design
+E0385,Laptop,Samsung,Mini 604,AMD Ryzen 5,32.0,1024.0,17.0,7987.0,Windows,"Ethernet, USB 3.0, Bluetooth, USB 2.0",324982,2020,China,Yes,High-performance laptop suitable for work and gaming
+E0386,Notebook,Navneet,X 576,,,,,,None,None,412,2014,USA,Yes,Durable notebook for writing and studying
+E0387,Tablet,Apple,Pro 415,Apple M1,4.0,1024.0,12.9,8391.0,Chrome OS,"USB 3.0, 5G, WiFi, Ethernet",46370,2014,Japan,Yes,Portable tablet with powerful performance
+E0388,Mobile,Google,Mini 916,Apple A14,4.0,64.0,6.4,4398.0,Linux,"4G, 5G",94642,2015,Germany,No,Feature-rich smartphone with sleek design
+E0389,Laptop,Lenovo,Air 119,AMD Ryzen 7,8.0,2048.0,15.6,6788.0,Android,"Ethernet, USB 2.0",326192,2015,China,Yes,High-performance laptop suitable for work and gaming
+E0390,Laptop,Acer,Z 822,Intel i3,16.0,256.0,14.0,5297.0,None,"USB-C, 4G, USB 2.0, Ethernet",234244,2010,China,Yes,High-performance laptop suitable for work and gaming
+E0391,Notebook,Classmate,Neo 480,,,,,,None,None,189,2018,India,No,Durable notebook for writing and studying
+E0392,Mobile,Vivo,Alpha 595,Snapdragon 720G,16.0,256.0,5.4,4532.0,macOS,"Bluetooth, HDMI, USB 2.0",14536,2020,China,Yes,Feature-rich smartphone with sleek design
+E0393,Tablet,Asus,X 803,MediaTek Helio,6.0,128.0,11.8,5804.0,Linux,"5G, WiFi, Ethernet",70801,2021,India,Yes,Portable tablet with powerful performance
+E0394,Notebook,Classmate,Z 123,,,,,,None,None,220,2019,India,Yes,Durable notebook for writing and studying
+E0395,Mobile,Vivo,Go 673,Snapdragon 888,6.0,256.0,5.4,4173.0,Chrome OS,"HDMI, Bluetooth, 4G, Ethernet",49286,2013,India,Yes,Feature-rich smartphone with sleek design
+E0396,Mobile,Xiaomi,X 582,MediaTek Dimensity 9000,8.0,1024.0,5.6,3579.0,iOS,"5G, 4G, WiFi, HDMI",96798,2022,South Korea,Yes,Feature-rich smartphone with sleek design
+E0397,Mouse,Logitech,Max 283,,,,,,None,Bluetooth,1181,2007,South Korea,Yes,Precision mouse suitable for gaming and work
+E0398,Tablet,Asus,Mini 581,Apple A14,8.0,1024.0,9.7,7722.0,Chrome OS,"HDMI, 4G",32178,2019,India,No,Portable tablet with powerful performance
+E0399,Laptop,Apple,Mini 572,AMD Ryzen 5,16.0,1024.0,17.0,4502.0,macOS,"HDMI, Ethernet, WiFi, USB-C",279212,2008,Japan,Yes,High-performance laptop suitable for work and gaming
+E0400,Notebook,Camlin,Air 205,,,,,,None,None,443,2016,China,No,Durable notebook for writing and studying
+E0401,Mobile,Apple,Pro 448,Apple A14,16.0,64.0,6.6,5182.0,Linux,"USB-C, 5G, USB 2.0, Bluetooth, Ethernet",49686,2020,South Korea,Yes,Feature-rich smartphone with sleek design
+E0402,Laptop,MSI,Pro 712,Intel i5,32.0,1024.0,14.0,4417.0,None,"Bluetooth, HDMI, 4G, USB 2.0, WiFi",263421,2010,Japan,No,High-performance laptop suitable for work and gaming
+E0403,Laptop,MSI,Go 557,Intel i7,32.0,256.0,13.0,4782.0,Linux,"4G, Ethernet",267489,2022,Japan,Yes,High-performance laptop suitable for work and gaming
+E0404,Laptop,Acer,Alpha 212,Intel i3,16.0,2048.0,15.6,3731.0,Linux,"4G, USB 2.0, WiFi, Ethernet, HDMI",57854,2005,Germany,No,High-performance laptop suitable for work and gaming
+E0405,Keyboard,Logitech,Alpha 828,,,,,,None,Bluetooth,19838,2017,Germany,Yes,Ergonomic keyboard with responsive keys
+E0406,Mobile,Oppo,Ultra 237,Snapdragon 865,16.0,128.0,6.3,4945.0,Android,"Ethernet, USB-C, HDMI",102447,2018,USA,Yes,Feature-rich smartphone with sleek design
+E0407,Laptop,Dell,Mini 493,Intel i7,32.0,2048.0,14.0,3693.0,macOS,"HDMI, USB-C, USB 2.0, Bluetooth, 5G",297080,2018,China,Yes,High-performance laptop suitable for work and gaming
+E0408,Mobile,OnePlus,Go 593,Snapdragon 865,16.0,64.0,6.2,5993.0,Android,"USB-C, USB 3.0, WiFi, Ethernet",134685,2016,India,Yes,Feature-rich smartphone with sleek design
+E0409,Headphones,Sony,Neo 583,,,,,590.0,None,"Bluetooth, WiFi",35298,2024,India,Yes,Comfortable headphones with high-quality sound
+E0410,Tablet,Huawei,Go 851,MediaTek Helio,3.0,1024.0,11.9,7559.0,Chrome OS,"USB 3.0, WiFi",81455,2019,China,No,Portable tablet with powerful performance
+E0411,Mobile,Realme,Z 928,Apple A15,8.0,256.0,5.3,5846.0,None,"USB 2.0, WiFi, USB 3.0, 5G",52323,2023,India,No,Feature-rich smartphone with sleek design
+E0412,Tablet,Apple,Ultra 705,Intel i5,8.0,64.0,8.6,5629.0,Linux,"4G, USB 2.0, Ethernet, USB-C",21861,2008,China,Yes,Portable tablet with powerful performance
+E0413,Tablet,Huawei,Ultra 957,Snapdragon 870,6.0,128.0,9.3,6934.0,Android,"Ethernet, WiFi, 4G",31062,2009,China,No,Portable tablet with powerful performance
+E0414,Mobile,Oppo,Max 587,MediaTek Dimensity 9000,12.0,128.0,6.3,5973.0,None,"5G, USB 3.0, WiFi",77309,2008,India,Yes,Feature-rich smartphone with sleek design
+E0415,Mobile,Google,Pro 644,Apple A15,12.0,512.0,5.9,3594.0,macOS,"WiFi, USB 2.0, USB-C, 5G, USB 3.0",90755,2021,Germany,No,Feature-rich smartphone with sleek design
+E0416,Tablet,Microsoft,Ultra 420,Intel i5,6.0,256.0,9.3,5805.0,iOS,"HDMI, 5G, USB 3.0, USB-C, USB 2.0",45549,2021,Japan,No,Portable tablet with powerful performance
+E0417,Mobile,Samsung,Go 194,Snapdragon 720G,4.0,64.0,5.8,5151.0,None,"USB 3.0, 5G, Ethernet, 4G, USB-C",58614,2006,India,Yes,Feature-rich smartphone with sleek design
+E0418,Laptop,Apple,Pro 754,Intel i7,4.0,256.0,13.0,7953.0,iOS,"4G, Bluetooth, USB 3.0, HDMI, Ethernet",184438,2019,Germany,Yes,High-performance laptop suitable for work and gaming
+E0419,Mobile,Vivo,Z 282,Snapdragon 888,12.0,256.0,5.5,3303.0,None,"USB-C, Ethernet",95203,2006,Japan,No,Feature-rich smartphone with sleek design
+E0420,Mobile,Motorola,X 174,Snapdragon 720G,16.0,512.0,5.4,5015.0,macOS,"Ethernet, USB-C, Bluetooth",35852,2019,Germany,Yes,Feature-rich smartphone with sleek design
+E0421,Laptop,Asus,Air 824,Intel i3,32.0,256.0,17.0,4219.0,None,"USB-C, USB 2.0",109485,2015,South Korea,No,High-performance laptop suitable for work and gaming
+E0422,Mouse,Dell,Neo 103,,,,,,None,"Bluetooth, WiFi",14128,2007,China,Yes,Precision mouse suitable for gaming and work
+E0423,Mobile,Motorola,Alpha 182,Snapdragon 888,16.0,1024.0,6.9,4470.0,Windows,"USB-C, WiFi, USB 3.0, Ethernet",31767,2016,China,No,Feature-rich smartphone with sleek design
+E0424,Notebook,Camlin,Max 776,,,,,,None,None,381,2011,USA,No,Durable notebook for writing and studying
+E0425,Laptop,MSI,Air 758,Intel i9,16.0,2048.0,13.0,6587.0,Windows,"WiFi, 5G, Ethernet",340874,2012,South Korea,Yes,High-performance laptop suitable for work and gaming
+E0426,Mobile,Google,Air 252,Snapdragon 888,12.0,64.0,5.1,3229.0,None,"USB-C, Bluetooth",63490,2025,Germany,No,Feature-rich smartphone with sleek design
+E0427,Tablet,Samsung,X 414,Snapdragon 870,3.0,128.0,10.4,5156.0,Windows,"5G, 4G",21882,2010,Germany,Yes,Portable tablet with powerful performance
+E0428,Notebook,Classmate,Pro 937,,,,,,None,None,283,2024,USA,No,Durable notebook for writing and studying
+E0429,Notebook,Classmate,Neo 536,,,,,,None,None,304,2024,China,Yes,Durable notebook for writing and studying
+E0430,Mobile,Oppo,Max 272,Snapdragon 865,4.0,1024.0,6.1,4317.0,Linux,"4G, USB 3.0",24573,2008,Japan,Yes,Feature-rich smartphone with sleek design
+E0431,Tablet,Asus,Ultra 191,Apple A14,8.0,128.0,12.5,5333.0,macOS,"USB-C, 4G",22048,2020,India,Yes,Portable tablet with powerful performance
+E0432,Tablet,Asus,Ultra 834,Apple A14,8.0,512.0,11.4,6688.0,Linux,"Ethernet, HDMI, 5G, Bluetooth",42878,2024,Germany,Yes,Portable tablet with powerful performance
+E0433,Mobile,Apple,Neo 575,Snapdragon 865,8.0,256.0,5.8,5284.0,Chrome OS,"Bluetooth, Ethernet, USB 2.0",102870,2022,China,Yes,Feature-rich smartphone with sleek design
+E0434,Notebook,Navneet,Ultra 801,,,,,,None,None,191,2006,USA,Yes,Durable notebook for writing and studying
+E0435,Notebook,Reynolds,X 155,,,,,,None,None,304,2010,USA,No,Durable notebook for writing and studying
+E0436,Tablet,Lenovo,Air 218,Apple M1,8.0,256.0,9.6,8712.0,macOS,"WiFi, 4G",40715,2005,South Korea,Yes,Portable tablet with powerful performance
+E0437,Laptop,Apple,Max 990,AMD Ryzen 5,32.0,1024.0,17.0,4628.0,Chrome OS,"Bluetooth, USB 3.0, Ethernet",81413,2012,Germany,Yes,High-performance laptop suitable for work and gaming
+E0438,Laptop,Apple,Neo 747,Intel i7,32.0,2048.0,13.0,6570.0,Windows,"HDMI, 4G, 5G",225813,2009,South Korea,Yes,High-performance laptop suitable for work and gaming
+E0439,Mobile,Vivo,Neo 402,Snapdragon 720G,8.0,128.0,5.1,5329.0,macOS,"4G, Bluetooth, USB-C, 5G",128213,2018,USA,No,Feature-rich smartphone with sleek design
+E0440,Tablet,Huawei,Max 853,Apple M1,4.0,1024.0,12.8,6881.0,iOS,"Ethernet, HDMI, USB-C, Bluetooth, USB 2.0",82061,2019,Japan,Yes,Portable tablet with powerful performance
+E0441,Keyboard,Corsair,Max 145,,,,,,None,"Bluetooth, WiFi",19891,2009,China,No,Ergonomic keyboard with responsive keys
+E0442,Laptop,Toshiba,Neo 763,Intel i5,4.0,2048.0,17.0,6926.0,Chrome OS,"HDMI, 5G, WiFi, USB 2.0, USB-C",243184,2011,USA,Yes,High-performance laptop suitable for work and gaming
+E0443,Headphones,Sony,Mini 574,,,,,1282.0,None,"WiFi, Bluetooth",38380,2023,India,Yes,Comfortable headphones with high-quality sound
+E0444,Notebook,Reynolds,X 981,,,,,,None,None,144,2016,Germany,No,Durable notebook for writing and studying
+E0445,Tablet,Microsoft,X 213,Intel i5,6.0,1024.0,8.2,8488.0,Chrome OS,"Bluetooth, USB 3.0, HDMI",27184,2021,Germany,Yes,Portable tablet with powerful performance
+E0446,Mobile,Motorola,Mini 855,Apple A15,4.0,256.0,5.7,5654.0,iOS,"Ethernet, 5G",44282,2015,USA,No,Feature-rich smartphone with sleek design
+E0447,Mouse,SteelSeries,Max 383,,,,,,None,WiFi,5550,2016,Japan,No,Precision mouse suitable for gaming and work
+E0448,Laptop,Acer,Max 283,M2,32.0,2048.0,13.0,6851.0,Linux,"HDMI, USB 3.0, USB-C, Ethernet",64407,2011,South Korea,Yes,High-performance laptop suitable for work and gaming
+E0449,Laptop,HP,Mini 455,M1,8.0,1024.0,13.0,4212.0,Windows,"5G, WiFi, 4G",248385,2022,USA,Yes,High-performance laptop suitable for work and gaming
+E0450,Mobile,Samsung,Air 962,Apple A15,6.0,64.0,5.0,3951.0,Linux,"USB-C, USB 3.0, HDMI, Ethernet",93539,2020,China,Yes,Feature-rich smartphone with sleek design
+E0451,Mobile,Motorola,Ultra 733,Snapdragon 865,16.0,128.0,6.8,4255.0,Linux,"5G, HDMI, 4G, USB-C",20404,2009,Japan,Yes,Feature-rich smartphone with sleek design
+E0452,Mouse,SteelSeries,X 424,,,,,,None,"WiFi, Bluetooth",14051,2009,USA,Yes,Precision mouse suitable for gaming and work
+E0453,Mobile,Motorola,X 514,Snapdragon 720G,8.0,128.0,5.4,5896.0,Linux,"USB 3.0, 4G, HDMI, 5G",149522,2010,China,Yes,Feature-rich smartphone with sleek design
+E0454,Mouse,Razer,Z 585,,,,,,None,"Bluetooth, WiFi",370,2022,China,Yes,Precision mouse suitable for gaming and work
+E0455,Keyboard,Dell,Mini 141,,,,,,None,Bluetooth,11598,2008,Germany,Yes,Ergonomic keyboard with responsive keys
+E0456,Laptop,Samsung,Neo 900,M1,16.0,256.0,17.0,4805.0,Windows,"Bluetooth, USB 3.0, WiFi, USB 2.0",132314,2023,China,Yes,High-performance laptop suitable for work and gaming
+E0457,Mouse,HP,Pro 624,,,,,,None,WiFi,1669,2022,South Korea,Yes,Precision mouse suitable for gaming and work
+E0458,Mobile,Motorola,Alpha 459,MediaTek Dimensity 9000,16.0,1024.0,6.0,3229.0,Linux,"USB-C, 4G, USB 3.0, 5G",104896,2017,Japan,Yes,Feature-rich smartphone with sleek design
+E0459,Mobile,Motorola,Ultra 312,MediaTek Dimensity 9000,16.0,64.0,5.4,4819.0,None,"HDMI, USB 2.0, Bluetooth, USB 3.0, 5G",116578,2009,China,No,Feature-rich smartphone with sleek design
+E0460,Mobile,Google,Z 667,Snapdragon 720G,4.0,1024.0,6.5,3362.0,Linux,"USB 2.0, USB-C, Bluetooth, Ethernet, 5G",43894,2011,USA,No,Feature-rich smartphone with sleek design
+E0461,Mobile,Vivo,Mini 227,Snapdragon 865,16.0,256.0,6.0,4898.0,None,"WiFi, 4G",76859,2014,Germany,No,Feature-rich smartphone with sleek design
+E0462,Tablet,Lenovo,Alpha 695,Apple M1,4.0,512.0,12.4,7004.0,Android,"USB 2.0, HDMI",28745,2024,Germany,Yes,Portable tablet with powerful performance
+E0463,Mobile,Oppo,Ultra 465,Snapdragon 888,8.0,512.0,6.9,3489.0,None,"USB 2.0, 4G",23338,2009,Japan,No,Feature-rich smartphone with sleek design
+E0464,Laptop,Asus,Air 430,AMD Ryzen 3,32.0,1024.0,13.0,5374.0,Linux,"Ethernet, 5G",126074,2008,China,No,High-performance laptop suitable for work and gaming
+E0465,Keyboard,Razer,X 240,,,,,,None,"Bluetooth, WiFi",18011,2023,Japan,No,Ergonomic keyboard with responsive keys
+E0466,Mobile,Realme,Air 966,Snapdragon 720G,12.0,512.0,5.7,3667.0,None,"4G, 5G, USB-C",57392,2022,China,No,Feature-rich smartphone with sleek design
+E0467,Mobile,Google,Go 635,Snapdragon 720G,4.0,512.0,5.9,3312.0,Chrome OS,"WiFi, HDMI, 4G",89677,2016,USA,No,Feature-rich smartphone with sleek design
+E0468,Notebook,Camlin,Pro 327,,,,,,None,None,138,2014,India,No,Durable notebook for writing and studying
+E0469,Laptop,Lenovo,Max 143,Intel i7,8.0,1024.0,14.0,4719.0,Chrome OS,"USB-C, Bluetooth",70755,2005,South Korea,Yes,High-performance laptop suitable for work and gaming
+E0470,Laptop,Dell,Neo 701,Intel i3,4.0,2048.0,13.0,5072.0,None,"USB 2.0, WiFi",80595,2008,China,Yes,High-performance laptop suitable for work and gaming
+E0471,Mouse,Razer,Ultra 975,,,,,,None,"WiFi, Bluetooth",2684,2013,China,Yes,Precision mouse suitable for gaming and work
+E0472,Mobile,Xiaomi,Neo 616,Snapdragon 720G,16.0,64.0,5.2,5368.0,iOS,"5G, USB 2.0, Bluetooth",148804,2005,Germany,Yes,Feature-rich smartphone with sleek design
+E0473,Notebook,Reynolds,Pro 285,,,,,,None,None,237,2023,USA,No,Durable notebook for writing and studying
+E0474,Notebook,Reynolds,Pro 879,,,,,,None,None,267,2011,China,Yes,Durable notebook for writing and studying
+E0475,Headphones,Sony,Z 670,,,,,1254.0,None,WiFi,33493,2016,Germany,Yes,Comfortable headphones with high-quality sound
+E0476,Tablet,Apple,Pro 961,MediaTek Helio,8.0,64.0,9.9,8743.0,Linux,"HDMI, 5G, USB 2.0, Ethernet",58088,2018,USA,Yes,Portable tablet with powerful performance
+E0477,Notebook,Camlin,Pro 505,,,,,,None,None,141,2005,Germany,No,Durable notebook for writing and studying
+E0478,Mobile,Apple,Max 225,Snapdragon 720G,6.0,512.0,5.8,5418.0,Windows,"Bluetooth, USB 3.0, Ethernet",96770,2011,China,Yes,Feature-rich smartphone with sleek design
+E0479,Laptop,MSI,Mini 336,AMD Ryzen 5,32.0,1024.0,15.6,6278.0,Chrome OS,"USB-C, HDMI, USB 2.0, 4G, Bluetooth",268359,2008,India,Yes,High-performance laptop suitable for work and gaming
+E0480,Tablet,Samsung,Pro 878,Apple M1,3.0,64.0,12.1,9080.0,Windows,"USB-C, USB 3.0, Bluetooth",59682,2024,China,Yes,Portable tablet with powerful performance
+E0481,Laptop,Samsung,Max 221,M1,32.0,2048.0,14.0,5404.0,None,"Ethernet, USB 2.0, HDMI, 4G, USB-C",316586,2005,India,Yes,High-performance laptop suitable for work and gaming
+E0482,Mobile,Realme,Go 791,Snapdragon 865,12.0,512.0,5.9,3134.0,None,"4G, HDMI, 5G, Bluetooth",89909,2017,South Korea,No,Feature-rich smartphone with sleek design
+E0483,Mobile,Google,Alpha 884,Snapdragon 865,16.0,1024.0,5.9,5302.0,Chrome OS,"USB-C, USB 2.0",137680,2023,South Korea,No,Feature-rich smartphone with sleek design
+E0484,Headphones,JBL,Go 127,,,,,425.0,None,WiFi,9401,2016,Japan,No,Comfortable headphones with high-quality sound
+E0485,Notebook,Camlin,Alpha 521,,,,,,None,None,244,2008,South Korea,Yes,Durable notebook for writing and studying
+E0486,Mobile,Xiaomi,Max 681,Snapdragon 720G,6.0,256.0,6.2,5818.0,macOS,"Bluetooth, USB 3.0, Ethernet, WiFi",149142,2015,India,No,Feature-rich smartphone with sleek design
+E0487,Mobile,Oppo,Alpha 270,Apple A14,4.0,512.0,6.2,4296.0,Linux,"USB 3.0, Bluetooth, USB-C, 5G, WiFi",61977,2015,South Korea,No,Feature-rich smartphone with sleek design
+E0488,Tablet,Lenovo,Neo 739,MediaTek Helio,4.0,512.0,11.1,5617.0,Android,"USB 2.0, Ethernet, WiFi",58970,2023,South Korea,Yes,Portable tablet with powerful performance
+E0489,Tablet,Apple,Air 420,Apple M1,12.0,64.0,10.9,7239.0,Chrome OS,"USB-C, 5G, 4G, WiFi, Ethernet",86144,2014,South Korea,Yes,Portable tablet with powerful performance
+E0490,Laptop,MSI,Air 305,Intel i7,32.0,512.0,13.0,7228.0,Linux,"5G, HDMI, 4G, USB 3.0, USB 2.0",257396,2023,Germany,No,High-performance laptop suitable for work and gaming
+E0491,Mobile,OnePlus,Ultra 362,Snapdragon 888,6.0,256.0,6.7,4680.0,macOS,"5G, USB-C",77975,2014,Germany,Yes,Feature-rich smartphone with sleek design
+E0492,Tablet,Samsung,Neo 263,Apple A14,4.0,64.0,8.7,5226.0,Android,"HDMI, Ethernet, USB 2.0, 5G",75314,2025,India,Yes,Portable tablet with powerful performance
+E0493,Laptop,Dell,Max 472,Intel i3,16.0,512.0,13.0,6980.0,Linux,"Bluetooth, USB 3.0",345411,2014,India,Yes,High-performance laptop suitable for work and gaming
+E0494,Tablet,Apple,Go 854,Apple M1,4.0,128.0,8.5,9098.0,Android,"HDMI, Bluetooth, Ethernet, USB 2.0",36027,2015,Japan,Yes,Portable tablet with powerful performance
+E0495,Mobile,Xiaomi,Pro 424,Snapdragon 888,6.0,128.0,5.2,3876.0,Android,"USB-C, USB 2.0, Ethernet, HDMI, WiFi",136544,2022,Japan,No,Feature-rich smartphone with sleek design
+E0496,Mobile,Motorola,Neo 359,Snapdragon 888,6.0,256.0,6.8,3593.0,Chrome OS,"USB 3.0, USB 2.0, WiFi, Ethernet, HDMI",17125,2006,Germany,No,Feature-rich smartphone with sleek design
+E0497,Mobile,Vivo,Ultra 549,Apple A14,8.0,64.0,6.1,3968.0,Chrome OS,"WiFi, USB-C, 4G, HDMI, Ethernet",69724,2014,USA,No,Feature-rich smartphone with sleek design
+E0498,Tablet,Huawei,Max 716,Snapdragon 870,3.0,256.0,12.2,9027.0,Android,"USB 3.0, USB-C, HDMI, WiFi, Bluetooth",111551,2013,China,Yes,Portable tablet with powerful performance
+E0499,Tablet,Asus,Neo 830,Apple A14,6.0,512.0,11.4,5426.0,Chrome OS,"4G, WiFi, 5G, Bluetooth, Ethernet",61120,2023,India,Yes,Portable tablet with powerful performance
+E0500,Headphones,Boat,Ultra 366,,,,,1862.0,None,Bluetooth,21932,2019,South Korea,No,Comfortable headphones with high-quality sound
