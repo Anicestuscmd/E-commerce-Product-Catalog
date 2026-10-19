@@ -22,3 +22,14 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Frontend environment variables
+frontend/.env
+frontend/.env.*
+!frontend/.env.example
