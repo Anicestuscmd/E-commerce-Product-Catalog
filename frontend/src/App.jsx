@@ -24,8 +24,15 @@ const imageByCategory = {
 // Use category-level photos until individual product image URLs are available in the database.
 const safeImage = (category) =>
   imageByCategory[category] || imageByCategory.default;
+const productImage = (product) =>
+  product?.Image_URL ||
+  product?.Image_Url ||
+  product?.imageUrl ||
+  product?.image_url ||
+  product?.image ||
+  safeImage(product?.Category);
 
-function Icon({ name, size = 18 }) {
+function Icon({ name, size = 18, className = "" }) {
   const common = {
     width: size,
     height: size,
@@ -36,7 +43,10 @@ function Icon({ name, size = 18 }) {
     strokeLinecap: "round",
     strokeLinejoin: "round",
     "aria-hidden": true,
+    focusable: "false",
+    className: `app-icon ${className}`.trim(),
   };
+
   const paths = {
     home: (
       <>
@@ -46,10 +56,10 @@ function Icon({ name, size = 18 }) {
     ),
     grid: (
       <>
-        <rect x="3" y="3" width="7" height="7" rx="1" />
-        <rect x="14" y="3" width="7" height="7" rx="1" />
-        <rect x="3" y="14" width="7" height="7" rx="1" />
-        <rect x="14" y="14" width="7" height="7" rx="1" />
+        <rect x="3" y="3" width="7" height="7" rx="1.5" />
+        <rect x="14" y="3" width="7" height="7" rx="1.5" />
+        <rect x="3" y="14" width="7" height="7" rx="1.5" />
+        <rect x="14" y="14" width="7" height="7" rx="1.5" />
       </>
     ),
     search: (
@@ -61,8 +71,15 @@ function Icon({ name, size = 18 }) {
     cart: (
       <>
         <path d="M3 4h2l2.2 11.1a2 2 0 0 0 2 1.6h8.5a2 2 0 0 0 1.9-1.4L21 8H6" />
-        <circle cx="10" cy="20" r="1" />
-        <circle cx="18" cy="20" r="1" />
+        <circle cx="10" cy="20" r="1.4" />
+        <circle cx="18" cy="20" r="1.4" />
+      </>
+    ),
+    "shopping-cart": (
+      <>
+        <circle cx="9" cy="20" r="1.3" />
+        <circle cx="18" cy="20" r="1.3" />
+        <path d="M2.5 3.5h2l2.4 11.1a2 2 0 0 0 2 1.6h8.8a2 2 0 0 0 1.9-1.5L21 8H6" />
       </>
     ),
     heart: (
@@ -74,9 +91,17 @@ function Icon({ name, size = 18 }) {
         <path d="M4 21a8 8 0 0 1 16 0" />
       </>
     ),
+    users: (
+      <>
+        <path d="M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+        <circle cx="10" cy="7" r="4" />
+        <path d="M20 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+      </>
+    ),
     bell: (
       <>
-        <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4" />
+        <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9" />
+        <path d="M10 21h4" />
       </>
     ),
     chevron: <path d="m7 10 5 5 5-5" />,
@@ -99,40 +124,113 @@ function Icon({ name, size = 18 }) {
         <path d="M3 8v9l9 5 9-5V8M12 13v9" />
       </>
     ),
-    plus: (
-      <>
-        <path d="M12 5v14M5 12h14" />
-      </>
-    ),
+    plus: <path d="M12 5v14M5 12h14" />,
     edit: (
       <>
-        <path d="m14 5 5 5M4 20l4-.8L20 7a2.1 2.1 0 0 0-3-3L5 16l-1 4Z" />
+        <path d="m14 5 5 5" />
+        <path d="M4 20l4-.8L20 7a2.1 2.1 0 0 0-3-3L5 16l-1 4Z" />
       </>
     ),
     trash: (
       <>
-        <path d="M3 6h18M8 6V4h8v2m3 0-1 14H6L5 6M10 10v6M14 10v6" />
+        <path d="M3 6h18M8 6V4h8v2m3 0-1 14H6L5 6" />
+        <path d="M10 10v6M14 10v6" />
       </>
     ),
     arrow: (
       <>
-        <path d="M5 12h14M13 6l6 6-6 6" />
+        <path d="M5 12h14" />
+        <path d="m13 6 6 6-6 6" />
       </>
     ),
-    close: (
-      <>
-        <path d="m6 6 12 12M18 6 6 18" />
-      </>
-    ),
-    menu: (
-      <>
-        <path d="M4 6h16M4 12h16M4 18h16" />
-      </>
-    ),
+    close: <path d="m6 6 12 12M18 6 6 18" />,
+    menu: <path d="M4 6h16M4 12h16M4 18h16" />,
     star: (
       <path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9L12 3Z" />
     ),
+    "chart-no-axes-combined": (
+      <>
+        <path d="M3 3v18h18" />
+        <path d="m19 9-5 5-4-4-5 5" />
+        <path d="M15 9h4v4" />
+      </>
+    ),
+    "indian-rupee": (
+      <>
+        <path d="M6 3h12M6 8h12M6 3c7 0 7 10 0 10h2l8 8" />
+        <path d="M6 13h6" />
+      </>
+    ),
+    "shopping-bag": (
+      <>
+        <path d="M5 8h14l1 13H4L5 8Z" />
+        <path d="M9 9V6a3 3 0 0 1 6 0v3" />
+      </>
+    ),
+    "trending-up": (
+      <>
+        <path d="m3 17 6-6 4 4 8-8" />
+        <path d="M15 7h6v6" />
+      </>
+    ),
+    laptop: (
+      <>
+        <rect x="4" y="4" width="16" height="12" rx="1.5" />
+        <path d="M2 20h20l-2-4H4l-2 4Z" />
+      </>
+    ),
+    smartphone: (
+      <>
+        <rect x="6" y="2" width="12" height="20" rx="2" />
+        <path d="M10 5h4M11 18h2" />
+      </>
+    ),
+    tablet: (
+      <>
+        <rect x="4" y="2" width="16" height="20" rx="2" />
+        <path d="M11 18h2" />
+      </>
+    ),
+    headphones: (
+      <>
+        <path d="M3 14v-3a9 9 0 0 1 18 0v3" />
+        <rect x="3" y="13" width="4" height="7" rx="1.5" />
+        <rect x="17" y="13" width="4" height="7" rx="1.5" />
+      </>
+    ),
+    keyboard: (
+      <>
+        <rect x="2" y="6" width="20" height="12" rx="2" />
+        <path d="M6 10h.01M9 10h.01M12 10h.01M15 10h.01M18 10h.01M6 13h.01M9 13h.01M12 13h.01M15 13h.01M8 16h8" />
+      </>
+    ),
+    mouse: (
+      <>
+        <rect x="6" y="2" width="12" height="20" rx="6" />
+        <path d="M12 2v6" />
+      </>
+    ),
+    sparkles: (
+      <>
+        <path d="m12 3 1.7 5.3L19 10l-5.3 1.7L12 17l-1.7-5.3L5 10l5.3-1.7L12 3Z" />
+        <path d="m19 14 1 3 3 1-3 1-1 3-1-3-3-1 3-1 1-3Z" />
+        <path d="m5 2 .7 2.3L8 5l-2.3.7L5 8l-.7-2.3L2 5l2.3-.7L5 2Z" />
+      </>
+    ),
+    "check-circle": (
+      <>
+        <circle cx="12" cy="12" r="9" />
+        <path d="m8 12 2.5 2.5L16 9" />
+      </>
+    ),
+    "circle-alert": (
+      <>
+        <circle cx="12" cy="12" r="9" />
+        <path d="M12 8v4M12 16h.01" />
+      </>
+    ),
   };
+
   return <svg {...common}>{paths[name] || paths.package}</svg>;
 }
 
@@ -167,15 +265,15 @@ async function fetchAllProducts() {
 
 const categoryIcon = (category) =>
   ({
-    Mobile: "▯",
-    Laptop: "▱",
-    Notebook: "▱",
-    Tablet: "▯",
-    Headphones: "◖))",
-    Keyboard: "⌨",
-    Mouse: "◉",
-    Accessories: "✦",
-  })[category] || "◇";
+    Mobile: "smartphone",
+    Laptop: "laptop",
+    Notebook: "laptop",
+    Tablet: "tablet",
+    Headphones: "headphones",
+    Keyboard: "keyboard",
+    Mouse: "mouse",
+    Accessories: "package",
+  })[category] || "grid";
 
 function App() {
   const { signOut } = useClerk();
@@ -188,6 +286,22 @@ function App() {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All");
   const [sort, setSort] = useState("default");
+  const [searchMode, setSearchMode] = useState("keyword");
+  const [aiResults, setAiResults] = useState([]);
+  const [alternativeProduct, setAlternativeProduct] = useState(null);
+  const [alternativeResults, setAlternativeResults] = useState([]);
+  const [alternativeLoading, setAlternativeLoading] = useState(false);
+  const [alternativeError, setAlternativeError] = useState("");
+  const [aiLoading, setAiLoading] = useState(false);
+  const [aiError, setAiError] = useState("");
+  const [tradeoffMode, setTradeoffMode] = useState(false);
+  const [tradeoffWeights, setTradeoffWeights] = useState({
+    price: 80,
+    durability: 50,
+    performance: 70,
+    battery: 50,
+    portability: 50,
+  });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [minPrice, setMinPrice] = useState("");
@@ -203,14 +317,37 @@ function App() {
   const [cartItems, setCartItems] = useState([]);
   const [showCart, setShowCart] = useState(false);
   const [cartLoading, setCartLoading] = useState(false);
+  const [checkoutLoading, setCheckoutLoading] = useState(false);
+  const [orderConfirmation, setOrderConfirmation] = useState(null);
   const [showAdmin, setShowAdmin] = useState(false);
   const [showUsers, setShowUsers] = useState(false);
+  const [showOrders, setShowOrders] = useState(false);
+  const [showAnalytics, setShowAnalytics] = useState(false);
+  const [adminOrders, setAdminOrders] = useState([]);
+  const [ordersLoading, setOrdersLoading] = useState(false);
+  const [ordersError, setOrdersError] = useState("");
+  const [customerOrders, setCustomerOrders] = useState([]);
+  const [customerOrdersLoading, setCustomerOrdersLoading] = useState(false);
+  const [customerOrdersError, setCustomerOrdersError] = useState("");
+  const [showOrderHistory, setShowOrderHistory] = useState(false);
   const [adminUsers, setAdminUsers] = useState([]);
   const [userSearch, setUserSearch] = useState("");
   const [userRoleFilter, setUserRoleFilter] = useState("All");
   const [userPage, setUserPage] = useState(1);
   const [usersLoading, setUsersLoading] = useState(false);
   const [usersError, setUsersError] = useState("");
+  const [orderAnalytics, setOrderAnalytics] = useState({
+    totalOrders: 0,
+    orderStatuses: {
+      Pending: 0,
+      Processing: 0,
+      Shipped: 0,
+      Delivered: 0,
+      Cancelled: 0,
+    },
+  });
+  const [analyticsLoading, setAnalyticsLoading] = useState(false);
+  const [analyticsError, setAnalyticsError] = useState("");
   const [showProfile, setShowProfile] = useState(false);
   const [showWishlist, setShowWishlist] = useState(false);
   const [draftProduct, setDraftProduct] = useState({
@@ -226,97 +363,92 @@ function App() {
   });
 
   const dashboardStats = useMemo(() => {
-  const categoryCounts = products.reduce((counts, product) => {
-    const category = product.Category || "Uncategorized";
-    counts[category] = (counts[category] || 0) + 1;
-    return counts;
-  }, {});
+    const categoryCounts = products.reduce((counts, product) => {
+      const category = product.Category || "Uncategorized";
+      counts[category] = (counts[category] || 0) + 1;
+      return counts;
+    }, {});
 
-  const productPrices = products
-    .map((product) => Number(product.Price_INR))
-    .filter((price) => Number.isFinite(price) && price >= 0);
+    const productPrices = products
+      .map((product) => Number(product.Price_INR))
+      .filter((price) => Number.isFinite(price) && price >= 0);
 
-  const averagePrice =
-    productPrices.length > 0
-      ? productPrices.reduce((sum, price) => sum + price, 0) /
-        productPrices.length
-      : 0;
+    const averagePrice =
+      productPrices.length > 0
+        ? productPrices.reduce((sum, price) => sum + price, 0) /
+          productPrices.length
+        : 0;
 
-  return {
-    totalProducts: products.length,
-    totalCategories: Object.keys(categoryCounts).length,
-    categoryCounts,
-    averagePrice,
-  };
-}, [products]);
+    return {
+      totalProducts: products.length,
+      totalCategories: Object.keys(categoryCounts).length,
+      categoryCounts,
+      averagePrice,
+    };
+  }, [products]);
 
-const adminFilteredProducts = useMemo(() => {
-  const search = adminSearch.trim().toLowerCase();
+  const adminFilteredProducts = useMemo(() => {
+    const search = adminSearch.trim().toLowerCase();
 
-  return products.filter((product) => {
-    const searchableText = [
-      product.Gadget_ID,
-      product.Brand,
-      product.Model_Name,
-      product.Category,
-    ]
-      .filter(Boolean)
-      .join(" ")
-      .toLowerCase();
+    return products.filter((product) => {
+      const searchableText = [
+        product.Gadget_ID,
+        product.Brand,
+        product.Model_Name,
+        product.Category,
+      ]
+        .filter(Boolean)
+        .join(" ")
+        .toLowerCase();
 
-    const matchesSearch = searchableText.includes(search);
-    const matchesCategory =
-      adminCategory === "All" ||
-      product.Category === adminCategory;
+      const matchesSearch = searchableText.includes(search);
+      const matchesCategory =
+        adminCategory === "All" || product.Category === adminCategory;
 
-    return matchesSearch && matchesCategory;
-  });
-}, [products, adminSearch, adminCategory]);
+      return matchesSearch && matchesCategory;
+    });
+  }, [products, adminSearch, adminCategory]);
 
-const adminPageSize = 10;
-const adminTotalPages = Math.max(
-  1,
-  Math.ceil(adminFilteredProducts.length / adminPageSize)
-);
+  const adminPageSize = 10;
+  const adminTotalPages = Math.max(
+    1,
+    Math.ceil(adminFilteredProducts.length / adminPageSize),
+  );
 
-const adminVisibleProducts = adminFilteredProducts.slice(
-  (adminPage - 1) * adminPageSize,
-  adminPage * adminPageSize
-);
+  const adminVisibleProducts = adminFilteredProducts.slice(
+    (adminPage - 1) * adminPageSize,
+    adminPage * adminPageSize,
+  );
 
-const filteredAdminUsers = useMemo(() => {
-  const search = userSearch.trim().toLowerCase();
+  const filteredAdminUsers = useMemo(() => {
+    const search = userSearch.trim().toLowerCase();
 
-  return adminUsers.filter((account) => {
-    const fullName =
-      `${account.firstName || ""} ${account.lastName || ""}`.trim();
+    return adminUsers.filter((account) => {
+      const fullName =
+        `${account.firstName || ""} ${account.lastName || ""}`.trim();
 
-    const matchesSearch = [
-      fullName,
-      account.email,
-      account.id,
-    ]
-      .filter(Boolean)
-      .some((value) => value.toLowerCase().includes(search));
+      const matchesSearch = [fullName, account.email, account.id]
+        .filter(Boolean)
+        .some((value) => value.toLowerCase().includes(search));
 
-    const matchesRole =
-      userRoleFilter === "All" ||
-      account.role === userRoleFilter.toLowerCase();
+      const matchesRole =
+        userRoleFilter === "All" ||
+        account.role === userRoleFilter.toLowerCase();
 
-    return matchesSearch && matchesRole;
-  });
-}, [adminUsers, userSearch, userRoleFilter]);
+      return matchesSearch && matchesRole;
+    });
+  }, [adminUsers, userSearch, userRoleFilter]);
 
-const userPageSize = 10;
-const userTotalPages = Math.max(
-  1,
-  Math.ceil(filteredAdminUsers.length / userPageSize)
-);
+  const userPageSize = 10;
+  const userTotalPages = Math.max(
+    1,
+    Math.ceil(filteredAdminUsers.length / userPageSize),
+  );
 
-const visibleAdminUsers = filteredAdminUsers.slice(
-  (userPage - 1) * userPageSize,
-  userPage * userPageSize
-);
+  const visibleAdminUsers = filteredAdminUsers.slice(
+    (userPage - 1) * userPageSize,
+    userPage * userPageSize,
+  );
 
   async function openProduct(productId) {
     setDetailsLoading(true);
@@ -333,25 +465,469 @@ const visibleAdminUsers = filteredAdminUsers.slice(
       setDetailsLoading(false);
     }
   }
- function startAddProduct() {
-  console.log("Before opening:", showProductForm);
 
-  setEditingProduct(null);
-  setDraftProduct({
-    Category: "Mobile",
-    Brand: "",
-    Model_Name: "",
-    Description: "",
-    Price_INR: "",
-    Processor: "",
-    RAM_GB: "",
-    Storage_GB: "",
-    Available: true,
-  });
+  function extractMaxPrice(query) {
+    const normalized = query.toLowerCase().replace(/,/g, "");
 
-  setShowProductForm(true);
-  console.log("Add Product handler finished");
-}
+    const match = normalized.match(
+      /(?:under|below|less than|within|up to|upto|budget(?: of)?|maximum(?: of)?|max(?:imum)?(?: price)?(?: of)?)\s*(?:₹|rs\.?|inr)?\s*(\d+(?:\.\d+)?)\s*(k)?\b/i,
+    );
+
+    if (!match) {
+      return "";
+    }
+
+    const amount = Number(match[1]) * (match[2] ? 1000 : 1);
+
+    return Number.isFinite(amount) && amount > 0 ? String(amount) : "";
+  }
+
+  function extractMinRAM(query) {
+    const normalized = query.toLowerCase();
+
+    const match = normalized.match(
+      /(?:at least|minimum|min(?:imum)?|with)\s*(\d+)\s*gb\s*ram|\b(\d+)\s*gb\s*ram\b/i,
+    );
+
+    if (!match) {
+      return "";
+    }
+
+    const amount = Number(match[1] || match[2]);
+
+    return Number.isFinite(amount) && amount > 0 ? String(amount) : "";
+  }
+
+  function extractProcessor(query) {
+    const normalized = query.toLowerCase();
+
+    const match = normalized.match(
+      /\b(ryzen\s*[3579]|intel\s*i[3579]|core\s*i[3579]|i[3579]|m[123])\b/i,
+    );
+
+    if (!match) {
+      return "";
+    }
+
+    return match[1]
+      .replace(/\s+/g, " ")
+      .replace(/^core\s+/i, "")
+      .toLowerCase();
+  }
+
+  function extractTradeoffPriorities(query) {
+    const normalized = query.toLowerCase();
+
+    const priorities = [];
+
+    if (
+      /\b(cheap|cheapest|affordable|budget|low price|save money)\b/.test(
+        normalized,
+      )
+    ) {
+      priorities.push("price");
+    }
+
+    if (/\b(ram|memory|multitasking)\b/.test(normalized)) {
+      priorities.push("ram");
+    }
+
+    if (/\b(processor|cpu|intel|ryzen|performance|faster)\b/.test(normalized)) {
+      priorities.push("processor");
+    }
+
+    if (/\b(storage|ssd|hard drive|space for files)\b/.test(normalized)) {
+      priorities.push("storage");
+    }
+
+    if (/\b(battery|battery life|long lasting)\b/.test(normalized)) {
+      priorities.push("battery");
+    }
+
+    return priorities;
+  }
+
+  function detectMissingInformation(query) {
+    const normalized = query.toLowerCase();
+    const missing = [];
+
+    const hasBudget =
+      /\b(under|below|less than|within|up to|upto|budget|maximum|max)\b/.test(
+        normalized,
+      ) || /₹\s*\d+|\b\d+\s*k\b|\b\d{4,}\b/.test(normalized);
+
+    const hasUsage =
+      /\b(programming|coding|gaming|study|student|work|office|travel|editing|design|machine learning|business)\b/.test(
+        normalized,
+      );
+
+    const hasRAM = /\b\d+\s*gb\s*ram\b|\b(ram|memory|multitasking)\b/.test(
+      normalized,
+    );
+
+    const hasProcessor =
+      /\b(processor|cpu|intel|ryzen|core i[3579]|i[3579])\b/.test(normalized);
+
+    const hasStorage = /\b(storage|ssd|hard drive|space for files)\b/.test(
+      normalized,
+    );
+
+    if (!hasBudget) missing.push("Your budget");
+    if (!hasUsage) missing.push("What you'll use the product for");
+
+    if (/\blaptop\b|\bcomputer\b|\bpc\b/.test(normalized)) {
+      if (!hasRAM) missing.push("Preferred RAM");
+      if (!hasProcessor) missing.push("Processor preference");
+      if (!hasStorage) missing.push("Storage capacity");
+    }
+
+    return missing;
+  }
+
+  function compareProductTradeoffs(products, weights) {
+    if (!products.length) return [];
+
+    const getNumber = (product, field) => {
+      const value = Number(product[field]);
+      return Number.isFinite(value) ? value : null;
+    };
+
+    const range = (field) => {
+      const values = products
+        .map((product) => getNumber(product, field))
+        .filter((value) => value !== null);
+
+      return {
+        min: values.length ? Math.min(...values) : null,
+        max: values.length ? Math.max(...values) : null,
+      };
+    };
+
+    const priceRange = range("Price_INR");
+    const ramRange = range("RAM_GB");
+    const storageRange = range("Storage_GB");
+    const batteryRange = range("Battery_mAh");
+
+    const normalize = (value, limits, higherIsBetter = true) => {
+      if (value === null || limits.min === null || limits.max === null) {
+        return null;
+      }
+
+      if (limits.max === limits.min) return 1;
+
+      const score = (value - limits.min) / (limits.max - limits.min);
+
+      return higherIsBetter ? score : 1 - score;
+    };
+
+    const processorScore = (product) => {
+      const value = String(product.Processor || "").toLowerCase();
+
+      if (value.includes("i9") || value.includes("ryzen 9")) return 1;
+      if (value.includes("i7") || value.includes("ryzen 7")) return 0.8;
+      if (value.includes("i5") || value.includes("ryzen 5")) return 0.6;
+      if (value.includes("i3") || value.includes("ryzen 3")) return 0.4;
+      if (/\bm[123]\b/.test(value)) return 0.7;
+
+      return null;
+    };
+
+    return products
+      .map((product) => {
+        const dimensions = {
+          price: normalize(getNumber(product, "Price_INR"), priceRange, false),
+          performance: [
+            normalize(processorScore(product), { min: 0, max: 1 }),
+            normalize(getNumber(product, "RAM_GB"), ramRange),
+            normalize(getNumber(product, "Storage_GB"), storageRange),
+          ].filter((value) => value !== null),
+          battery: normalize(getNumber(product, "Battery_mAh"), batteryRange),
+        };
+
+        const performanceScore = dimensions.performance.length
+          ? dimensions.performance.reduce((sum, value) => sum + value, 0) /
+            dimensions.performance.length
+          : null;
+
+        const availableScores = {
+          price: dimensions.price,
+          performance: performanceScore,
+          battery: dimensions.battery,
+        };
+
+        const weightedScores = Object.entries(availableScores).filter(
+          ([key, score]) => {
+            return score !== null && weights[key] > 0;
+          },
+        );
+
+        const totalWeight = weightedScores.reduce(
+          (sum, [key]) => sum + weights[key],
+          0,
+        );
+
+        const score = totalWeight
+          ? weightedScores.reduce(
+              (sum, [key, value]) => sum + value * weights[key],
+              0,
+            ) / totalWeight
+          : 0;
+
+        return {
+          ...product,
+          tradeoffScore: Math.round(score * 100),
+        };
+      })
+      .sort((a, b) => b.tradeoffScore - a.tradeoffScore);
+  }
+
+  function explainProductTradeoff(product, alternative) {
+    if (!product || !alternative) {
+      return { gains: [], losses: [] };
+    }
+
+    const gains = [];
+    const losses = [];
+
+    const priceDiff = Number(product.Price_INR) - Number(alternative.Price_INR);
+
+    if (priceDiff < 0) {
+      gains.push(
+        `You save ₹${Math.abs(priceDiff).toLocaleString("en-IN")} compared with the alternative.`,
+      );
+    } else if (priceDiff > 0) {
+      losses.push(
+        `You pay ₹${priceDiff.toLocaleString("en-IN")} more than the alternative.`,
+      );
+    }
+
+    const comparisons = [
+      {
+        field: "RAM_GB",
+        label: "RAM",
+        unit: "GB",
+        benefit:
+          "More RAM can help with multitasking and demanding applications.",
+        drawback: "Less RAM may limit demanding multitasking.",
+      },
+      {
+        field: "Storage_GB",
+        label: "storage",
+        unit: "GB",
+        benefit:
+          "More storage provides additional room for files and applications.",
+        drawback: "Less storage leaves less room for files and applications.",
+      },
+      {
+        field: "Battery_mAh",
+        label: "battery capacity",
+        unit: "mAh",
+        benefit:
+          "The recorded battery capacity is higher; actual battery life may differ.",
+        drawback:
+          "The recorded battery capacity is lower; actual battery life may differ.",
+      },
+    ];
+
+    for (const item of comparisons) {
+      const current = Number(product[item.field]);
+      const other = Number(alternative[item.field]);
+
+      if (
+        !Number.isFinite(current) ||
+        !Number.isFinite(other) ||
+        current === other
+      ) {
+        continue;
+      }
+
+      const difference = Math.abs(current - other);
+
+      if (current > other) {
+        gains.push(
+          `${difference.toLocaleString("en-IN")} ${item.unit} more ${item.label}. ${item.benefit}`,
+        );
+      } else {
+        losses.push(
+          `${difference.toLocaleString("en-IN")} ${item.unit} less ${item.label}. ${item.drawback}`,
+        );
+      }
+    }
+
+    if (gains.length === 0) {
+      gains.push("No clear advantage in the available specifications.");
+    }
+
+    if (losses.length === 0) {
+      losses.push("No clear disadvantage in the available specifications.");
+    }
+
+    return { gains, losses };
+  }
+
+  async function runAISearch() {
+    const query = search.trim();
+
+    if (!query) {
+      setAiError("Describe what kind of product you need.");
+      setAiResults([]);
+      return;
+    }
+
+    setAiLoading(true);
+    setAiError("");
+    setSelectedProduct(null);
+
+    try {
+      const params = new URLSearchParams({ q: query });
+
+      const minRAM = extractMinRAM(query);
+
+      if (minRAM !== "") {
+        params.set("minRAM", minRAM);
+      }
+
+      if (category !== "All") {
+        params.set("category", category);
+      }
+
+      const processor = extractProcessor(query);
+
+      if (processor !== "") {
+        params.set("processor", processor);
+      }
+
+      const queryMaxPrice = extractMaxPrice(query);
+      const effectiveMaxPrice = maxPrice !== "" ? maxPrice : queryMaxPrice;
+
+      if (effectiveMaxPrice !== "") {
+        params.set("maxPrice", effectiveMaxPrice);
+      }
+
+      const response = await fetch(`/api/semantic-search?${params.toString()}`);
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "AI search failed.");
+      }
+
+      setAiResults(Array.isArray(data.items) ? data.items : []);
+    } catch (error) {
+      setAiError(error.message || "Could not perform AI search.");
+      setAiResults([]);
+    } finally {
+      setAiLoading(false);
+    }
+  }
+
+  const findAlternatives = async (product) => {
+    setAlternativeProduct(product);
+    setAlternativeResults([]);
+    setAlternativeError("");
+    setAlternativeLoading(true);
+
+    try {
+      const query = [
+        product.Brand,
+        product.Model_Name,
+        product.Category,
+        "similar alternatives",
+      ]
+        .filter(Boolean)
+        .join(" ");
+
+      const params = new URLSearchParams({
+        q: query,
+        category: product.Category || "",
+      });
+
+      const response = await fetch(`/api/semantic-search?${params.toString()}`);
+
+      if (!response.ok) {
+        throw new Error("Could not find alternatives. Please try again.");
+      }
+
+      const data = await response.json();
+
+      const alternatives = (data.items || []).filter(
+        (item) => String(item.Gadget_ID) !== String(product.Gadget_ID),
+      );
+
+      setAlternativeResults(alternatives.slice(0, 4));
+
+      if (alternatives.length === 0) {
+        setAlternativeError(
+          "No similar alternatives found. Try another product.",
+        );
+      }
+    } catch (error) {
+      setAlternativeError(
+        error.message || "Something went wrong while finding alternatives.",
+      );
+    } finally {
+      setAlternativeLoading(false);
+    }
+  };
+
+  async function changeUserRole(account) {
+    const newRole = account.role === "admin" ? "customer" : "admin";
+    const action = newRole === "admin" ? "promote" : "remove admin access from";
+
+    const confirmed = window.confirm(
+      `Are you sure you want to ${action} ${account.email || account.firstName || "this user"}?`,
+    );
+
+    if (!confirmed) return;
+
+    try {
+      const response = await fetch(
+        `/api/admin/users/${encodeURIComponent(account.id)}/role`,
+        {
+          method: "PATCH",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ role: newRole }),
+        },
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Could not update user role.");
+      }
+
+      setAdminUsers((currentUsers) =>
+        currentUsers.map((user) =>
+          user.id === account.id ? { ...user, role: newRole } : user,
+        ),
+      );
+    } catch (error) {
+      window.alert(error.message || "Could not update user role.");
+    }
+  }
+
+  function startAddProduct() {
+    console.log("Before opening:", showProductForm);
+
+    setEditingProduct(null);
+    setDraftProduct({
+      Category: "Mobile",
+      Brand: "",
+      Model_Name: "",
+      Description: "",
+      Price_INR: "",
+      Processor: "",
+      RAM_GB: "",
+      Storage_GB: "",
+      Available: true,
+    });
+
+    setShowProductForm(true);
+    console.log("Add Product handler finished");
+  }
   function startEditProduct(product) {
     setEditingProduct(product);
     setDraftProduct({
@@ -439,141 +1015,282 @@ const visibleAdminUsers = filteredAdminUsers.slice(
   }, []);
 
   useEffect(() => {
-  if (!isLoaded || !isSignedIn) {
-    setFavorites([]);
-    return;
-  }
+    if (!isLoaded || !isSignedIn) {
+      setFavorites([]);
+      return;
+    }
 
-  let cancelled = false;
+    let cancelled = false;
 
-  async function loadWishlist() {
-    setWishlistLoading(true);
+    async function loadWishlist() {
+      setWishlistLoading(true);
 
-    try {
-      const response = await fetch("/api/wishlist", {
-        credentials: "include",
-      });
+      try {
+        const response = await fetch("/api/wishlist", {
+          credentials: "include",
+        });
 
-      const data = await response.json();
+        const data = await response.json();
 
-      if (!response.ok) {
-        throw new Error(data.error || "Could not load wishlist.");
-      }
+        if (!response.ok) {
+          throw new Error(data.error || "Could not load wishlist.");
+        }
 
-      if (!cancelled) {
-        setFavorites(
-          (data.items || []).map((product) => product.Gadget_ID)
-        );
-      }
-    } catch (error) {
-      if (!cancelled) {
-        setError(error.message);
-      }
-    } finally {
-      if (!cancelled) {
-        setWishlistLoading(false);
+        if (!cancelled) {
+          setFavorites((data.items || []).map((product) => product.Gadget_ID));
+        }
+      } catch (error) {
+        if (!cancelled) {
+          setError(error.message);
+        }
+      } finally {
+        if (!cancelled) {
+          setWishlistLoading(false);
+        }
       }
     }
-  }
 
-  loadWishlist();
+    loadWishlist();
 
-  return () => {
-    cancelled = true;
-  };
-}, [isLoaded, isSignedIn, user?.id]);
+    return () => {
+      cancelled = true;
+    };
+  }, [isLoaded, isSignedIn, user?.id]);
 
-useEffect(() => {
-  if (!isLoaded || !isSignedIn) {
-    setCartItems([]);
-    setCartCount(0);
-    setCartLoading(false);
-    return;
-  }
+  useEffect(() => {
+    if (!isLoaded || !isSignedIn) {
+      setCartItems([]);
+      setCartCount(0);
+      setCartLoading(false);
+      return;
+    }
 
-  let cancelled = false;
+    let cancelled = false;
 
-  async function loadCart() {
-    setCartLoading(true);
+    async function loadCart() {
+      setCartLoading(true);
 
-    try {
-      const response = await fetch("/api/cart", {
-        credentials: "include",
-      });
+      try {
+        const response = await fetch("/api/cart", {
+          credentials: "include",
+        });
 
-      const data = await response.json();
+        const data = await response.json();
 
-      if (!response.ok) {
-        throw new Error(data.error || "Could not load cart.");
-      }
+        if (!response.ok) {
+          throw new Error(data.error || "Could not load cart.");
+        }
 
-      if (!cancelled) {
-        const items = data.items || [];
-        setCartItems(items);
-        setCartCount(
-          items.reduce((total, item) => total + item.quantity, 0)
-        );
-      }
-    } catch (error) {
-      if (!cancelled) {
-        console.error("Could not load cart:", error);
-      }
-    } finally {
-      if (!cancelled) {
-        setCartLoading(false);
+        if (!cancelled) {
+          const items = data.items || [];
+          setCartItems(items);
+          setCartCount(items.reduce((total, item) => total + item.quantity, 0));
+        }
+      } catch (error) {
+        if (!cancelled) {
+          console.error("Could not load cart:", error);
+        }
+      } finally {
+        if (!cancelled) {
+          setCartLoading(false);
+        }
       }
     }
-  }
 
-  loadCart();
+    loadCart();
 
-  return () => {
-    cancelled = true;
-  };
-}, [isLoaded, isSignedIn, user?.id]);
+    return () => {
+      cancelled = true;
+    };
+  }, [isLoaded, isSignedIn, user?.id]);
 
-useEffect(() => {
-  if (!isLoaded || !isSignedIn || !isAdmin || !showUsers) {
-    return;
-  }
+  useEffect(() => {
+    if (!isLoaded || !isSignedIn || !isAdmin || !showUsers) {
+      return;
+    }
 
-  let cancelled = false;
+    let cancelled = false;
 
-  async function loadAdminUsers() {
-    setUsersLoading(true);
-    setUsersError("");
+    async function loadAdminUsers() {
+      setUsersLoading(true);
+      setUsersError("");
 
-    try {
-      const response = await fetch("/api/admin/users", {
-        credentials: "include",
-      });
+      try {
+        const response = await fetch("/api/admin/users", {
+          credentials: "include",
+        });
 
-      const data = await response.json();
+        const data = await response.json();
 
-      if (!response.ok) {
-        throw new Error(data.error || "Could not load users.");
-      }
+        if (!response.ok) {
+          throw new Error(data.error || "Could not load users.");
+        }
 
-      if (!cancelled) {
-        setAdminUsers(data.users || []);
-      }
-    } catch (error) {
-      if (!cancelled) {
-        setUsersError(error.message || "Could not load users.");
-      }
-    } finally {
-      if (!cancelled) {
-        setUsersLoading(false);
+        if (!cancelled) {
+          setAdminUsers(data.users || []);
+        }
+      } catch (error) {
+        if (!cancelled) {
+          setUsersError(error.message || "Could not load users.");
+        }
+      } finally {
+        if (!cancelled) {
+          setUsersLoading(false);
+        }
       }
     }
-  }
 
-  loadAdminUsers();
+    loadAdminUsers();
 
-  return () => {
-    cancelled = true;
-  };
-}, [isLoaded, isSignedIn, isAdmin, showUsers, user?.id]);
+    return () => {
+      cancelled = true;
+    };
+  }, [isLoaded, isSignedIn, isAdmin, showUsers, user?.id]);
+
+  useEffect(() => {
+    if (!isLoaded || !isSignedIn || !isAdmin || !showAdmin) {
+      return;
+    }
+
+    let cancelled = false;
+
+    async function loadOrderAnalytics() {
+      setAnalyticsLoading(true);
+      setAnalyticsError("");
+
+      try {
+        const response = await fetch("/api/admin/analytics", {
+          credentials: "include",
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.error || "Could not load order analytics.");
+        }
+
+        if (!cancelled) {
+          setOrderAnalytics({
+            totalOrders: data.totalOrders ?? 0,
+            orderStatuses: {
+              Pending: data.orderStatuses?.Pending ?? 0,
+              Processing: data.orderStatuses?.Processing ?? 0,
+              Shipped: data.orderStatuses?.Shipped ?? 0,
+              Delivered: data.orderStatuses?.Delivered ?? 0,
+              Cancelled: data.orderStatuses?.Cancelled ?? 0,
+            },
+          });
+        }
+      } catch (error) {
+        if (!cancelled) {
+          setAnalyticsError(error.message || "Could not load order analytics.");
+        }
+      } finally {
+        if (!cancelled) {
+          setAnalyticsLoading(false);
+        }
+      }
+    }
+
+    loadOrderAnalytics();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [isLoaded, isSignedIn, isAdmin, showAdmin]);
+
+  useEffect(() => {
+    if (
+      !isLoaded ||
+      !isSignedIn ||
+      !isAdmin ||
+      (!showOrders && !showAnalytics)
+    ) {
+      return;
+    }
+
+    let cancelled = false;
+
+    async function loadAdminOrders() {
+      setOrdersLoading(true);
+      setOrdersError("");
+
+      try {
+        const response = await fetch("/api/admin/orders");
+
+        if (!response.ok) {
+          const data = await response.json().catch(() => ({}));
+          throw new Error(data.error || "Could not load orders.");
+        }
+
+        const data = await response.json();
+
+        if (!cancelled) {
+          setAdminOrders(data.orders || []);
+        }
+      } catch (error) {
+        if (!cancelled) {
+          setOrdersError(error.message || "Could not load orders.");
+        }
+      } finally {
+        if (!cancelled) {
+          setOrdersLoading(false);
+        }
+      }
+    }
+
+    loadAdminOrders();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [isLoaded, isSignedIn, isAdmin, showOrders, showAnalytics, user?.id]);
+
+  // Load order history for the signed-in customer
+  useEffect(() => {
+    if (!isLoaded || !isSignedIn || !showOrderHistory) {
+      return;
+    }
+
+    let cancelled = false;
+
+    async function loadCustomerOrders() {
+      setCustomerOrdersLoading(true);
+      setCustomerOrdersError("");
+
+      try {
+        const response = await fetch("/api/orders", {
+          credentials: "include",
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.error || "Could not load order history.");
+        }
+
+        if (!cancelled) {
+          setCustomerOrders(data.orders || []);
+        }
+      } catch (error) {
+        if (!cancelled) {
+          setCustomerOrdersError(
+            error.message || "Could not load order history.",
+          );
+        }
+      } finally {
+        if (!cancelled) {
+          setCustomerOrdersLoading(false);
+        }
+      }
+    }
+
+    loadCustomerOrders();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [isLoaded, isSignedIn, showOrderHistory, user?.id]);
 
   const categories = useMemo(
     () => ["All", ...new Set(products.map((p) => p.Category).filter(Boolean))],
@@ -607,6 +1324,15 @@ useEffect(() => {
       );
   }, [products, search, category, minPrice, maxPrice, sort]);
 
+  const tradeoffPriorities = extractTradeoffPriorities(search);
+
+  const displayedProducts =
+    searchMode === "ai"
+      ? tradeoffMode
+        ? compareProductTradeoffs(aiResults, tradeoffWeights)
+        : aiResults
+      : filteredProducts;
+
   const featured = products.slice(0, 6);
   const displayedCategories = [
     "Mobile",
@@ -621,35 +1347,67 @@ useEffect(() => {
   const updateDraft = (key, value) =>
     setDraftProduct((d) => ({ ...d, [key]: value }));
 
-async function toggleFavorite(id) {
-  const alreadySaved = favorites.includes(id);
+  async function toggleFavorite(id) {
+    const alreadySaved = favorites.includes(id);
 
-  try {
-    const response = await fetch(
-      `/api/wishlist/${encodeURIComponent(id)}`,
-      {
+    try {
+      const response = await fetch(`/api/wishlist/${encodeURIComponent(id)}`, {
         method: alreadySaved ? "DELETE" : "POST",
         credentials: "include",
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Could not update wishlist.");
       }
-    );
 
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(data.error || "Could not update wishlist.");
+      setFavorites((previous) =>
+        alreadySaved
+          ? previous.filter((item) => item !== id)
+          : previous.includes(id)
+            ? previous
+            : [...previous, id],
+      );
+    } catch (error) {
+      setError(error.message);
     }
-
-    setFavorites((previous) =>
-      alreadySaved
-        ? previous.filter((item) => item !== id)
-        : previous.includes(id)
-          ? previous
-          : [...previous, id]
-    );
-  } catch (error) {
-    setError(error.message);
   }
-}
+
+  async function placeOrder() {
+    if (checkoutLoading) return;
+
+    setCheckoutLoading(true);
+    setOrderConfirmation(null);
+
+    try {
+      const response = await fetch("/api/orders", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({}),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Could not place order.");
+      }
+
+      setOrderConfirmation(data.order);
+      setCartItems([]);
+      setCartCount(0);
+      setShowCart(false);
+      alert("Order placed successfully!");
+    } catch (error) {
+      alert(error.message || "Could not place order.");
+    } finally {
+      setCheckoutLoading(false);
+    }
+  }
+
   return (
     <div className="app-shell">
       <header className="topbar">
@@ -657,8 +1415,13 @@ async function toggleFavorite(id) {
           className="brand-logo"
           href="#home"
           onClick={() => {
-            setSelectedProduct(null);
+            setShowOrderHistory(false);
+            setShowWishlist(false);
+            setShowCart(false);
             setShowAdmin(false);
+            setShowProfile(false);
+            setSelectedProduct(null);
+            setSelectedCategory(false);
           }}
         >
           <span className="brand-mark">S</span>
@@ -666,27 +1429,47 @@ async function toggleFavorite(id) {
             Shop<span>Sense</span>
           </span>
         </a>
-        <form
-          className="header-search"
-          onSubmit={(e) => {
-            e.preventDefault();
-            setSelectedProduct(null);
-            document
-              .getElementById("catalog")
-              ?.scrollIntoView({ behavior: "smooth" });
-          }}
-        >
-          <Icon name="search" size={16} />
-          <input
-            aria-label="Search products"
-            placeholder="Search for products, brands, or specifications..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-          <button aria-label="Submit search">
-            <Icon name="search" size={17} />
-          </button>
-        </form>
+
+        <div className="header-search-container">
+          <form
+            className="header-search"
+            onSubmit={(e) => {
+              e.preventDefault();
+
+              setShowOrderHistory(false);
+              setShowWishlist(false);
+              setShowCart(false);
+              setShowAdmin(false);
+              setShowProfile(false);
+              setSelectedProduct(null);
+
+              if (searchMode === "ai") {
+                runAISearch();
+              }
+
+              window.scrollTo({ top: 0, behavior: "smooth" });
+
+              setTimeout(() => {
+                document.getElementById("catalog")?.scrollIntoView({
+                  behavior: "smooth",
+                });
+              }, 100);
+            }}
+          >
+            <Icon name="search" size={16} />
+
+            <input
+              aria-label="Search products"
+              placeholder="Search for products, brands, or specifications..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+
+            <button type="submit" aria-label="Submit search">
+              <Icon name="search" size={17} />
+            </button>
+          </form>
+        </div>
 
         <nav className="main-nav">
           <button
@@ -695,6 +1478,7 @@ async function toggleFavorite(id) {
               setSelectedProduct(null);
               setShowCart(false);
               setShowAdmin(false);
+              setShowOrderHistory(false);
               window.scrollTo({ top: 0, behavior: "smooth" });
             }}
           >
@@ -722,8 +1506,10 @@ async function toggleFavorite(id) {
             onClick={() => {
               setShowWishlist(true);
               setSelectedProduct(null);
-              setShowAdmin(false);
               setShowProfile(false);
+              setShowOrderHistory(false);
+              setShowCart(false);
+              setShowAdmin(false);
               window.scrollTo({ top: 0, behavior: "smooth" });
             }}
           >
@@ -740,13 +1526,32 @@ async function toggleFavorite(id) {
               setSelectedProduct(null);
               setShowWishlist(false);
               setShowCart(true);
+              setShowOrderHistory(false);
             }}
           >
             <Icon name="cart" />
             Cart
-            {cartCount > 0 && (
-              <b className="nav-count">{cartCount}</b>
-            )}
+            {cartCount > 0 && <b className="nav-count">{cartCount}</b>}
+          </button>
+
+          <button
+            onClick={() => {
+              if (!isSignedIn) {
+                alert("Please sign in to view your orders.");
+                return;
+              }
+
+              setShowOrderHistory(true);
+              setShowCart(false);
+              setShowWishlist(false);
+              setSelectedProduct(null);
+              setShowAdmin(false);
+              setShowProfile(false);
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
+          >
+            <Icon name="package" />
+            My Orders
           </button>
         </nav>
 
@@ -798,10 +1603,21 @@ async function toggleFavorite(id) {
               <span className="brand-mark">S</span> ShopSense
             </div>
             <p>WORKSPACE</p>
-            <button className="selected">
+
+            <button
+              className={
+                !showOrders && !showUsers && !showAnalytics ? "selected" : ""
+              }
+              onClick={() => {
+                setShowOrders(false);
+                setShowUsers(false);
+                setShowAnalytics(false);
+              }}
+            >
               <Icon name="grid" />
               Dashboard
             </button>
+
             <button
               onClick={() => {
                 setShowAdmin(false);
@@ -814,20 +1630,40 @@ async function toggleFavorite(id) {
               Products
             </button>
             <button
-              onClick={() =>
-                alert("Order management is planned for a later feature update.")
-              }
+              className={showOrders ? "selected" : ""}
+              onClick={() => {
+                setShowOrders(true);
+                setShowUsers(false);
+              }}
             >
               <Icon name="cart" />
               Orders
             </button>
+
             <button
               className={showUsers ? "selected" : ""}
-              onClick={() => setShowUsers(true)}
+              onClick={() => {
+                setShowUsers(true);
+                setShowOrders(false);
+                setShowAnalytics(false);
+              }}
             >
               <Icon name="user" />
               Users
             </button>
+
+            <button
+              className={showAnalytics ? "selected" : ""}
+              onClick={() => {
+                setShowOrders(false);
+                setShowUsers(false);
+                setShowAnalytics(true);
+              }}
+            >
+              <Icon name="chart-no-axes-combined" />
+              Analytics
+            </button>
+
             <button onClick={() => setShowAdmin(false)}>
               <Icon name="home" />
               Storefront
@@ -839,9 +1675,155 @@ async function toggleFavorite(id) {
               ↪ Sign out
             </button>
           </aside>
-          
+
           <section className="admin-content">
-            {showUsers ? (
+            {showOrders ? (
+              <>
+                <div className="admin-title-row">
+                  <div>
+                    <p className="eyebrow">WORKSPACE</p>
+                    <h1>Orders Management</h1>
+                    <p>View customer orders and update their status.</p>
+                  </div>
+
+                  <button
+                    className="button-outline"
+                    onClick={() => setShowOrders(false)}
+                  >
+                    Back to Dashboard
+                  </button>
+                </div>
+
+                {ordersLoading ? (
+                  <p>Loading orders...</p>
+                ) : ordersError ? (
+                  <p className="error-message">{ordersError}</p>
+                ) : adminOrders.length === 0 ? (
+                  <div className="empty-state">
+                    <Icon name="cart" />
+                    <h3>No orders yet</h3>
+                    <p>Customer orders will appear here after checkout.</p>
+                  </div>
+                ) : (
+                  <div className="admin-table-wrapper">
+                    <table className="admin-table">
+                      <thead>
+                        <tr>
+                          <th>Order ID</th>
+                          <th>Customer</th>
+                          <th>Items</th>
+                          <th>Total</th>
+                          <th>Date</th>
+                          <th>Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {adminOrders.map((order) => (
+                          <tr key={order._id}>
+                            <td>
+                              #{String(order._id).slice(-8).toUpperCase()}
+                            </td>
+                            <td>
+                              <strong>
+                                {order.customerName || "Customer"}
+                              </strong>
+                              <br />
+                              <small>{order.customerEmail || "No email"}</small>
+                            </td>
+                            <td>
+                              {order.items?.reduce(
+                                (count, item) => count + item.quantity,
+                                0,
+                              ) || 0}
+                            </td>
+                            <td>
+                              {Number(order.totalINR || 0).toLocaleString(
+                                "en-IN",
+                                {
+                                  style: "currency",
+                                  currency: "INR",
+                                  maximumFractionDigits: 2,
+                                },
+                              )}
+                            </td>
+                            <td>
+                              {order.createdAt
+                                ? new Date(order.createdAt).toLocaleDateString(
+                                    "en-IN",
+                                  )
+                                : "—"}
+                            </td>
+
+                            <td>
+                              <div className="order-status-cell">
+                                <span
+                                  className={`order-status-badge ${(
+                                    order.status || "Pending"
+                                  ).toLowerCase()}`}
+                                >
+                                  {order.status || "Pending"}
+                                </span>
+
+                                <select
+                                  value={order.status || "Pending"}
+                                  onChange={async (event) => {
+                                    const newStatus = event.target.value;
+
+                                    try {
+                                      const response = await fetch(
+                                        `/api/admin/orders/${order._id}/status`,
+                                        {
+                                          method: "PATCH",
+                                          credentials: "include",
+                                          headers: {
+                                            "Content-Type": "application/json",
+                                          },
+                                          body: JSON.stringify({
+                                            status: newStatus,
+                                          }),
+                                        },
+                                      );
+
+                                      const data = await response.json();
+
+                                      if (!response.ok) {
+                                        throw new Error(
+                                          data.error ||
+                                            "Could not update order.",
+                                        );
+                                      }
+
+                                      setAdminOrders((previous) =>
+                                        previous.map((item) =>
+                                          item._id === order._id
+                                            ? { ...item, status: newStatus }
+                                            : item,
+                                        ),
+                                      );
+                                    } catch (error) {
+                                      alert(
+                                        error.message ||
+                                          "Could not update order.",
+                                      );
+                                    }
+                                  }}
+                                >
+                                  <option value="Pending">Pending</option>
+                                  <option value="Processing">Processing</option>
+                                  <option value="Shipped">Shipped</option>
+                                  <option value="Delivered">Delivered</option>
+                                  <option value="Cancelled">Cancelled</option>
+                                </select>
+                              </div>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+              </>
+            ) : showUsers ? (
               <>
                 <div className="admin-title-row">
                   <div>
@@ -876,7 +1858,11 @@ async function toggleFavorite(id) {
                     <div>
                       <small>Administrators</small>
                       <strong>
-                        {adminUsers.filter((account) => account.role === "admin").length}
+                        {
+                          adminUsers.filter(
+                            (account) => account.role === "admin",
+                          ).length
+                        }
                       </strong>
                     </div>
                   </div>
@@ -884,7 +1870,9 @@ async function toggleFavorite(id) {
 
                 {usersLoading ? (
                   <div className="admin-table-card">
-                    <p className="admin-users-message">Loading registered users...</p>
+                    <p className="admin-users-message">
+                      Loading registered users...
+                    </p>
                   </div>
                 ) : usersError ? (
                   <div className="admin-table-card">
@@ -905,7 +1893,7 @@ async function toggleFavorite(id) {
                       </div>
                       <span>{adminUsers.length} users</span>
                     </div>
-    
+
                     <div className="admin-product-filters">
                       <input
                         type="search"
@@ -945,6 +1933,7 @@ async function toggleFavorite(id) {
                             <th>Role</th>
                             <th>Joined</th>
                             <th>Last Sign-in</th>
+                            <th>Actions</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -958,33 +1947,53 @@ async function toggleFavorite(id) {
                               <td>
                                 <span
                                   className={`admin-role-badge ${
-                                    account.role === "admin" ? "admin" : "customer"
+                                    account.role === "admin"
+                                      ? "admin"
+                                      : "customer"
                                   }`}
                                 >
-                                  {account.role === "admin" ? "Admin" : "Customer"}
+                                  {account.role === "admin"
+                                    ? "Admin"
+                                    : "Customer"}
                                 </span>
                               </td>
                               <td>
                                 {account.createdAt
-                                  ? new Date(account.createdAt).toLocaleDateString()
+                                  ? new Date(
+                                      account.createdAt,
+                                    ).toLocaleDateString()
                                   : "—"}
                               </td>
                               <td>
                                 {account.lastSignInAt
-                                  ? new Date(account.lastSignInAt).toLocaleDateString()
+                                  ? new Date(
+                                      account.lastSignInAt,
+                                    ).toLocaleDateString()
                                   : "Never"}
+                              </td>
+                              <td>
+                                <button
+                                  type="button"
+                                  className="button-outline"
+                                  onClick={() => changeUserRole(account)}
+                                  disabled={account.id === user?.id}
+                                >
+                                  {account.role === "admin"
+                                    ? "Make Customer"
+                                    : "Make Admin"}
+                                </button>
                               </td>
                             </tr>
                           ))}
                           {visibleAdminUsers.length === 0 && (
                             <tr>
-                              <td colSpan={5}>No registered users found.</td>
+                              <td colSpan={6}>No registered users found.</td>
                             </tr>
                           )}
                         </tbody>
                       </table>
                     </div>
-                    
+
                     <div className="admin-pagination">
                       <span>
                         Page {userPage} of {userTotalPages}
@@ -1010,8 +2019,491 @@ async function toggleFavorite(id) {
                         </button>
                       </div>
                     </div>
-
                   </div>
+                )}
+              </>
+            ) : showAnalytics ? (
+              <>
+                <div className="admin-title-row">
+                  <div>
+                    <p className="eyebrow">WORKSPACE</p>
+                    <h1>Analytics Overview</h1>
+                    <p>Understand your store performance at a glance.</p>
+                  </div>
+
+                  <button
+                    className="button-outline"
+                    onClick={() => setShowAnalytics(false)}
+                  >
+                    Back to Dashboard
+                  </button>
+                </div>
+
+                <div className="stat-grid">
+                  <div className="stat-card">
+                    <span className="stat-icon blue">
+                      <Icon name="indian-rupee" />
+                    </span>
+                    <div>
+                      <small>Recorded Order Revenue</small>
+                      <strong>
+                        {formatPrice(
+                          adminOrders
+                            .filter((order) => order.status !== "Cancelled")
+                            .reduce(
+                              (sum, order) => sum + Number(order.totalINR || 0),
+                              0,
+                            ),
+                        )}
+                      </strong>
+                    </div>
+                  </div>
+
+                  <div className="stat-card">
+                    <span className="stat-icon green">
+                      <Icon name="shopping-bag" />
+                    </span>
+                    <div>
+                      <small>Total Orders</small>
+                      <strong>{adminOrders.length}</strong>
+                    </div>
+                  </div>
+
+                  <div className="stat-card">
+                    <span className="stat-icon purple">
+                      <Icon name="package" />
+                    </span>
+                    <div>
+                      <small>Products</small>
+                      <strong>{dashboardStats.totalProducts}</strong>
+                    </div>
+                  </div>
+
+                  <div className="stat-card">
+                    <span className="stat-icon orange">
+                      <Icon name="chart-no-axes-combined" />
+                    </span>
+                    <div>
+                      <small>Average Order Value</small>
+                      <strong>
+                        {formatPrice(
+                          (() => {
+                            const completedOrders = adminOrders.filter(
+                              (order) => order.status !== "Cancelled",
+                            );
+                            const revenue = completedOrders.reduce(
+                              (sum, order) => sum + Number(order.totalINR || 0),
+                              0,
+                            );
+                            return completedOrders.length
+                              ? revenue / completedOrders.length
+                              : 0;
+                          })(),
+                        )}
+                      </strong>
+                    </div>
+                  </div>
+                </div>
+
+                {analyticsLoading ? (
+                  <div className="admin-table-card">
+                    <p>Loading analytics...</p>
+                  </div>
+                ) : analyticsError ? (
+                  <div className="admin-table-card">
+                    <p className="error-message">{analyticsError}</p>
+                  </div>
+                ) : (
+                  <>
+                    <div className="admin-table-card analytics-sales-card">
+                      <div className="table-heading">
+                        <div>
+                          <h2>Sales Overview</h2>
+                          <p>Monthly order revenue for the last 6 months</p>
+                        </div>
+                        <span className="analytics-live-label">
+                          <span /> Based on order records
+                        </span>
+                      </div>
+
+                      {(() => {
+                        const now = new Date();
+                        const months = Array.from({ length: 6 }, (_, index) => {
+                          const date = new Date(
+                            now.getFullYear(),
+                            now.getMonth() - 5 + index,
+                            1,
+                          );
+
+                          return {
+                            key: `${date.getFullYear()}-${date.getMonth()}`,
+                            label: date.toLocaleDateString("en-IN", {
+                              month: "short",
+                            }),
+                            year: date.getFullYear(),
+                            month: date.getMonth(),
+                            revenue: 0,
+                            orders: 0,
+                          };
+                        });
+
+                        adminOrders.forEach((order) => {
+                          if (!order.createdAt || order.status === "Cancelled")
+                            return;
+
+                          const date = new Date(order.createdAt);
+                          if (Number.isNaN(date.getTime())) return;
+
+                          const month = months.find(
+                            (item) =>
+                              item.year === date.getFullYear() &&
+                              item.month === date.getMonth(),
+                          );
+
+                          if (month) {
+                            month.revenue += Number(order.totalINR || 0);
+                            month.orders += 1;
+                          }
+                        });
+
+                        const maxRevenue = Math.max(
+                          ...months.map((item) => item.revenue),
+                          1,
+                        );
+
+                        return (
+                          <>
+                            <div className="analytics-chart-summary">
+                              <div>
+                                <span>Total for displayed period</span>
+                                <strong>
+                                  {formatPrice(
+                                    months.reduce(
+                                      (sum, item) => sum + item.revenue,
+                                      0,
+                                    ),
+                                  )}
+                                </strong>
+                              </div>
+                              <div>
+                                <span>Orders in displayed period</span>
+                                <strong>
+                                  {months.reduce(
+                                    (sum, item) => sum + item.orders,
+                                    0,
+                                  )}
+                                </strong>
+                              </div>
+                            </div>
+
+                            <div
+                              className="analytics-monthly-chart"
+                              role="img"
+                              aria-label="Monthly revenue chart for the last six months"
+                            >
+                              {months.map((item) => (
+                                <div
+                                  className="analytics-month-column"
+                                  key={item.key}
+                                >
+                                  <span className="analytics-month-value">
+                                    {item.revenue > 0
+                                      ? `₹${item.revenue.toLocaleString("en-IN")}`
+                                      : "₹0"}
+                                  </span>
+
+                                  <div className="analytics-month-bar-area">
+                                    <div
+                                      className="analytics-month-bar"
+                                      style={{
+                                        height: `${Math.max(
+                                          item.revenue > 0 ? 4 : 0,
+                                          (item.revenue / maxRevenue) * 100,
+                                        )}%`,
+                                      }}
+                                      title={`${item.label}: ${formatPrice(item.revenue)} · ${item.orders} orders`}
+                                    />
+                                  </div>
+
+                                  <strong>{item.label}</strong>
+                                  <span className="analytics-month-orders">
+                                    {item.orders} orders
+                                  </span>
+                                </div>
+                              ))}
+                            </div>
+
+                            {months.every((item) => item.orders === 0) && (
+                              <p className="analytics-chart-empty">
+                                No non-cancelled orders were recorded in these
+                                six months.
+                              </p>
+                            )}
+                          </>
+                        );
+                      })()}
+                    </div>
+
+                    <div className="admin-analytics-grid">
+                      <div className="admin-table-card">
+                        <div className="table-heading">
+                          <div>
+                            <h2>Order Status</h2>
+                            <p>Distribution of recorded orders.</p>
+                          </div>
+                        </div>
+
+                        <div className="analytics-bars">
+                          {Object.entries(orderAnalytics.orderStatuses).map(
+                            ([status, count]) => {
+                              const total = Math.max(adminOrders.length, 1);
+                              const percentage = Math.min(
+                                100,
+                                (Number(count) / total) * 100,
+                              );
+
+                              return (
+                                <div
+                                  className="analytics-bar-item"
+                                  key={status}
+                                >
+                                  <div className="analytics-bar-label">
+                                    <span>{status}</span>
+                                    <strong>{count}</strong>
+                                  </div>
+                                  <div className="analytics-bar-track">
+                                    <div
+                                      className={`analytics-bar-fill status-${status.toLowerCase()}`}
+                                      style={{ width: `${percentage}%` }}
+                                    />
+                                  </div>
+                                </div>
+                              );
+                            },
+                          )}
+                        </div>
+                      </div>
+
+                      <div className="admin-table-card">
+                        <div className="table-heading">
+                          <div>
+                            <h2>Catalog Categories</h2>
+                            <p>Products in each category.</p>
+                          </div>
+                        </div>
+
+                        <div className="analytics-bars">
+                          {Object.entries(dashboardStats.categoryCounts)
+                            .sort((a, b) => b[1] - a[1])
+                            .map(([category, count]) => {
+                              const percentage = dashboardStats.totalProducts
+                                ? (count / dashboardStats.totalProducts) * 100
+                                : 0;
+
+                              return (
+                                <div
+                                  className="analytics-bar-item"
+                                  key={category}
+                                >
+                                  <div className="analytics-bar-label">
+                                    <span>{category}</span>
+                                    <strong>{count}</strong>
+                                  </div>
+                                  <div className="analytics-bar-track">
+                                    <div
+                                      className="analytics-bar-fill category-bar-fill"
+                                      style={{ width: `${percentage}%` }}
+                                    />
+                                  </div>
+                                  <small className="analytics-percentage">
+                                    {percentage.toFixed(1)}% of catalog
+                                  </small>
+                                </div>
+                              );
+                            })}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="admin-table-card analytics-recent-orders">
+                      <div className="table-heading">
+                        <div>
+                          <h2>Recent Orders</h2>
+                          <p>Latest orders available in the admin panel.</p>
+                        </div>
+                        <button
+                          className="button-outline"
+                          onClick={() => {
+                            setShowAnalytics(false);
+                            setShowOrders(true);
+                          }}
+                        >
+                          View All Orders
+                        </button>
+                      </div>
+
+                      <div className="table-scroll">
+                        <table className="products-table">
+                          <thead>
+                            <tr>
+                              <th>Order ID</th>
+                              <th>Date</th>
+                              <th>Total</th>
+                              <th>Status</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {[...adminOrders]
+                              .sort(
+                                (a, b) =>
+                                  new Date(b.createdAt || 0) -
+                                  new Date(a.createdAt || 0),
+                              )
+                              .slice(0, 5)
+                              .map((order) => (
+                                <tr key={order._id}>
+                                  <td>
+                                    #{String(order._id).slice(-8).toUpperCase()}
+                                  </td>
+                                  <td>
+                                    {order.createdAt
+                                      ? new Date(
+                                          order.createdAt,
+                                        ).toLocaleDateString("en-IN")
+                                      : "—"}
+                                  </td>
+                                  <td>{formatPrice(order.totalINR || 0)}</td>
+                                  <td>
+                                    <span
+                                      className={`order-status-badge ${(order.status || "Pending").toLowerCase()}`}
+                                    >
+                                      {order.status || "Pending"}
+                                    </span>
+                                  </td>
+                                </tr>
+                              ))}
+
+                            {adminOrders.length === 0 && (
+                              <tr>
+                                <td colSpan={4}>No orders available yet.</td>
+                              </tr>
+                            )}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+
+                    <div className="admin-table-card top-products-card">
+                      <div className="table-heading">
+                        <div>
+                          <h2>Top-Selling Products</h2>
+                          <p>
+                            Products ranked by units sold and recorded sales
+                            value.
+                          </p>
+                        </div>
+                        <Icon name="trending-up" size={22} />
+                      </div>
+
+                      {(() => {
+                        const productSales = new Map();
+
+                        adminOrders
+                          .filter((order) => order.status !== "Cancelled")
+                          .forEach((order) => {
+                            (order.items || []).forEach((item) => {
+                              const productId = String(item.productId || "");
+                              const name = item.modelName || "Product";
+                              const brand = item.brand || "";
+                              const quantity = Math.max(
+                                0,
+                                Number(item.quantity || 0),
+                              );
+                              const unitPrice = Number(item.priceINR || 0);
+                              const subtotal = Number(
+                                item.subtotalINR ?? unitPrice * quantity,
+                              );
+
+                              if (!productId || quantity <= 0) return;
+
+                              const existing = productSales.get(productId) || {
+                                key: productId,
+                                name,
+                                brand,
+                                unitsSold: 0,
+                                salesValue: 0,
+                              };
+
+                              existing.unitsSold += quantity;
+                              existing.salesValue += subtotal;
+                              productSales.set(productId, existing);
+                            });
+                          });
+
+                        const topProducts = [...productSales.values()]
+                          .sort((a, b) => b.unitsSold - a.unitsSold)
+                          .slice(0, 5);
+
+                        const maxUnits = Math.max(
+                          ...topProducts.map((product) => product.unitsSold),
+                          1,
+                        );
+
+                        return topProducts.length > 0 ? (
+                          <div className="top-products-list">
+                            {topProducts.map((product, index) => (
+                              <div
+                                className="top-product-row"
+                                key={product.key}
+                              >
+                                <span
+                                  className={`top-product-rank rank-${index + 1}`}
+                                >
+                                  {index + 1}
+                                </span>
+
+                                <div className="top-product-info">
+                                  <div className="top-product-heading">
+                                    <div>
+                                      <strong>{product.name}</strong>
+                                      <span>
+                                        {product.brand || "ShopSense product"}
+                                      </span>
+                                    </div>
+
+                                    <div className="top-product-metrics">
+                                      <strong>{product.unitsSold} units</strong>
+                                      <span>
+                                        {formatPrice(product.salesValue)}
+                                      </span>
+                                    </div>
+                                  </div>
+
+                                  <div className="analytics-bar-track">
+                                    <div
+                                      className="analytics-bar-fill top-product-bar"
+                                      style={{
+                                        width: `${(product.unitsSold / maxUnits) * 100}%`,
+                                      }}
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        ) : (
+                          <div className="top-products-empty">
+                            <Icon name="package" size={28} />
+                            <strong>No product sales yet</strong>
+                            <p>
+                              Top-selling products will appear after orders
+                              contain identifiable product names and quantities.
+                            </p>
+                          </div>
+                        );
+                      })()}
+                    </div>
+                  </>
                 )}
               </>
             ) : (
@@ -1022,216 +2514,263 @@ async function toggleFavorite(id) {
                     <h1>Dashboard</h1>
                     <p>Manage your ShopSense product catalog.</p>
                   </div>
-              <button className="button-primary" onClick={startAddProduct}>
-                <Icon name="plus" /> Add Product
-              </button>
-            </div>
-            <div className="stat-grid">
-              <div className="stat-card">
-                <span className="stat-icon blue">
-                  <Icon name="package" />
-                </span>
-                <div>
-                  <small>Total Products</small>
-                  <strong>{dashboardStats.totalProducts}</strong>
-                </div>
-              </div>
-              <div className="stat-card">
-                <span className="stat-icon green">
-                  <Icon name="grid" />
-                </span>
-                <div>
-                  <small>Categories</small>
-                  <strong>{dashboardStats.totalCategories}</strong>
-                </div>
-              </div>
-              <div className="stat-card">
-                <span className="stat-icon orange">
-                  <Icon name="indian-rupee" />
-                </span>
-                <div>
-                  <small>Average Product Price</small>
-                  <strong>
-                    {formatPrice(dashboardStats.averagePrice)}
-                  </strong>
-                </div>
-              </div>
-              <div className="stat-card">
-                <span className="stat-icon purple">
-                  <Icon name="user" />
-                </span>
-                <div>
-                  <small>Account Role</small>
-                  <strong>Admin</strong>
-                </div>
-              </div>
-              <div className="stat-card">
-                <span className="stat-icon orange">
-                  <Icon name="shield" />
-                </span>
-                <div>
-                  <small>API Status</small>
-                  <strong>Connected</strong>
-                </div>
-              </div>
-            </div>
-            <div className="admin-table-card">
-              <div className="table-heading">
-                <div>
-                  <h2>Product management</h2>
-                  <p>Add, update or remove catalog items.</p>
-                </div>
-                <span>{products.length} products</span>
-              </div>
-              <div className="admin-product-filters">
-                <input
-                  type="search"
-                  placeholder="Search by product, brand or ID..."
-                  value={adminSearch}
-                  onChange={(event) => {
-                    setAdminSearch(event.target.value);
-                    setAdminPage(1);
-                  }}
-                  aria-label="Search admin products"
-                />
-
-                <select
-                  value={adminCategory}
-                  onChange={(event) => {
-                    setAdminCategory(event.target.value);
-                    setAdminPage(1);
-                  }}
-                  aria-label="Filter products by category"
-                >
-                  <option value="All">All categories</option>
-                  {[...new Set(products.map((product) => product.Category).filter(Boolean))]
-                    .sort()
-                    .map((category) => (
-                      <option key={category} value={category}>
-                        {category}
-                      </option>
-                    ))}
-                </select>
-
-                <span className="admin-result-count">
-                  {adminFilteredProducts.length} products found
-                </span>
-              </div>
-              <div className="table-scroll">
-                <table className="products-table">
-                  <thead>
-                    <tr>
-                      <th>Product</th>
-                      <th>Category</th>
-                      <th>Brand</th>
-                      <th>Price (INR)</th>
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {adminVisibleProducts.map((p) => (
-                      <tr key={p.Gadget_ID}>
-                        <td>
-                          <div className="table-product">
-                            <img
-                              src={safeImage(p.Category)}
-                              onError={(e) => {
-                                e.currentTarget.src = imageByCategory.default;
-                              }}
-                              alt=""
-                            />
-                            <span>{p.Model_Name || "Unnamed product"}</span>
-                          </div>
-                        </td>
-                        <td>{p.Category}</td>
-                        <td>{p.Brand}</td>
-                        <td>{formatPrice(p.Price_INR)}</td>
-                        <td>
-                          <div className="table-actions">
-                            <button
-                              aria-label="Edit product"
-                              onClick={() => startEditProduct(p)}
-                            >
-                              <Icon name="edit" size={16} />
-                            </button>
-                            <button
-                              aria-label="Delete product"
-                              className="delete-action"
-                              onClick={() => deleteProduct(p)}
-                            >
-                              <Icon name="trash" size={16} />
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-              <div className="admin-pagination">
-                <span>
-                  Page {adminPage} of {adminTotalPages}
-                </span>
-
-                <div>
-                  <button
-                    type="button"
-                    className="button-outline"
-                    disabled={adminPage <= 1}
-                    onClick={() => setAdminPage((page) => page - 1)}
-                  >
-                    Previous
-                  </button>
-
-                  <button
-                    type="button"
-                    className="button-outline"
-                    disabled={adminPage >= adminTotalPages}
-                    onClick={() => setAdminPage((page) => page + 1)}
-                  >
-                    Next
+                  <button className="button-primary" onClick={startAddProduct}>
+                    <Icon name="plus" /> Add Product
                   </button>
                 </div>
-              </div>
-            </div>  
-            <div className="admin-table-card category-overview">
-              <div className="table-heading">
-                <div>
-                  <h2>Catalog by Category</h2>
-                  <p>Product distribution across your catalog.</p>
+                <div className="stat-grid">
+                  <div className="stat-card">
+                    <span className="stat-icon blue">
+                      <Icon name="package" />
+                    </span>
+                    <div>
+                      <small>Total Products</small>
+                      <strong>{dashboardStats.totalProducts}</strong>
+                    </div>
+                  </div>
+                  <div className="stat-card">
+                    <span className="stat-icon green">
+                      <Icon name="grid" />
+                    </span>
+                    <div>
+                      <small>Categories</small>
+                      <strong>{dashboardStats.totalCategories}</strong>
+                    </div>
+                  </div>
+
+                  <div className="stat-card">
+                    <span className="stat-icon purple">
+                      <Icon name="shopping-bag" />
+                    </span>
+                    <div>
+                      <small>Total Orders</small>
+                      <strong>
+                        {analyticsLoading ? "..." : orderAnalytics.totalOrders}
+                      </strong>
+                    </div>
+                  </div>
+
+                  <div className="stat-card">
+                    <span className="stat-icon orange">
+                      <Icon name="indian-rupee" />
+                    </span>
+                    <div>
+                      <small>Average Product Price</small>
+                      <strong>
+                        {formatPrice(dashboardStats.averagePrice)}
+                      </strong>
+                    </div>
+                  </div>
+                  <div className="stat-card">
+                    <span className="stat-icon purple">
+                      <Icon name="user" />
+                    </span>
+                    <div>
+                      <small>Account Role</small>
+                      <strong>Admin</strong>
+                    </div>
+                  </div>
+                  <div className="stat-card">
+                    <span className="stat-icon orange">
+                      <Icon name="shield" />
+                    </span>
+                    <div>
+                      <small>API Status</small>
+                      <strong>Connected</strong>
+                    </div>
+                  </div>
                 </div>
-              </div>
 
-              <div className="category-stats-list">
-                {Object.entries(dashboardStats.categoryCounts)
-                  .sort((a, b) => b[1] - a[1])
-                  .map(([category, count]) => {
-                    const percentage =
-                      dashboardStats.totalProducts > 0
-                        ? (count / dashboardStats.totalProducts) * 100
-                        : 0;
+                <div className="order-analytics">
+                  <h3>Order Status Summary</h3>
 
-                    return (
-                      <div className="category-stat" key={category}>
-                        <div className="category-stat-heading">
-                          <span>{category}</span>
-                          <span>
-                            {count} products · {percentage.toFixed(1)}%
-                          </span>
-                        </div>
+                  {analyticsError && (
+                    <p className="error-message">{analyticsError}</p>
+                  )}
 
-                        <div className="category-stat-track">
+                  {analyticsLoading ? (
+                    <p>Loading order analytics...</p>
+                  ) : (
+                    <div className="order-status-grid">
+                      {Object.entries(orderAnalytics.orderStatuses).map(
+                        ([status, count]) => (
                           <div
-                            className="category-stat-fill"
-                            style={{ width: `${percentage}%` }}
-                          />
-                        </div>
-                      </div>
-                    );
-                  })}
-              </div>
-            </div>
-            </>
+                            className={`order-status-card status-${status.toLowerCase()}`}
+                            key={status}
+                          >
+                            <span>{status}</span>
+                            <strong>{count}</strong>
+                          </div>
+                        ),
+                      )}
+                    </div>
+                  )}
+                </div>
+
+                <div className="admin-table-card">
+                  <div className="table-heading">
+                    <div>
+                      <h2>Product management</h2>
+                      <p>Add, update or remove catalog items.</p>
+                    </div>
+                    <span>{products.length} products</span>
+                  </div>
+                  <div className="admin-product-filters">
+                    <input
+                      type="search"
+                      placeholder="Search by product, brand or ID..."
+                      value={adminSearch}
+                      onChange={(event) => {
+                        setAdminSearch(event.target.value);
+                        setAdminPage(1);
+                      }}
+                      aria-label="Search admin products"
+                    />
+
+                    <select
+                      value={adminCategory}
+                      onChange={(event) => {
+                        setAdminCategory(event.target.value);
+                        setAdminPage(1);
+                      }}
+                      aria-label="Filter products by category"
+                    >
+                      <option value="All">All categories</option>
+                      {[
+                        ...new Set(
+                          products
+                            .map((product) => product.Category)
+                            .filter(Boolean),
+                        ),
+                      ]
+                        .sort()
+                        .map((category) => (
+                          <option key={category} value={category}>
+                            {category}
+                          </option>
+                        ))}
+                    </select>
+
+                    <span className="admin-result-count">
+                      {adminFilteredProducts.length} products found
+                    </span>
+                  </div>
+                  <div className="table-scroll">
+                    <table className="products-table">
+                      <thead>
+                        <tr>
+                          <th>Product</th>
+                          <th>Category</th>
+                          <th>Brand</th>
+                          <th>Price (INR)</th>
+                          <th>Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {adminVisibleProducts.map((p) => (
+                          <tr key={p.Gadget_ID}>
+                            <td>
+                              <div className="table-product">
+                                <img
+                                  src={safeImage(p.Category)}
+                                  onError={(e) => {
+                                    e.currentTarget.src =
+                                      imageByCategory.default;
+                                  }}
+                                  alt=""
+                                />
+                                <span>{p.Model_Name || "Unnamed product"}</span>
+                              </div>
+                            </td>
+                            <td>{p.Category}</td>
+                            <td>{p.Brand}</td>
+                            <td>{formatPrice(p.Price_INR)}</td>
+                            <td>
+                              <div className="table-actions">
+                                <button
+                                  aria-label="Edit product"
+                                  onClick={() => startEditProduct(p)}
+                                >
+                                  <Icon name="edit" size={16} />
+                                </button>
+                                <button
+                                  aria-label="Delete product"
+                                  className="delete-action"
+                                  onClick={() => deleteProduct(p)}
+                                >
+                                  <Icon name="trash" size={16} />
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                  <div className="admin-pagination">
+                    <span>
+                      Page {adminPage} of {adminTotalPages}
+                    </span>
+
+                    <div>
+                      <button
+                        type="button"
+                        className="button-outline"
+                        disabled={adminPage <= 1}
+                        onClick={() => setAdminPage((page) => page - 1)}
+                      >
+                        Previous
+                      </button>
+
+                      <button
+                        type="button"
+                        className="button-outline"
+                        disabled={adminPage >= adminTotalPages}
+                        onClick={() => setAdminPage((page) => page + 1)}
+                      >
+                        Next
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div className="admin-table-card category-overview">
+                  <div className="table-heading">
+                    <div>
+                      <h2>Catalog by Category</h2>
+                      <p>Product distribution across your catalog.</p>
+                    </div>
+                  </div>
+
+                  <div className="category-stats-list">
+                    {Object.entries(dashboardStats.categoryCounts)
+                      .sort((a, b) => b[1] - a[1])
+                      .map(([category, count]) => {
+                        const percentage =
+                          dashboardStats.totalProducts > 0
+                            ? (count / dashboardStats.totalProducts) * 100
+                            : 0;
+
+                        return (
+                          <div className="category-stat" key={category}>
+                            <div className="category-stat-heading">
+                              <span>{category}</span>
+                              <span>
+                                {count} products · {percentage.toFixed(1)}%
+                              </span>
+                            </div>
+
+                            <div className="category-stat-track">
+                              <div
+                                className="category-stat-fill"
+                                style={{ width: `${percentage}%` }}
+                              />
+                            </div>
+                          </div>
+                        );
+                      })}
+                  </div>
+                </div>
+              </>
             )}
           </section>
         </main>
@@ -1286,6 +2825,98 @@ async function toggleFavorite(id) {
             </div>
           )}
         </main>
+      ) : showOrderHistory ? (
+        <main className="cart-page">
+          <div className="cart-heading">
+            <div>
+              <p className="eyebrow">YOUR ACCOUNT</p>
+              <h1>My Orders</h1>
+              <p>View your purchases and order status.</p>
+            </div>
+
+            <button
+              className="button-outline"
+              onClick={() => setShowOrderHistory(false)}
+            >
+              Continue Shopping
+            </button>
+          </div>
+
+          {customerOrdersLoading ? (
+            <p>Loading your orders...</p>
+          ) : customerOrdersError ? (
+            <div className="cart-empty">
+              <h2>Couldn't load your orders</h2>
+              <p>{customerOrdersError}</p>
+              <button
+                className="button-primary"
+                onClick={() => {
+                  setShowOrderHistory(false);
+                  setShowOrderHistory(true);
+                }}
+              >
+                Try Again
+              </button>
+            </div>
+          ) : customerOrders.length === 0 ? (
+            <div className="cart-empty">
+              <Icon name="package" size={40} />
+              <h2>No orders yet</h2>
+              <p>Your orders will appear here after you place an order.</p>
+              <button
+                className="button-primary"
+                onClick={() => setShowOrderHistory(false)}
+              >
+                Explore Products
+              </button>
+            </div>
+          ) : (
+            <div className="order-history-list">
+              {customerOrders.map((order) => (
+                <article className="order-history-card" key={order._id}>
+                  <div className="order-history-details">
+                    <div className="order-history-card-heading">
+                      <h3>
+                        Order #{String(order._id).slice(-8).toUpperCase()}
+                      </h3>
+                      <span className="order-history-date">
+                        Placed{" "}
+                        {order.createdAt
+                          ? new Date(order.createdAt).toLocaleDateString(
+                              "en-IN",
+                            )
+                          : "—"}
+                      </span>
+                    </div>
+
+                    <div className="order-history-products">
+                      {order.items?.map((item, index) => (
+                        <p key={`${item.productId}-${index}`}>
+                          {item.brand} {item.modelName} × {item.quantity}
+                        </p>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="order-history-summary">
+                    <span className="order-history-total-label">
+                      Order total
+                    </span>
+                    <strong className="order-history-total">
+                      ₹{Number(order.totalINR || 0).toLocaleString("en-IN")}
+                    </strong>
+
+                    <span
+                      className={`order-status-badge ${(order.status || "Pending").toLowerCase()}`}
+                    >
+                      {order.status || "Pending"}
+                    </span>
+                  </div>
+                </article>
+              ))}
+            </div>
+          )}
+        </main>
       ) : showCart ? (
         <main className="cart-page">
           <div className="cart-heading">
@@ -1329,7 +2960,8 @@ async function toggleFavorite(id) {
                       <p>{product.Category}</p>
                       <p>Quantity: {quantity}</p>
                       <strong>
-                        ₹{(
+                        ₹
+                        {(
                           Number(product.Price_INR || 0) * quantity
                         ).toLocaleString("en-IN")}
                       </strong>
@@ -1344,14 +2976,14 @@ async function toggleFavorite(id) {
                             {
                               method: "DELETE",
                               credentials: "include",
-                            }
+                            },
                           );
 
                           const data = await response.json();
 
                           if (!response.ok) {
                             throw new Error(
-                              data.error || "Could not remove product."
+                              data.error || "Could not remove product.",
                             );
                           }
 
@@ -1362,7 +2994,7 @@ async function toggleFavorite(id) {
 
                           if (!cartResponse.ok) {
                             throw new Error(
-                              cartData.error || "Could not refresh cart."
+                              cartData.error || "Could not refresh cart.",
                             );
                           }
 
@@ -1371,8 +3003,8 @@ async function toggleFavorite(id) {
                           setCartCount(
                             items.reduce(
                               (total, item) => total + item.quantity,
-                              0
-                            )
+                              0,
+                            ),
                           );
                         } catch (error) {
                           alert(error.message || "Could not remove product.");
@@ -1390,20 +3022,46 @@ async function toggleFavorite(id) {
                 <p>
                   Subtotal:{" "}
                   <strong>
-                    ₹{cartItems
+                    ₹
+                    {cartItems
                       .reduce(
                         (total, item) =>
                           total +
-                          Number(item.product.Price_INR || 0) *
-                            item.quantity,
-                        0
+                          Number(item.product.Price_INR || 0) * item.quantity,
+                        0,
                       )
                       .toLocaleString("en-IN")}
                   </strong>
                 </p>
+
                 <p className="cart-note">
-                  Taxes, shipping and checkout can be added later.
+                  Shipping and payment processing are not integrated yet.
                 </p>
+
+                <button
+                  className="button-primary"
+                  onClick={placeOrder}
+                  disabled={checkoutLoading || cartItems.length === 0}
+                >
+                  {checkoutLoading ? "Placing Order..." : "Place Order"}
+                </button>
+
+                {orderConfirmation && (
+                  <div className="order-confirmation">
+                    <h3>Order placed successfully!</h3>
+                    <p>
+                      Order ID:{" "}
+                      {String(orderConfirmation._id).slice(-8).toUpperCase()}
+                    </p>
+                    <p>
+                      Total: ₹
+                      {Number(orderConfirmation.totalINR || 0).toLocaleString(
+                        "en-IN",
+                      )}
+                    </p>
+                    <p>Status: {orderConfirmation.status}</p>
+                  </div>
+                )}
               </div>
             </>
           )}
@@ -1462,8 +3120,8 @@ async function toggleFavorite(id) {
                         ?.scrollIntoView({ behavior: "smooth" });
                     }}
                   >
-                    <span className="category-tile-icon">
-                      {categoryIcon(c)}
+                    <span className="category-tile-icon" aria-hidden="true">
+                      <Icon name={categoryIcon(c)} size={25} />
                     </span>
                     <span>
                       {c === "Mobile"
@@ -1507,6 +3165,7 @@ async function toggleFavorite(id) {
                       isAdmin={isAdmin}
                       onEdit={startEditProduct}
                       onDelete={deleteProduct}
+                      onFindAlternatives={findAlternatives}
                     />
                   ))}
                 </div>
@@ -1608,7 +3267,7 @@ async function toggleFavorite(id) {
                         ? "Saved"
                         : "Wishlist"}
                     </button>
-                    
+
                     <button
                       className="button-primary"
                       onClick={async () => {
@@ -1623,13 +3282,15 @@ async function toggleFavorite(id) {
                             {
                               method: "POST",
                               credentials: "include",
-                            }
+                            },
                           );
 
                           const data = await response.json();
 
                           if (!response.ok) {
-                            throw new Error(data.error || "Could not add product to cart.");
+                            throw new Error(
+                              data.error || "Could not add product to cart.",
+                            );
                           }
 
                           const cartResponse = await fetch("/api/cart", {
@@ -1638,24 +3299,30 @@ async function toggleFavorite(id) {
                           const cartData = await cartResponse.json();
 
                           if (!cartResponse.ok) {
-                            throw new Error(cartData.error || "Could not refresh cart.");
+                            throw new Error(
+                              cartData.error || "Could not refresh cart.",
+                            );
                           }
 
                           const items = cartData.items || [];
                           setCartItems(items);
                           setCartCount(
-                            items.reduce((total, item) => total + item.quantity, 0)
+                            items.reduce(
+                              (total, item) => total + item.quantity,
+                              0,
+                            ),
                           );
 
                           alert("Product added to your cart!");
                         } catch (error) {
-                          alert(error.message || "Could not add product to cart.");
+                          alert(
+                            error.message || "Could not add product to cart.",
+                          );
                         }
                       }}
                     >
                       <Icon name="cart" /> Add to Cart
                     </button>
-
                   </div>
                   <div className="service-list">
                     <p>
@@ -1712,6 +3379,150 @@ async function toggleFavorite(id) {
 
           {!selectedProduct && (
             <section className="catalog-section" id="catalog">
+              <div className="search-mode-controls">
+                <button
+                  type="button"
+                  className={
+                    searchMode === "keyword"
+                      ? "search-mode-button active"
+                      : "search-mode-button"
+                  }
+                  onClick={() => {
+                    setSearchMode("keyword");
+                    setAiError("");
+                  }}
+                >
+                  Keyword Search
+                </button>
+
+                <button
+                  type="button"
+                  className={
+                    searchMode === "ai"
+                      ? "search-mode-button active"
+                      : "search-mode-button"
+                  }
+                  onClick={() => {
+                    setSearchMode("ai");
+                    setAiError("");
+                  }}
+                >
+                  AI Search
+                </button>
+
+                {searchMode === "ai" && (
+                  <button
+                    type="button"
+                    className={
+                      tradeoffMode
+                        ? "search-mode-button active"
+                        : "search-mode-button"
+                    }
+                    onClick={() => {
+                      setTradeoffMode((current) => !current);
+                    }}
+                  >
+                    {tradeoffMode
+                      ? "Turn Off Trade-off Explorer"
+                      : "Explore Product Trade-offs"}
+                  </button>
+                )}
+
+                {searchMode === "ai" && (
+                  <button
+                    type="button"
+                    className="search-mode-button"
+                    onClick={() => {
+                      setSearchMode("keyword");
+                      setAiResults([]);
+                      setAiError("");
+                    }}
+                  >
+                    Return to Keyword Results
+                  </button>
+                )}
+              </div>
+
+              {searchMode === "ai" && tradeoffMode && (
+                <p className="tradeoff-summary">
+                  Comparing by:{" "}
+                  {tradeoffPriorities.length > 0
+                    ? tradeoffPriorities.join(", ")
+                    : "price (default)"}
+                </p>
+              )}
+
+              {searchMode === "ai" && tradeoffMode && (
+                <div className="tradeoff-panel">
+                  <h3>Customize Your Priorities</h3>
+                  <p>Choose what matters most when comparing products.</p>
+
+                  {[
+                    {
+                      key: "price",
+                      label: "Price",
+                      low: "Less important",
+                      high: "Most important",
+                    },
+                    {
+                      key: "durability",
+                      label: "Durability",
+                      low: "Less important",
+                      high: "Most important",
+                    },
+                    {
+                      key: "performance",
+                      label: "Performance",
+                      low: "Less important",
+                      high: "Most important",
+                    },
+                    {
+                      key: "battery",
+                      label: "Battery life",
+                      low: "Less important",
+                      high: "Most important",
+                    },
+                    {
+                      key: "portability",
+                      label: "Portability",
+                      low: "Less important",
+                      high: "Most important",
+                    },
+                  ].map((priority) => (
+                    <div className="tradeoff-slider" key={priority.key}>
+                      <div className="tradeoff-slider-heading">
+                        <label htmlFor={`tradeoff-${priority.key}`}>
+                          {priority.label}
+                        </label>
+                        <span>{tradeoffWeights[priority.key]}%</span>
+                      </div>
+
+                      <input
+                        id={`tradeoff-${priority.key}`}
+                        type="range"
+                        min="0"
+                        max="100"
+                        step="10"
+                        value={tradeoffWeights[priority.key]}
+                        onChange={(event) => {
+                          const value = Number(event.target.value);
+
+                          setTradeoffWeights((current) => ({
+                            ...current,
+                            [priority.key]: value,
+                          }));
+                        }}
+                      />
+
+                      <div className="tradeoff-slider-labels">
+                        <span>{priority.low}</span>
+                        <span>{priority.high}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
               <div className="section-title-row catalog-title-row">
                 <div>
                   <p className="eyebrow">THE SHOPPINGS DESTINATION</p>
@@ -1721,7 +3532,7 @@ async function toggleFavorite(id) {
                   </p>
                 </div>
                 <span className="result-count">
-                  {filteredProducts.length} products
+                  {displayedProducts.length} products
                 </span>
               </div>
               <div className="catalog-toolbar">
@@ -1786,9 +3597,7 @@ async function toggleFavorite(id) {
                       <small>Add, edit and remove catalog products.</small>
                     </div>
                   </div>
-                  <button className="button-primary" 
-                    onClick={startAddProduct}
-                  >
+                  <button className="button-primary" onClick={startAddProduct}>
                     <Icon name="plus" /> Add Product
                   </button>
                   <button
@@ -1799,19 +3608,263 @@ async function toggleFavorite(id) {
                   </button>
                 </div>
               )}
+
+              {searchMode === "ai" &&
+                tradeoffMode &&
+                displayedProducts.length >= 2 && (
+                  <div className="tradeoff-comparison">
+                    <div className="tradeoff-comparison-heading">
+                      <h3>
+                        <span className="tradeoff-heading-icon">✦</span>
+                        Why These Products?
+                      </h3>
+                      <p>
+                        Compare the best matches, their strengths and their
+                        trade-offs.
+                      </p>
+                    </div>
+
+                    <div className="tradeoff-comparison-grid">
+                      {displayedProducts.slice(0, 3).map((product, index) => {
+                        const alternative = displayedProducts.find(
+                          (item) => item.Gadget_ID !== product.Gadget_ID,
+                        );
+
+                        if (!alternative) return null;
+
+                        const explanation = explainProductTradeoff(
+                          product,
+                          alternative,
+                        );
+
+                        // Use the image field available in the product data.
+                        const productImage =
+                          product.Image_URL ||
+                          product.Image_Url ||
+                          product.imageUrl ||
+                          product.image ||
+                          product.image_url ||
+                          "";
+
+                        return (
+                          <div
+                            className="tradeoff-comparison-card"
+                            key={product.Gadget_ID}
+                          >
+                            <div className="tradeoff-product-info">
+                              <div className="tradeoff-product-visual">
+                                <span className="tradeoff-rank">
+                                  {index + 1}
+                                </span>
+
+                                {productImage ? (
+                                  <img
+                                    className="tradeoff-product-image"
+                                    src={productImage}
+                                    alt={`${product.Brand} ${product.Model_Name}`}
+                                    onError={(event) => {
+                                      event.currentTarget.style.display =
+                                        "none";
+                                    }}
+                                  />
+                                ) : (
+                                  <div className="tradeoff-image-placeholder">
+                                    <span>▱</span>
+                                    <small>No image</small>
+                                  </div>
+                                )}
+
+                                <div className="tradeoff-match">
+                                  <div className="tradeoff-match-label">
+                                    Match score
+                                    <strong>{product.tradeoffScore}/100</strong>
+                                  </div>
+                                  <div className="tradeoff-score-track">
+                                    <div
+                                      className="tradeoff-score-fill"
+                                      style={{
+                                        width: `${Math.max(
+                                          0,
+                                          Math.min(
+                                            100,
+                                            product.tradeoffScore || 0,
+                                          ),
+                                        )}%`,
+                                      }}
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div className="tradeoff-product-details">
+                                <h4>
+                                  {product.Brand} {product.Model_Name}
+                                </h4>
+                                <p className="tradeoff-comparison-price">
+                                  ₹
+                                  {Number(product.Price_INR).toLocaleString(
+                                    "en-IN",
+                                  )}
+                                </p>
+                                <p className="tradeoff-compared-with">
+                                  Compared with {alternative.Brand}{" "}
+                                  {alternative.Model_Name}
+                                </p>
+                              </div>
+                            </div>
+
+                            <div className="tradeoff-detail-panel tradeoff-advantages">
+                              <h5>
+                                <span className="tradeoff-panel-icon">✓</span>
+                                Advantages
+                              </h5>
+
+                              {explanation.gains.length > 0 ? (
+                                <ul>
+                                  {explanation.gains.map((gain, i) => (
+                                    <li key={i}>{gain}</li>
+                                  ))}
+                                </ul>
+                              ) : (
+                                <p className="tradeoff-empty">
+                                  No clear advantage identified.
+                                </p>
+                              )}
+                            </div>
+
+                            <div className="tradeoff-detail-panel tradeoff-disadvantages">
+                              <h5>
+                                <span className="tradeoff-panel-icon">×</span>
+                                Trade-offs
+                              </h5>
+
+                              {explanation.losses.length > 0 ? (
+                                <ul>
+                                  {explanation.losses.map((loss, i) => (
+                                    <li key={i}>{loss}</li>
+                                  ))}
+                                </ul>
+                              ) : (
+                                <p className="tradeoff-empty">
+                                  No clear disadvantage identified.
+                                </p>
+                              )}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+
+              {alternativeProduct && (
+                <section className="alternatives-panel">
+                  <div className="alternatives-panel-heading">
+                    <div>
+                      <h3>
+                        Alternatives to {alternativeProduct.Brand}{" "}
+                        {alternativeProduct.Model_Name}
+                      </h3>
+                      <p>Similar products from your ShopSense catalog</p>
+                    </div>
+
+                    <button
+                      type="button"
+                      className="alternatives-close"
+                      onClick={() => {
+                        setAlternativeProduct(null);
+                        setAlternativeResults([]);
+                        setAlternativeError("");
+                      }}
+                      aria-label="Close alternatives"
+                    >
+                      ×
+                    </button>
+                  </div>
+
+                  {alternativeLoading && (
+                    <p className="alternatives-status">
+                      Finding similar products…
+                    </p>
+                  )}
+
+                  {!alternativeLoading && alternativeError && (
+                    <p className="alternatives-error">{alternativeError}</p>
+                  )}
+
+                  {!alternativeLoading && !alternativeError && (
+                    <div className="alternatives-grid">
+                      {alternativeResults.map((product) => (
+                        <article
+                          className="alternative-card"
+                          key={product.Gadget_ID}
+                        >
+                          <img
+                            src={safeImage(product.Category)}
+                            alt={`${product.Brand} ${product.Model_Name}`}
+                            onError={(event) => {
+                              event.currentTarget.onerror = null;
+                              event.currentTarget.src = imageByCategory.default;
+                            }}
+                          />
+
+                          <div className="alternative-card-details">
+                            <span>{product.Brand}</span>
+                            <strong>{product.Model_Name}</strong>
+                            <p>
+                              {product.RAM_GB ?? "—"} GB RAM ·{" "}
+                              {product.Storage_GB ?? "—"} GB storage
+                            </p>
+                            <b>{formatPrice(product.Price_INR)}</b>
+
+                            {Number(product.Price_INR) <
+                              Number(alternativeProduct.Price_INR) && (
+                              <span className="alternative-saving">
+                                Lower price
+                              </span>
+                            )}
+
+                            <button
+                              type="button"
+                              onClick={() => openProduct(product.Gadget_ID)}
+                            >
+                              View product
+                            </button>
+                          </div>
+                        </article>
+                      ))}
+                    </div>
+                  )}
+                </section>
+              )}
+
               <div className="product-grid">
-                {filteredProducts.map((p) => (
-                  <ProductCard
-                    key={p.Gadget_ID}
-                    product={p}
-                    favorite={favorites.includes(p.Gadget_ID)}
-                    onFavorite={toggleFavorite}
-                    onOpen={openProduct}
-                    isAdmin={isAdmin}
-                    onEdit={startEditProduct}
-                    onDelete={deleteProduct}
-                  />
-                ))}
+                {searchMode === "ai" && aiLoading ? (
+                  <p className="search-message">
+                    Searching products with AI...
+                  </p>
+                ) : aiError ? (
+                  <p className="search-message search-error">{aiError}</p>
+                ) : displayedProducts.length === 0 ? (
+                  <p className="search-message">
+                    No products found. Try a different search or adjust your
+                    filters.
+                  </p>
+                ) : (
+                  displayedProducts.map((p) => (
+                    <ProductCard
+                      key={p.Gadget_ID}
+                      product={p}
+                      favorite={favorites.includes(p.Gadget_ID)}
+                      onFavorite={toggleFavorite}
+                      onOpen={openProduct}
+                      isAdmin={isAdmin}
+                      onEdit={startEditProduct}
+                      onDelete={deleteProduct}
+                      onFindAlternatives={findAlternatives}
+                    />
+                  ))
+                )}
               </div>
             </section>
           )}
@@ -1819,147 +3872,137 @@ async function toggleFavorite(id) {
       )}
 
       {showProductForm && isAdmin && (
-            <div
-              className="modal-backdrop"
-              onMouseDown={(e) => {
-                if (e.target === e.currentTarget) setShowProductForm(false);
-              }}
-            >
-              <form className="product-modal" onSubmit={saveProduct}>
-                <div className="modal-heading">
-                  <div>
-                    <p className="eyebrow">INVENTORY</p>
-                    <h2>
-                      {editingProduct ? "Edit Product" : "Add New Product"}
-                    </h2>
-                  </div>
-                  <button
-                    type="button"
-                    className="icon-button"
-                    aria-label="Close"
-                    onClick={() => setShowProductForm(false)}
-                  >
-                    <Icon name="close" />
-                  </button>
-                </div>
-                <div className="form-grid">
-                  <label>
-                    Product name
-                    <input
-                      required
-                      value={draftProduct.Model_Name}
-                      onChange={(e) =>
-                        updateDraft("Model_Name", e.target.value)
-                      }
-                      placeholder="e.g. Galaxy S24"
-                    />
-                  </label>
-                  <label>
-                    Category
-                    <select
-                      value={draftProduct.Category}
-                      onChange={(e) => updateDraft("Category", e.target.value)}
-                    >
-                      {categories
-                        .filter((c) => c !== "All")
-                        .map((c) => (
-                          <option key={c}>{c}</option>
-                        ))}
-                    </select>
-                  </label>
-                  <label>
-                    Brand
-                    <input
-                      required
-                      value={draftProduct.Brand}
-                      onChange={(e) => updateDraft("Brand", e.target.value)}
-                      placeholder="Brand name"
-                    />
-                  </label>
-                  <label>
-                    Price (INR)
-                    <input
-                      required
-                      type="number"
-                      min="0"
-                      value={draftProduct.Price_INR}
-                      onChange={(e) => updateDraft("Price_INR", e.target.value)}
-                      placeholder="₹ 79900"
-                    />
-                  </label>
-                  <label>
-                    RAM (GB)
-                    <input
-                      type="number"
-                      min="0"
-                      value={draftProduct.RAM_GB}
-                      onChange={(e) => updateDraft("RAM_GB", e.target.value)}
-                    />
-                  </label>
-                  <label>
-                    Storage (GB)
-                    <input
-                      type="number"
-                      min="0"
-                      value={draftProduct.Storage_GB}
-                      onChange={(e) =>
-                        updateDraft("Storage_GB", e.target.value)
-                      }
-                    />
-                  </label>
-                  <label className="form-full">
-                    Processor
-                    <input
-                      value={draftProduct.Processor}
-                      onChange={(e) => updateDraft("Processor", e.target.value)}
-                      placeholder="Processor model"
-                    />
-                  </label>
-                  <label className="form-full">
-                    Description
-                    <textarea
-                      rows="3"
-                      value={draftProduct.Description}
-                      onChange={(e) =>
-                        updateDraft("Description", e.target.value)
-                      }
-                      placeholder="Product description"
-                    />
-                  </label>
-                  <label className="availability-check">
-                    <input
-                      type="checkbox"
-                      checked={draftProduct.Available}
-                      onChange={(e) =>
-                        updateDraft("Available", e.target.checked)
-                      }
-                    />{" "}
-                    Available in catalog
-                  </label>
-                </div>
-                <div className="modal-actions">
-                  <button
-                    type="button"
-                    className="button-outline"
-                    onClick={() => setShowProductForm(false)}
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    type="submit"
-                    className="button-primary"
-                    disabled={savingProduct}
-                  >
-                    {savingProduct
-                      ? "Saving..."
-                      : editingProduct
-                        ? "Save Changes"
-                        : "Save Product"}
-                  </button>
-                </div>
-              </form>
+        <div
+          className="modal-backdrop"
+          onMouseDown={(e) => {
+            if (e.target === e.currentTarget) setShowProductForm(false);
+          }}
+        >
+          <form className="product-modal" onSubmit={saveProduct}>
+            <div className="modal-heading">
+              <div>
+                <p className="eyebrow">INVENTORY</p>
+                <h2>{editingProduct ? "Edit Product" : "Add New Product"}</h2>
+              </div>
+              <button
+                type="button"
+                className="icon-button"
+                aria-label="Close"
+                onClick={() => setShowProductForm(false)}
+              >
+                <Icon name="close" />
+              </button>
             </div>
-          )}
+            <div className="form-grid">
+              <label>
+                Product name
+                <input
+                  required
+                  value={draftProduct.Model_Name}
+                  onChange={(e) => updateDraft("Model_Name", e.target.value)}
+                  placeholder="e.g. Galaxy S24"
+                />
+              </label>
+              <label>
+                Category
+                <select
+                  value={draftProduct.Category}
+                  onChange={(e) => updateDraft("Category", e.target.value)}
+                >
+                  {categories
+                    .filter((c) => c !== "All")
+                    .map((c) => (
+                      <option key={c}>{c}</option>
+                    ))}
+                </select>
+              </label>
+              <label>
+                Brand
+                <input
+                  required
+                  value={draftProduct.Brand}
+                  onChange={(e) => updateDraft("Brand", e.target.value)}
+                  placeholder="Brand name"
+                />
+              </label>
+              <label>
+                Price (INR)
+                <input
+                  required
+                  type="number"
+                  min="0"
+                  value={draftProduct.Price_INR}
+                  onChange={(e) => updateDraft("Price_INR", e.target.value)}
+                  placeholder="₹ 79900"
+                />
+              </label>
+              <label>
+                RAM (GB)
+                <input
+                  type="number"
+                  min="0"
+                  value={draftProduct.RAM_GB}
+                  onChange={(e) => updateDraft("RAM_GB", e.target.value)}
+                />
+              </label>
+              <label>
+                Storage (GB)
+                <input
+                  type="number"
+                  min="0"
+                  value={draftProduct.Storage_GB}
+                  onChange={(e) => updateDraft("Storage_GB", e.target.value)}
+                />
+              </label>
+              <label className="form-full">
+                Processor
+                <input
+                  value={draftProduct.Processor}
+                  onChange={(e) => updateDraft("Processor", e.target.value)}
+                  placeholder="Processor model"
+                />
+              </label>
+              <label className="form-full">
+                Description
+                <textarea
+                  rows="3"
+                  value={draftProduct.Description}
+                  onChange={(e) => updateDraft("Description", e.target.value)}
+                  placeholder="Product description"
+                />
+              </label>
+              <label className="availability-check">
+                <input
+                  type="checkbox"
+                  checked={draftProduct.Available}
+                  onChange={(e) => updateDraft("Available", e.target.checked)}
+                />{" "}
+                Available in catalog
+              </label>
+            </div>
+            <div className="modal-actions">
+              <button
+                type="button"
+                className="button-outline"
+                onClick={() => setShowProductForm(false)}
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="button-primary"
+                disabled={savingProduct}
+              >
+                {savingProduct
+                  ? "Saving..."
+                  : editingProduct
+                    ? "Save Changes"
+                    : "Save Product"}
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
 
       <footer className="site-footer">
         <a className="brand-logo" href="#home">
@@ -1983,6 +4026,7 @@ function ProductCard({
   isAdmin,
   onEdit,
   onDelete,
+  onFindAlternatives,
 }) {
   return (
     <article className="product-card">
@@ -2028,6 +4072,18 @@ function ProductCard({
           </span>
         </span>
       </button>
+
+      <button
+        className="find-alternatives-button"
+        onClick={(event) => {
+          event.stopPropagation();
+          onFindAlternatives(product);
+        }}
+      >
+        <Icon name="search" size={14} />
+        Find Alternatives
+      </button>
+
       {isAdmin && (
         <div className="product-admin-actions">
           <button onClick={() => onEdit(product)}>

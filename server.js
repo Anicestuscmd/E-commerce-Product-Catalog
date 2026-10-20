@@ -1,3 +1,6 @@
+const { QdrantClient } = require("@qdrant/js-client-rest");
+const { pipeline } = require("@huggingface/transformers");
+
 require("dotenv").config();
 const express = require("express");
 const { MongoClient } = require("mongodb");
@@ -5,8 +8,12 @@ const crypto = require("crypto");
 
 const app = express();
 const PORT = Number(process.env.PORT || 5000);
-const QDRANT_COLLECTION = process.env.QDRANT_COLLECTION || "shopsense-products";
-const VECTOR_SIZE = 64;
+const qdrant = new QdrantClient({
+  url: process.env.QDRANT_URL,
+  apiKey: process.env.QDRANT_API_KEY,
+});
+const QDRANT_COLLECTION = "shopsense_products";
+const VECTOR_SIZE = 384;
 const CATEGORIES = [
   "Mobile",
   "Laptop",
@@ -67,14 +74,18 @@ function normalizeProduct(input, existing = {}) {
     Brand: requiredText(source.Brand, "Brand"),
     Model_Name: requiredText(source.Model_Name, "Product name"),
     Description: String(source.Description ?? "").trim(),
+    Image_URL: String(
+      source.Image_URL ??
+        source.Image_Url ??
+        source.imageUrl ??
+        source.image_url ??
+        "",
+    ).trim(),
     Price_INR: price,
     Processor: String(source.Processor ?? "").trim(),
     RAM_GB: optionalNumber(source.RAM_GB, "RAM"),
     Storage_GB: optionalNumber(source.Storage_GB, "Storage"),
-    Screen_Size_inch: optionalNumber(
-      source.Screen_Size_inch,
-      "Screen size",
-    ),
+    Screen_Size_inch: optionalNumber(source.Screen_Size_inch, "Screen size"),
     Battery_mAh: optionalNumber(source.Battery_mAh, "Battery"),
     Launch_Year: optionalNumber(source.Launch_Year, "Launch year"),
     OS: String(source.OS ?? "").trim(),
@@ -123,7 +134,10 @@ function wordBucket(word) {
 }
 
 function addWords(vector, text) {
-  const words = String(text ?? "").toLowerCase().match(/[a-z0-9]+/g) || [];
+  const words =
+    String(text ?? "")
+      .toLowerCase()
+      .match(/[a-z0-9]+/g) || [];
   for (const word of words) vector[wordBucket(word)] += 1;
 }
 
@@ -335,15 +349,16 @@ function sendError(res, error, fallback) {
 
 async function startServer() {
   if (!process.env.MONGODB_URI) {
-    throw new Error("Set MONGODB_URI to a MongoDB instance reachable from this app.");
+    throw new Error(
+      "Set MONGODB_URI to a MongoDB instance reachable from this app.",
+    );
   }
   if (!process.env.CLERK_SECRET_KEY) {
     throw new Error("Set up Clerk before starting the API server.");
   }
 
-  const { clerkMiddleware, getAuth: getClerkAuth } = await import(
-    "@clerk/express"
-  );
+  const { clerkMiddleware, getAuth: getClerkAuth } =
+    await import("@clerk/express");
   const { createClerkClient } = await import("@clerk/backend");
 
   getAuth = getClerkAuth;
@@ -415,9 +430,13 @@ async function startServer() {
             : {
                 $or: [
                   { Brand: { $regex: escapeRegex(search), $options: "i" } },
-                  { Model_Name: { $regex: escapeRegex(search), $options: "i" } },
+                  {
+                    Model_Name: { $regex: escapeRegex(search), $options: "i" },
+                  },
                   { Processor: { $regex: escapeRegex(search), $options: "i" } },
-                  { Description: { $regex: escapeRegex(search), $options: "i" } },
+                  {
+                    Description: { $regex: escapeRegex(search), $options: "i" },
+                  },
                 ],
               },
         );
@@ -428,7 +447,8 @@ async function startServer() {
       const priceRange = {};
       if (minPrice !== null) priceRange.$gte = minPrice;
       if (maxPrice !== null) priceRange.$lte = maxPrice;
-      if (Object.keys(priceRange).length) clauses.push({ Price_INR: priceRange });
+      if (Object.keys(priceRange).length)
+        clauses.push({ Price_INR: priceRange });
 
       if (req.query.available === "true") {
         clauses.push({
@@ -473,7 +493,172 @@ async function startServer() {
     }
   });
 
-  
+  let embeddingExtractorPromise;
+
+  function getEmbeddingExtractor() {
+    if (!embeddingExtractorPromise) {
+      embeddingExtractorPromise = pipeline(
+        "feature-extraction",
+        "Xenova/all-MiniLM-L6-v2",
+      );
+    }
+
+    return embeddingExtractorPromise;
+  }
+
+  app.get("/api/semantic-search", async (req, res) => {
+    try {
+      const query = String(req.query.q || "").trim();
+
+      if (!query) {
+        return res.status(400).json({
+          error: "Please provide a search query using the q parameter.",
+        });
+      }
+
+      if (query.length > 500) {
+        return res.status(400).json({
+          error: "Search query must be 500 characters or fewer.",
+        });
+      }
+
+      const maxPrice = optionalNumber(req.query.maxPrice, "Maximum price");
+
+      const minRAM = optionalNumber(req.query.minRAM, "Minimum RAM");
+
+      if (minRAM !== null && minRAM < 0) {
+        return res.status(400).json({
+          error: "Minimum RAM cannot be negative.",
+        });
+      }
+
+      if (maxPrice !== null && maxPrice < 0) {
+        return res.status(400).json({
+          error: "Maximum price cannot be negative.",
+        });
+      }
+
+      const category = String(req.query.category || "").trim();
+
+      const processor = String(req.query.processor || "")
+        .trim()
+        .toLowerCase();
+
+      const extractor = await getEmbeddingExtractor();
+
+      const output = await extractor(query, {
+        pooling: "mean",
+        normalize: true,
+      });
+
+      const vector = Array.from(output.data);
+
+      const qdrantFilter = {
+        must: [],
+      };
+
+      if (category) {
+        qdrantFilter.must.push({
+          key: "category",
+          match: { value: category },
+        });
+      }
+
+      if (maxPrice !== null) {
+        qdrantFilter.must.push({
+          key: "priceINR",
+          range: { lte: maxPrice },
+        });
+      }
+
+      const searchOptions = {
+        query: vector,
+        limit: 20,
+        with_payload: true,
+      };
+
+      if (qdrantFilter.must.length > 0) {
+        searchOptions.filter = qdrantFilter;
+      }
+
+      console.log(
+        "Semantic search filters:",
+        JSON.stringify(searchOptions.filter || {}),
+      );
+
+      const searchResult = await qdrant.query(QDRANT_COLLECTION, searchOptions);
+
+      const matches = searchResult.points || [];
+
+      const ids = matches
+        .map((match) => match.payload?.gadgetId)
+        .filter(Boolean);
+
+      const currentProducts = ids.length
+        ? await products
+            .find({
+              Gadget_ID: { $in: ids },
+            })
+            .toArray()
+        : [];
+
+      const productsById = new Map(
+        currentProducts.map((product) => [String(product.Gadget_ID), product]),
+      );
+
+      const items = matches
+        .map((match) => {
+          const gadgetId = String(match.payload?.gadgetId || "");
+          const product = productsById.get(gadgetId);
+
+          if (!product) return null;
+
+          return {
+            ...publicProduct(product),
+            semanticScore: Number(match.score.toFixed(4)),
+          };
+        })
+        .filter(Boolean)
+
+        .filter((product) => {
+          return minRAM === null || Number(product.RAM_GB) >= minRAM;
+        })
+        .filter((product) => {
+          if (!processor) return true;
+
+          const productProcessor = String(product.Processor || "")
+            .toLowerCase()
+            .replace(/\s+/g, " ");
+
+          const requestedProcessor = processor.replace(/\s+/g, " ").trim();
+
+          if (/^i[3579]$/.test(requestedProcessor)) {
+            return new RegExp(`\\b${requestedProcessor}\\b`, "i").test(
+              productProcessor,
+            );
+          }
+
+          if (/^m[123]$/.test(requestedProcessor)) {
+            return new RegExp(`\\b${requestedProcessor}\\b`, "i").test(
+              productProcessor,
+            );
+          }
+
+          return productProcessor.includes(requestedProcessor);
+        });
+
+      res.json({
+        query,
+        total: items.length,
+        items,
+      });
+    } catch (error) {
+      console.error("Semantic search error:", error);
+      console.error("Qdrant response:", error.data);
+      sendError(res, error, "Could not perform semantic product search.");
+    }
+  });
+
   // Get the signed-in user's wishlist
   app.get("/api/wishlist", async (req, res) => {
     try {
@@ -495,7 +680,7 @@ async function startServer() {
         savedProducts.map((product) => [
           product.Gadget_ID,
           publicProduct(product),
-        ])
+        ]),
       );
 
       res.json({
@@ -529,7 +714,7 @@ async function startServer() {
           $addToSet: { productIds: product.Gadget_ID },
           $setOnInsert: { userId: user.id },
         },
-        { upsert: true }
+        { upsert: true },
       );
 
       res.json({ saved: true, productId: product.Gadget_ID });
@@ -549,7 +734,7 @@ async function startServer() {
 
       await wishlists.updateOne(
         { userId: user.id },
-        { $pull: { productIds: req.params.id } }
+        { $pull: { productIds: req.params.id } },
       );
 
       res.json({ removed: true, productId: req.params.id });
@@ -558,7 +743,6 @@ async function startServer() {
     }
   });
 
-  
   // Get the signed-in user's cart
   app.get("/api/cart", async (req, res) => {
     try {
@@ -580,16 +764,14 @@ async function startServer() {
         savedProducts.map((product) => [
           product.Gadget_ID,
           publicProduct(product),
-        ])
+        ]),
       );
 
       res.json({
         items: ids
           .map((item) => {
             const product = productMap.get(item.productId);
-            return product
-              ? { product, quantity: item.quantity }
-              : null;
+            return product ? { product, quantity: item.quantity } : null;
           })
           .filter(Boolean),
       });
@@ -618,7 +800,7 @@ async function startServer() {
       const carts = products.db.collection("carts");
       const cart = await carts.findOne({ userId: user.id });
       const existingItem = cart?.items?.find(
-        (item) => item.productId === product.Gadget_ID
+        (item) => item.productId === product.Gadget_ID,
       );
 
       if (existingItem) {
@@ -627,7 +809,7 @@ async function startServer() {
             userId: user.id,
             "items.productId": product.Gadget_ID,
           },
-          { $inc: { "items.$.quantity": 1 } }
+          { $inc: { "items.$.quantity": 1 } },
         );
       } else {
         await carts.updateOne(
@@ -641,7 +823,7 @@ async function startServer() {
             },
             $setOnInsert: { userId: user.id },
           },
-          { upsert: true }
+          { upsert: true },
         );
       }
 
@@ -664,12 +846,247 @@ async function startServer() {
 
       await carts.updateOne(
         { userId: user.id },
-        { $pull: { items: { productId: req.params.id } } }
+        { $pull: { items: { productId: req.params.id } } },
       );
 
       res.json({ removed: true, productId: req.params.id });
     } catch (error) {
       sendError(res, error, "Could not remove product from cart.");
+    }
+  });
+
+  // Create an order from the signed-in user's cart
+  app.post("/api/orders", async (req, res) => {
+    try {
+      const user = await loadShopUser(req);
+
+      if (!user) {
+        return res.status(401).json({ error: "Please sign in." });
+      }
+
+      const carts = products.db.collection("carts");
+      const orders = products.db.collection("orders");
+
+      const cart = await carts.findOne({ userId: user.id });
+
+      if (!cart?.items?.length) {
+        return res.status(400).json({ error: "Your cart is empty." });
+      }
+
+      // Read current product details and prices from MongoDB.
+      const productIds = cart.items.map((item) => item.productId);
+
+      const savedProducts = await products
+        .find({ Gadget_ID: { $in: productIds } })
+        .toArray();
+
+      const productMap = new Map(
+        savedProducts.map((product) => [product.Gadget_ID, product]),
+      );
+
+      const orderItems = [];
+
+      for (const item of cart.items) {
+        const product = productMap.get(item.productId);
+
+        if (!product) {
+          return res.status(400).json({
+            error: `Product ${item.productId} is no longer available.`,
+          });
+        }
+
+        const quantity = Number(item.quantity);
+        const price = Number(product.Price_INR);
+
+        if (
+          !Number.isSafeInteger(quantity) ||
+          quantity < 1 ||
+          !Number.isFinite(price) ||
+          price < 0
+        ) {
+          return res.status(400).json({
+            error: "The cart contains invalid product information.",
+          });
+        }
+
+        orderItems.push({
+          productId: product.Gadget_ID,
+          brand: product.Brand,
+          modelName: product.Model_Name,
+          category: product.Category,
+          priceINR: price,
+          quantity,
+          subtotalINR: price * quantity,
+        });
+      }
+
+      const totalINR = orderItems.reduce(
+        (total, item) => total + item.subtotalINR,
+        0,
+      );
+
+      if (!Number.isSafeInteger(totalINR)) {
+        return res.status(400).json({
+          error: "The order total is invalid.",
+        });
+      }
+
+      const now = new Date();
+
+      const order = {
+        userId: user.id,
+        customerName: user.name,
+        customerEmail: user.email,
+        items: orderItems,
+        totalINR,
+        status: "Pending",
+        createdAt: now,
+        updatedAt: now,
+      };
+
+      const result = await orders.insertOne(order);
+
+      // Clear the cart only after MongoDB successfully saves the order.
+      await carts.updateOne({ userId: user.id }, { $set: { items: [] } });
+
+      res.status(201).json({
+        message: "Order placed successfully.",
+        order: {
+          ...order,
+          _id: result.insertedId,
+        },
+      });
+    } catch (error) {
+      sendError(res, error, "Could not place order.");
+    }
+  });
+
+  // Get orders belonging to the signed-in customer
+  app.get("/api/orders", async (req, res) => {
+    try {
+      const user = await loadShopUser(req);
+
+      if (!user) {
+        return res.status(401).json({ error: "Please sign in." });
+      }
+
+      const orders = products.db.collection("orders");
+
+      const customerOrders = await orders
+        .find({ userId: user.id })
+        .sort({ createdAt: -1 })
+        .limit(100)
+        .toArray();
+
+      res.json({ orders: customerOrders });
+    } catch (error) {
+      sendError(res, error, "Could not load your order history.");
+    }
+  });
+
+  // Get all orders for the admin dashboard
+  app.get("/api/admin/orders", requireAdmin, async (req, res) => {
+    try {
+      const orders = products.db.collection("orders");
+
+      const result = await orders
+        .find({})
+        .sort({ createdAt: -1 })
+        .limit(200)
+        .toArray();
+
+      res.json({ orders: result });
+    } catch (error) {
+      sendError(res, error, "Could not load orders.");
+    }
+  });
+
+  app.get("/api/admin/analytics", requireAdmin, async (req, res) => {
+    try {
+      const orders = products.db.collection("orders");
+
+      const [totalOrders, statusCounts] = await Promise.all([
+        orders.countDocuments({}),
+        orders
+          .aggregate([
+            {
+              $group: {
+                _id: "$status",
+                count: { $sum: 1 },
+              },
+            },
+          ])
+          .toArray(),
+      ]);
+
+      const orderStatuses = {
+        Pending: 0,
+        Processing: 0,
+        Shipped: 0,
+        Delivered: 0,
+        Cancelled: 0,
+      };
+
+      for (const item of statusCounts) {
+        if (Object.hasOwn(orderStatuses, item._id)) {
+          orderStatuses[item._id] = item.count;
+        }
+      }
+
+      res.json({
+        totalOrders,
+        orderStatuses,
+      });
+    } catch (error) {
+      sendError(res, error, "Could not load order analytics.");
+    }
+  });
+
+  // Update an order's status from the admin dashboard
+  app.patch("/api/admin/orders/:id/status", requireAdmin, async (req, res) => {
+    try {
+      const allowedStatuses = [
+        "Pending",
+        "Processing",
+        "Shipped",
+        "Delivered",
+        "Cancelled",
+      ];
+
+      const { status } = req.body;
+
+      if (!allowedStatuses.includes(status)) {
+        return res.status(400).json({
+          error: "Invalid order status.",
+          allowedStatuses,
+        });
+      }
+
+      const { ObjectId } = require("mongodb");
+
+      if (!ObjectId.isValid(req.params.id)) {
+        return res.status(400).json({ error: "Invalid order ID." });
+      }
+
+      const orders = products.db.collection("orders");
+
+      const result = await orders.updateOne(
+        { _id: new ObjectId(req.params.id) },
+        {
+          $set: {
+            status,
+            updatedAt: new Date(),
+          },
+        },
+      );
+
+      if (result.matchedCount === 0) {
+        return res.status(404).json({ error: "Order not found." });
+      }
+
+      res.json({ updated: true, orderId: req.params.id, status });
+    } catch (error) {
+      sendError(res, error, "Could not update order status.");
     }
   });
 
@@ -682,7 +1099,7 @@ async function startServer() {
 
       const users = result.data.map((user) => {
         const primaryEmail = user.emailAddresses.find(
-          (email) => email.id === user.primaryEmailAddressId
+          (email) => email.id === user.primaryEmailAddressId,
         );
 
         return {
@@ -702,6 +1119,52 @@ async function startServer() {
       });
     } catch (error) {
       sendError(res, error, "Could not load users.");
+    }
+  });
+
+  app.patch("/api/admin/users/:id/role", requireAdmin, async (req, res) => {
+    try {
+      const { role } = req.body;
+      const targetUserId = req.params.id;
+
+      if (!["admin", "customer"].includes(role)) {
+        return res.status(400).json({
+          error: "Role must be admin or customer.",
+        });
+      }
+
+      const currentAdmin = req.shopUser;
+
+      if (currentAdmin.id === targetUserId && role !== "admin") {
+        return res.status(400).json({
+          error: "You cannot remove your own admin role.",
+        });
+      }
+
+      const targetUser = await clerkClient.users.getUser(targetUserId);
+
+      if (!targetUser) {
+        return res.status(404).json({
+          error: "User not found.",
+        });
+      }
+
+      await clerkClient.users.updateUserMetadata(targetUserId, {
+        publicMetadata: {
+          ...targetUser.publicMetadata,
+          role,
+        },
+      });
+
+      res.json({
+        message: "User role updated successfully.",
+        user: {
+          id: targetUserId,
+          role,
+        },
+      });
+    } catch (error) {
+      sendError(res, error, "Could not update user role.");
     }
   });
 
@@ -747,10 +1210,7 @@ async function startServer() {
       }
 
       const updated = normalizeProduct(req.body, existing);
-      await products.updateOne(
-        { Gadget_ID: req.params.id },
-        { $set: updated },
-      );
+      await products.updateOne({ Gadget_ID: req.params.id }, { $set: updated });
 
       const saved = { ...existing, ...updated };
       const vectorIndexed = await indexProduct(saved);
@@ -782,7 +1242,9 @@ async function startServer() {
   app.post("/api/admin/reindex", requireAdmin, async (_req, res) => {
     try {
       if (!qdrantReady) {
-        res.status(503).json({ error: "Qdrant is not configured or reachable." });
+        res
+          .status(503)
+          .json({ error: "Qdrant is not configured or reachable." });
         return;
       }
 
@@ -817,12 +1279,11 @@ async function startServer() {
       const preferences = {
         budget: optionalNumber(req.body.budget, "Budget"),
         minRamGb: optionalNumber(req.body.minRamGb, "Minimum RAM"),
-        minStorageGb: optionalNumber(
-          req.body.minStorageGb,
-          "Minimum storage",
-        ),
+        minStorageGb: optionalNumber(req.body.minStorageGb, "Minimum storage"),
         category: String(req.body.category || "").trim(),
-        requirements: String(req.body.requirements || "").trim().slice(0, 200),
+        requirements: String(req.body.requirements || "")
+          .trim()
+          .slice(0, 200),
         onlyAvailable: req.body.onlyAvailable !== false,
       };
 
@@ -895,7 +1356,10 @@ async function startServer() {
         .toArray();
 
       const byId = new Map(
-        matchingProducts.map((product) => [product.Gadget_ID, publicProduct(product)]),
+        matchingProducts.map((product) => [
+          product.Gadget_ID,
+          publicProduct(product),
+        ]),
       );
 
       const recommendations = points
@@ -904,11 +1368,14 @@ async function startServer() {
           if (!product) return null;
 
           const reasons = [];
-          if (preferences.category) reasons.push(`Matches ${preferences.category}`);
+          if (preferences.category)
+            reasons.push(`Matches ${preferences.category}`);
           if (preferences.budget) reasons.push("Within your budget");
           if (preferences.minRamGb) reasons.push("Meets your RAM requirement");
-          if (preferences.minStorageGb) reasons.push("Meets your storage requirement");
-          if (preferences.requirements) reasons.push("Matches your product requirements");
+          if (preferences.minStorageGb)
+            reasons.push("Meets your storage requirement");
+          if (preferences.requirements)
+            reasons.push("Matches your product requirements");
 
           return {
             ...product,
