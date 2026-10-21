@@ -350,6 +350,11 @@ function App() {
   const [analyticsError, setAnalyticsError] = useState("");
   const [showProfile, setShowProfile] = useState(false);
   const [showWishlist, setShowWishlist] = useState(false);
+  const [featuredTab, setFeaturedTab] = useState("All");
+  const [detailTab, setDetailTab] = useState("specifications");
+  const [detailQty, setDetailQty] = useState(1);
+  const [heroIndex, setHeroIndex] = useState(0);
+  const [orderFilter, setOrderFilter] = useState("All");
   const [draftProduct, setDraftProduct] = useState({
     Category: "Mobile",
     Brand: "",
@@ -1333,17 +1338,44 @@ function App() {
         : aiResults
       : filteredProducts;
 
-  const featured = products.slice(0, 6);
+  const featured = products
+    .filter((p) => featuredTab === "All" || p.Category === featuredTab)
+    .slice(0, 6);
+  const featuredTabs = [
+    ["All", "All"],
+    ["Mobile", "Mobiles"],
+    ["Laptop", "Laptops"],
+    ["Tablet", "Tablets"],
+    ["Headphones", "Audio"],
+    ["Accessories", "Accessories"],
+  ];
   const displayedCategories = [
     "Mobile",
     "Laptop",
     "Tablet",
     "Headphones",
+    "Accessories",
     "Keyboard",
     "Mouse",
-    "Notebook",
-    "Accessories",
   ];
+  const heroSlides = [
+    {
+      title: ["Latest Tech.", "Smarter Choices."],
+      text: "Explore smartphones, laptops, tablets, accessories and more at the best prices.",
+      image: imageByCategory.Laptop,
+    },
+    {
+      title: ["Flagship Phones.", "Everyday Prices."],
+      text: "Compare cameras, chips and battery life across the newest mobiles.",
+      image: imageByCategory.Mobile,
+    },
+    {
+      title: ["Sound That", "Moves You."],
+      text: "Headphones and accessories picked to match how you listen.",
+      image: imageByCategory.Headphones,
+    },
+  ];
+  const heroSlide = heroSlides[heroIndex % heroSlides.length];
   const updateDraft = (key, value) =>
     setDraftProduct((d) => ({ ...d, [key]: value }));
 
@@ -1408,8 +1440,84 @@ function App() {
     }
   }
 
+  async function refreshCart() {
+    const cartResponse = await fetch("/api/cart", { credentials: "include" });
+    const cartData = await cartResponse.json();
+    if (!cartResponse.ok) throw new Error(cartData.error || "Could not refresh cart.");
+    const items = cartData.items || [];
+    setCartItems(items);
+    setCartCount(items.reduce((total, item) => total + item.quantity, 0));
+  }
+
+  async function changeCartQuantity(product, quantity, delta) {
+    const target = quantity + delta;
+    if (target < 1 || target > 10) return;
+    try {
+      const id = encodeURIComponent(product.Gadget_ID);
+      if (delta > 0) {
+        await fetch(`/api/cart/${id}`, { method: "POST", credentials: "include" });
+      } else {
+        await fetch(`/api/cart/${id}`, { method: "DELETE", credentials: "include" });
+        for (let i = 0; i < target; i++) {
+          await fetch(`/api/cart/${id}`, { method: "POST", credentials: "include" });
+        }
+      }
+      await refreshCart();
+    } catch (error) {
+      alert(error.message || "Could not update cart.");
+    }
+  }
+
+  async function clearCart() {
+    try {
+      for (const { product } of cartItems) {
+        await fetch(`/api/cart/${encodeURIComponent(product.Gadget_ID)}`, {
+          method: "DELETE",
+          credentials: "include",
+        });
+      }
+      await refreshCart();
+    } catch (error) {
+      alert(error.message || "Could not clear cart.");
+    }
+  }
+
+  async function addSelectedToCart(buyNow) {
+    if (!isSignedIn) return;
+    try {
+      for (let i = 0; i < detailQty; i++) {
+        const response = await fetch(
+          `/api/cart/${encodeURIComponent(selectedProduct.Gadget_ID)}`,
+          { method: "POST", credentials: "include" },
+        );
+        const data = await response.json();
+        if (!response.ok) {
+          throw new Error(data.error || "Could not add product to cart.");
+        }
+      }
+      const cartResponse = await fetch("/api/cart", { credentials: "include" });
+      const cartData = await cartResponse.json();
+      if (!cartResponse.ok) {
+        throw new Error(cartData.error || "Could not refresh cart.");
+      }
+      const items = cartData.items || [];
+      setCartItems(items);
+      setCartCount(items.reduce((total, item) => total + item.quantity, 0));
+      setDetailQty(1);
+      if (buyNow) {
+        setSelectedProduct(null);
+        setShowCart(true);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        alert("Product added to your cart!");
+      }
+    } catch (error) {
+      alert(error.message || "Could not add product to cart.");
+    }
+  }
+
   return (
-    <div className="app-shell">
+    <div className={showAdmin && isAdmin ? "app-shell admin-mode" : "app-shell"}>
       <header className="topbar">
         <a
           className="brand-logo"
@@ -1502,23 +1610,6 @@ function App() {
             Categories
           </button>
 
-          <button
-            onClick={() => {
-              setShowWishlist(true);
-              setSelectedProduct(null);
-              setShowProfile(false);
-              setShowOrderHistory(false);
-              setShowCart(false);
-              setShowAdmin(false);
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            }}
-          >
-            <Icon name="heart" size={16} />
-            Wishlist
-            {favorites.length > 0 && (
-              <b className="nav-count">{favorites.length}</b>
-            )}
-          </button>
 
           <button
             onClick={() => {
@@ -1534,25 +1625,6 @@ function App() {
             {cartCount > 0 && <b className="nav-count">{cartCount}</b>}
           </button>
 
-          <button
-            onClick={() => {
-              if (!isSignedIn) {
-                alert("Please sign in to view your orders.");
-                return;
-              }
-
-              setShowOrderHistory(true);
-              setShowCart(false);
-              setShowWishlist(false);
-              setSelectedProduct(null);
-              setShowAdmin(false);
-              setShowProfile(false);
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            }}
-          >
-            <Icon name="package" />
-            My Orders
-          </button>
         </nav>
 
         <div className="profile-wrap">
@@ -1588,6 +1660,32 @@ function App() {
                   Admin dashboard
                 </button>
               )}
+              <button
+                onClick={() => {
+                  setShowOrderHistory(true);
+                  setShowCart(false);
+                  setShowWishlist(false);
+                  setSelectedProduct(null);
+                  setShowAdmin(false);
+                  setShowProfile(false);
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }}
+              >
+                My orders
+              </button>
+              <button
+                onClick={() => {
+                  setShowWishlist(true);
+                  setShowOrderHistory(false);
+                  setShowCart(false);
+                  setSelectedProduct(null);
+                  setShowAdmin(false);
+                  setShowProfile(false);
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }}
+              >
+                Wishlist{favorites.length > 0 ? ` (${favorites.length})` : ""}
+              </button>
               <button onClick={() => signOut({ redirectUrl: "/sign-in" })}>
                 Sign out
               </button>
@@ -2607,6 +2705,64 @@ function App() {
                   )}
                 </div>
 
+                <div className="admin-table-card category-overview">
+                  <div className="table-heading">
+                    <div>
+                      <h2>Catalog by Category</h2>
+                      <p>Product distribution across your catalog.</p>
+                    </div>
+                  </div>
+
+                  {(() => {
+                    const palette = [
+                      "#1673f9",
+                      "#22b8a0",
+                      "#8b5cf6",
+                      "#f59e0b",
+                      "#ec4899",
+                      "#94a3b8",
+                    ];
+                    const entries = Object.entries(
+                      dashboardStats.categoryCounts,
+                    ).sort((x, y) => y[1] - x[1]);
+                    const total = dashboardStats.totalProducts || 1;
+                    let acc = 0;
+                    const stops = entries.map(([, count], i) => {
+                      const start = acc;
+                      acc += (count / total) * 100;
+                      return `${palette[i % palette.length]} ${start}% ${acc}%`;
+                    });
+                    return (
+                      <div className="category-donut-wrap">
+                        <div
+                          className="category-donut"
+                          style={{
+                            background: entries.length
+                              ? `conic-gradient(${stops.join(", ")})`
+                              : "#e5eaf1",
+                          }}
+                        >
+                          <div>
+                            <strong>{dashboardStats.totalProducts}</strong>
+                            <span>Products</span>
+                          </div>
+                        </div>
+                        <ul className="category-legend">
+                          {entries.map(([name, count], i) => (
+                            <li key={name}>
+                              <i
+                                style={{ background: palette[i % palette.length] }}
+                              />
+                              <span>{name}</span>
+                              <b>{count}</b>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    );
+                  })()}
+                </div>
+
                 <div className="admin-table-card">
                   <div className="table-heading">
                     <div>
@@ -2733,43 +2889,6 @@ function App() {
                     </div>
                   </div>
                 </div>
-                <div className="admin-table-card category-overview">
-                  <div className="table-heading">
-                    <div>
-                      <h2>Catalog by Category</h2>
-                      <p>Product distribution across your catalog.</p>
-                    </div>
-                  </div>
-
-                  <div className="category-stats-list">
-                    {Object.entries(dashboardStats.categoryCounts)
-                      .sort((a, b) => b[1] - a[1])
-                      .map(([category, count]) => {
-                        const percentage =
-                          dashboardStats.totalProducts > 0
-                            ? (count / dashboardStats.totalProducts) * 100
-                            : 0;
-
-                        return (
-                          <div className="category-stat" key={category}>
-                            <div className="category-stat-heading">
-                              <span>{category}</span>
-                              <span>
-                                {count} products · {percentage.toFixed(1)}%
-                              </span>
-                            </div>
-
-                            <div className="category-stat-track">
-                              <div
-                                className="category-stat-fill"
-                                style={{ width: `${percentage}%` }}
-                              />
-                            </div>
-                          </div>
-                        );
-                      })}
-                  </div>
-                </div>
               </>
             )}
           </section>
@@ -2826,20 +2945,46 @@ function App() {
           )}
         </main>
       ) : showOrderHistory ? (
-        <main className="cart-page">
-          <div className="cart-heading">
-            <div>
-              <p className="eyebrow">YOUR ACCOUNT</p>
-              <h1>My Orders</h1>
-              <p>View your purchases and order status.</p>
-            </div>
-
+        <main className="cart-page account-page">
+          <div className="account-layout">
+            <aside className="account-sidebar">
+              <button className="selected">
+                <Icon name="package" /> My Orders
+              </button>
+              <button
+                onClick={() => {
+                  setShowOrderHistory(false);
+                  setShowWishlist(true);
+                }}
+              >
+                <Icon name="heart" /> Wishlist
+              </button>
+              <button onClick={() => signOut({ redirectUrl: "/sign-in" })}>
+                <Icon name="close" /> Sign out
+              </button>
+            </aside>
+            <div className="account-content">
+          <div className="cart-heading orders-heading">
+            <h1>My Orders</h1>
             <button
               className="button-outline"
               onClick={() => setShowOrderHistory(false)}
             >
               Continue Shopping
             </button>
+          </div>
+          <div className="order-filter-tabs" role="tablist">
+            {["All", "Processing", "Delivered", "Cancelled"].map((f) => (
+              <button
+                key={f}
+                role="tab"
+                aria-selected={orderFilter === f}
+                className={orderFilter === f ? "active" : ""}
+                onClick={() => setOrderFilter(f)}
+              >
+                {f}
+              </button>
+            ))}
           </div>
 
           {customerOrdersLoading ? (
@@ -2872,7 +3017,9 @@ function App() {
             </div>
           ) : (
             <div className="order-history-list">
-              {customerOrders.map((order) => (
+              {customerOrders
+                .filter((o) => orderFilter === "All" || (o.status || "Pending") === orderFilter)
+                .map((order) => (
                 <article className="order-history-card" key={order._id}>
                   <div className="order-history-details">
                     <div className="order-history-card-heading">
@@ -2882,20 +3029,38 @@ function App() {
                       <span className="order-history-date">
                         Placed{" "}
                         {order.createdAt
-                          ? new Date(order.createdAt).toLocaleDateString(
-                              "en-IN",
-                            )
+                          ? new Date(order.createdAt).toLocaleDateString("en-GB", {
+                              day: "2-digit",
+                              month: "short",
+                              year: "numeric",
+                            })
                           : "—"}
                       </span>
                     </div>
 
-                    <div className="order-history-products">
-                      {order.items?.map((item, index) => (
-                        <p key={`${item.productId}-${index}`}>
-                          {item.brand} {item.modelName} × {item.quantity}
-                        </p>
-                      ))}
+                    <div className="order-history-thumbs">
+                      {order.items?.map((item, index) => {
+                        const match = products.find(
+                          (p) => String(p.Gadget_ID) === String(item.productId),
+                        );
+                        return (
+                          <img
+                            key={`${item.productId}-${index}`}
+                            src={safeImage(match?.Category)}
+                            alt={`${item.brand} ${item.modelName}`}
+                            title={`${item.brand} ${item.modelName} × ${item.quantity}`}
+                            onError={(e) => {
+                              e.currentTarget.src = imageByCategory.default;
+                            }}
+                          />
+                        );
+                      })}
                     </div>
+                    <p className="order-history-names">
+                      {order.items
+                        ?.map((item) => `${item.brand} ${item.modelName} × ${item.quantity}`)
+                        .join(", ")}
+                    </p>
                   </div>
 
                   <div className="order-history-summary">
@@ -2916,22 +3081,26 @@ function App() {
               ))}
             </div>
           )}
+            </div>
+          </div>
         </main>
       ) : showCart ? (
         <main className="cart-page">
+          <button
+            className="cart-back-link"
+            onClick={() => setShowCart(false)}
+          >
+            ← Continue Shopping
+          </button>
           <div className="cart-heading">
-            <div>
-              <p className="eyebrow">YOUR SHOPPING BAG</p>
-              <h1>Shopping Cart</h1>
-              <p>{cartCount} item(s) in your cart</p>
-            </div>
-
-            <button
-              className="button-outline"
-              onClick={() => setShowCart(false)}
-            >
-              Continue Shopping
-            </button>
+            <h1>
+              Your Cart <span>({cartCount} {cartCount === 1 ? "item" : "items"})</span>
+            </h1>
+            {cartItems.length > 0 && (
+              <button className="clear-cart" onClick={clearCart}>
+                Clear Cart
+              </button>
+            )}
           </div>
 
           {cartLoading ? (
@@ -2953,97 +3122,108 @@ function App() {
               <div className="cart-items">
                 {cartItems.map(({ product, quantity }) => (
                   <div className="cart-item" key={product.Gadget_ID}>
+                    <img
+                      className="cart-item-image"
+                      src={safeImage(product.Category)}
+                      alt=""
+                      onError={(e) => {
+                        e.currentTarget.src = imageByCategory.default;
+                      }}
+                    />
                     <div className="cart-item-info">
                       <h3>
                         {product.Brand} {product.Model_Name}
                       </h3>
-                      <p>{product.Category}</p>
-                      <p>Quantity: {quantity}</p>
-                      <strong>
-                        ₹
-                        {(
-                          Number(product.Price_INR || 0) * quantity
-                        ).toLocaleString("en-IN")}
-                      </strong>
+                      <p>
+                        {[product.RAM_GB ? `${product.RAM_GB} GB` : null, product.Storage_GB ? `${product.Storage_GB} GB` : null]
+                          .filter(Boolean)
+                          .join(" · ") || product.Category}
+                      </p>
                     </div>
-
+                    <div className="qty-stepper cart-qty">
+                      <button
+                        type="button"
+                        aria-label="Decrease quantity"
+                        disabled={quantity <= 1}
+                        onClick={() => changeCartQuantity(product, quantity, -1)}
+                      >
+                        −
+                      </button>
+                      <span>{quantity}</span>
+                      <button
+                        type="button"
+                        aria-label="Increase quantity"
+                        onClick={() => changeCartQuantity(product, quantity, 1)}
+                      >
+                        +
+                      </button>
+                    </div>
+                    <strong className="cart-item-price">
+                      ₹{(Number(product.Price_INR || 0) * quantity).toLocaleString("en-IN")}
+                    </strong>
                     <button
-                      className="button-outline"
+                      className="cart-remove"
+                      aria-label={`Remove ${product.Brand} ${product.Model_Name}`}
                       onClick={async () => {
                         try {
                           const response = await fetch(
                             `/api/cart/${encodeURIComponent(product.Gadget_ID)}`,
-                            {
-                              method: "DELETE",
-                              credentials: "include",
-                            },
+                            { method: "DELETE", credentials: "include" },
                           );
-
                           const data = await response.json();
-
                           if (!response.ok) {
-                            throw new Error(
-                              data.error || "Could not remove product.",
-                            );
+                            throw new Error(data.error || "Could not remove product.");
                           }
-
-                          const cartResponse = await fetch("/api/cart", {
-                            credentials: "include",
-                          });
-                          const cartData = await cartResponse.json();
-
-                          if (!cartResponse.ok) {
-                            throw new Error(
-                              cartData.error || "Could not refresh cart.",
-                            );
-                          }
-
-                          const items = cartData.items || [];
-                          setCartItems(items);
-                          setCartCount(
-                            items.reduce(
-                              (total, item) => total + item.quantity,
-                              0,
-                            ),
-                          );
+                          await refreshCart();
                         } catch (error) {
                           alert(error.message || "Could not remove product.");
                         }
                       }}
                     >
-                      Remove
+                      <Icon name="trash" size={16} />
                     </button>
                   </div>
                 ))}
               </div>
 
               <div className="cart-summary">
-                <h2>Order Summary</h2>
-                <p>
-                  Subtotal:{" "}
-                  <strong>
+                <div className="summary-row">
+                  <span>Subtotal</span>
+                  <span>
                     ₹
                     {cartItems
                       .reduce(
                         (total, item) =>
-                          total +
-                          Number(item.product.Price_INR || 0) * item.quantity,
+                          total + Number(item.product.Price_INR || 0) * item.quantity,
                         0,
                       )
                       .toLocaleString("en-IN")}
-                  </strong>
-                </p>
-
-                <p className="cart-note">
-                  Shipping and payment processing are not integrated yet.
-                </p>
+                  </span>
+                </div>
+                <div className="summary-row">
+                  <span>Delivery</span>
+                  <span>₹0</span>
+                </div>
+                <div className="summary-row total">
+                  <span>Total</span>
+                  <span>
+                    ₹
+                    {cartItems
+                      .reduce(
+                        (total, item) =>
+                          total + Number(item.product.Price_INR || 0) * item.quantity,
+                        0,
+                      )
+                      .toLocaleString("en-IN")}
+                  </span>
+                </div>
 
                 <button
                   className="button-primary"
                   onClick={placeOrder}
                   disabled={checkoutLoading || cartItems.length === 0}
                 >
-                  {checkoutLoading ? "Placing Order..." : "Place Order"}
+                  {checkoutLoading ? "Placing Order..." : "Proceed to Checkout"}
                 </button>
 
                 {orderConfirmation && (
@@ -3071,19 +3251,23 @@ function App() {
           {!selectedProduct && (
             <>
               <section className="hero-banner">
+                <button
+                  type="button"
+                  className="hero-arrow hero-arrow-prev"
+                  aria-label="Previous slide"
+                  onClick={() =>
+                    setHeroIndex((i) => (i + heroSlides.length - 1) % heroSlides.length)
+                  }
+                >
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m15 6-6 6 6 6" /></svg>
+                </button>
                 <div className="hero-copy">
-                  <span className="hero-kicker">
-                    THE NEXT GENERATION OF TECH
-                  </span>
                   <h1>
-                    Latest Tech.
+                    {heroSlide.title[0]}
                     <br />
-                    Smarter Choices.
+                    {heroSlide.title[1]}
                   </h1>
-                  <p>
-                    Explore smartphones, laptops, tablets, accessories and more
-                    at the best prices.
-                  </p>
+                  <p>{heroSlide.text}</p>
                   <button
                     onClick={() =>
                       document
@@ -3094,19 +3278,31 @@ function App() {
                     Shop Now <Icon name="arrow" size={16} />
                   </button>
                   <div className="hero-dots">
-                    <i />
-                    <i />
-                    <i />
+                    {heroSlides.map((_, i) => (
+                      <i
+                        key={i}
+                        className={i === heroIndex % heroSlides.length ? "on" : ""}
+                        onClick={() => setHeroIndex(i)}
+                      />
+                    ))}
                   </div>
                 </div>
                 <img
                   className="hero-image"
-                  src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=1200&q=90"
-                  alt="Laptop and technology"
+                  src={heroSlide.image.replace("w=900", "w=1200")}
+                  alt=""
                   onError={(e) => {
                     e.currentTarget.style.display = "none";
                   }}
                 />
+                <button
+                  type="button"
+                  className="hero-arrow hero-arrow-next"
+                  aria-label="Next slide"
+                  onClick={() => setHeroIndex((i) => (i + 1) % heroSlides.length)}
+                >
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6" /></svg>
+                </button>
               </section>
               <section className="category-strip" aria-label="Shop by category">
                 {displayedCategories.map((c) => (
@@ -3136,12 +3332,40 @@ function App() {
                     </span>
                   </button>
                 ))}
+                <button
+                  className="category-tile"
+                  onClick={() => {
+                    setCategory("All");
+                    document
+                      .getElementById("catalog")
+                      ?.scrollIntoView({ behavior: "smooth" });
+                  }}
+                >
+                  <span className="category-tile-icon more-dots" aria-hidden="true">
+                    •••
+                  </span>
+                  <span>More</span>
+                </button>
               </section>
               <section className="featured-section">
                 <div className="section-title-row">
-                  <div>
-                    <p className="eyebrow">HANDPICKED FOR YOU</p>
-                    <h2>Popular Products</h2>
+                  <h2>Popular Products</h2>
+                  <div className="featured-tabs" role="tablist">
+                    {featuredTabs.map(([value, label]) => (
+                      <button
+                        key={value}
+                        role="tab"
+                        aria-selected={featuredTab === value}
+                        className={
+                          featuredTab === value
+                            ? "featured-tab active"
+                            : "featured-tab"
+                        }
+                        onClick={() => setFeaturedTab(value)}
+                      >
+                        {label}
+                      </button>
+                    ))}
                   </div>
                   <button
                     className="text-link"
@@ -3178,12 +3402,20 @@ function App() {
           )}
           {selectedProduct && (
             <section className="product-detail-page">
-              <button
-                className="breadcrumb-back"
-                onClick={() => setSelectedProduct(null)}
-              >
-                ← Back to products
-              </button>
+              <nav className="breadcrumbs" aria-label="Breadcrumb">
+                <button
+                  className="breadcrumb-back"
+                  onClick={() => setSelectedProduct(null)}
+                >
+                  Home
+                </button>
+                <span>›</span>
+                <span>{selectedProduct.Category}</span>
+                <span>›</span>
+                <span>{selectedProduct.Brand}</span>
+                <span>›</span>
+                <span className="current">{selectedProduct.Model_Name}</span>
+              </nav>
               <div className="detail-layout">
                 <div className="detail-gallery">
                   <div className="detail-main-image">
@@ -3211,13 +3443,6 @@ function App() {
                   </div>
                 </div>
                 <div className="detail-summary">
-                  <div className="breadcrumbs">
-                    Home <span>›</span> {selectedProduct.Category}{" "}
-                    <span>›</span> {selectedProduct.Brand}
-                  </div>
-                  <span className="detail-category">
-                    {selectedProduct.Category}
-                  </span>
                   <h1>
                     {selectedProduct.Brand} {selectedProduct.Model_Name}
                   </h1>
@@ -3268,62 +3493,38 @@ function App() {
                         : "Wishlist"}
                     </button>
 
+                    <div className="qty-stepper">
+                      <button
+                        type="button"
+                        aria-label="Decrease quantity"
+                        onClick={() => setDetailQty((q) => Math.max(1, q - 1))}
+                      >
+                        −
+                      </button>
+                      <span aria-live="polite">{detailQty}</span>
+                      <button
+                        type="button"
+                        aria-label="Increase quantity"
+                        onClick={() => setDetailQty((q) => Math.min(10, q + 1))}
+                      >
+                        +
+                      </button>
+                    </div>
                     <button
                       className="button-primary"
-                      onClick={async () => {
-                        if (!isSignedIn) {
-                          openSignIn();
-                          return;
-                        }
-
-                        try {
-                          const response = await fetch(
-                            `/api/cart/${encodeURIComponent(selectedProduct.Gadget_ID)}`,
-                            {
-                              method: "POST",
-                              credentials: "include",
-                            },
-                          );
-
-                          const data = await response.json();
-
-                          if (!response.ok) {
-                            throw new Error(
-                              data.error || "Could not add product to cart.",
-                            );
-                          }
-
-                          const cartResponse = await fetch("/api/cart", {
-                            credentials: "include",
-                          });
-                          const cartData = await cartResponse.json();
-
-                          if (!cartResponse.ok) {
-                            throw new Error(
-                              cartData.error || "Could not refresh cart.",
-                            );
-                          }
-
-                          const items = cartData.items || [];
-                          setCartItems(items);
-                          setCartCount(
-                            items.reduce(
-                              (total, item) => total + item.quantity,
-                              0,
-                            ),
-                          );
-
-                          alert("Product added to your cart!");
-                        } catch (error) {
-                          alert(
-                            error.message || "Could not add product to cart.",
-                          );
-                        }
-                      }}
+                      onClick={() => addSelectedToCart(false)}
                     >
                       <Icon name="cart" /> Add to Cart
                     </button>
+                    <button
+                      className="button-dark"
+                      onClick={() => addSelectedToCart(true)}
+                    >
+                      Buy Now
+                    </button>
                   </div>
+                </div>
+                <aside className="detail-aside">
                   <div className="service-list">
                     <p>
                       <Icon name="truck" />{" "}
@@ -3347,11 +3548,38 @@ function App() {
                       </span>
                     </p>
                   </div>
-                </div>
+                </aside>
               </div>
               <div className="spec-table-card">
-                <h2>Specifications</h2>
-                <div className="spec-table">
+                <div className="detail-tabs" role="tablist">
+                  {[
+                    ["description", "Description"],
+                    ["specifications", "Specifications"],
+                  ].map(([value, label]) => (
+                    <button
+                      key={value}
+                      role="tab"
+                      aria-selected={detailTab === value}
+                      className={detailTab === value ? "active" : ""}
+                      onClick={() => setDetailTab(value)}
+                    >
+                      {label}
+                    </button>
+                  ))}
+                </div>
+                {detailTab === "description" && (
+                  <p className="tab-description">
+                    {selectedProduct.Description ||
+                      "Explore the features and specifications of this product."}
+                  </p>
+                )}
+                <div
+                  className={
+                    detailTab === "description"
+                      ? "spec-table is-hidden"
+                      : "spec-table"
+                  }
+                >
                   {[
                     ["Model Name", selectedProduct.Model_Name],
                     ["Brand", selectedProduct.Brand],
@@ -4058,12 +4286,11 @@ function ProductCard({
         className="product-card-content"
         onClick={() => onOpen(product.Gadget_ID)}
       >
-        <span className="product-brand">{product.Brand}</span>
         <strong className="product-name">
-          {product.Model_Name || "Product"}
+          {product.Brand} {product.Model_Name || "Product"}
         </strong>
         <span className="product-spec-line">
-          {product.RAM_GB ?? "—"} GB RAM · {product.Storage_GB ?? "—"} GB
+          {product.RAM_GB ?? "—"} GB · {product.Storage_GB ?? "—"} GB
         </span>
         <span className="card-price-row">
           <strong>{formatPrice(product.Price_INR)}</strong>
