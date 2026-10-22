@@ -1,0 +1,48 @@
+/* Keep Clerk sign-in and sign-up screens centered across desktop and mobile. */
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+.auth-page {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 32px 16px;
+}
+
+.auth-page .cl-rootBox {
+  width: 100%;
+  max-width: 440px;
+  margin: 0 auto;
+  align-items: center;
+}
+
+.auth-page .cl-card {
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0 auto;
+}
+
+.auth-page .cl-footer,
+.auth-page .cl-footerAction {
+  justify-content: center;
+}
+
+@media (max-width: 480px) {
+  .auth-page {
+    padding: 24px 12px;
+    gap: 16px;
+  }
+
+  .auth-page .cl-rootBox {
+    max-width: 100%;
+  }
+}
