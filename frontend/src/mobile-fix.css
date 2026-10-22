@@ -765,3 +765,181 @@
     max-width: 43% !important;
   }
 }
+
+
+/* Final mobile hero refinement: readable copy and a balanced image area. */
+@media (max-width: 600px) {
+  .app-shell main#home {
+    padding: 12px 12px 32px !important;
+  }
+
+  .app-shell .hero-banner {
+    display: block !important;
+    position: relative !important;
+    width: 100% !important;
+    height: 390px !important;
+    min-height: 390px !important;
+    margin: 8px 0 20px !important;
+    border-radius: 18px !important;
+    overflow: hidden !important;
+    box-sizing: border-box;
+  }
+
+  .app-shell .hero-copy {
+    position: relative !important;
+    z-index: 2;
+    display: block;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 24px 20px 165px !important;
+    box-sizing: border-box;
+  }
+
+  .app-shell .hero-copy h1 {
+    max-width: 100%;
+    margin: 0 0 12px !important;
+    font-size: clamp(30px, 8.4vw, 38px) !important;
+    line-height: 1.08 !important;
+    letter-spacing: -.04em !important;
+    overflow-wrap: normal;
+  }
+
+  .app-shell .hero-copy p {
+    max-width: 100% !important;
+    margin: 0 0 16px !important;
+    font-size: 14px !important;
+    line-height: 1.55 !important;
+  }
+
+  .app-shell .hero-copy > button {
+    min-height: 42px !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 10px 16px !important;
+    font-size: 14px !important;
+    border-radius: 10px !important;
+  }
+
+  .app-shell .hero-image {
+    position: absolute !important;
+    z-index: 1;
+    right: 8px !important;
+    bottom: 24px !important;
+    top: auto !important;
+    width: 58% !important;
+    max-width: 58% !important;
+    height: 135px !important;
+    max-height: 135px !important;
+    object-fit: contain !important;
+    object-position: right bottom;
+    transform: none !important;
+  }
+
+  .app-shell .hero-arrow {
+    top: auto !important;
+    bottom: 18px !important;
+    width: 34px !important;
+    height: 34px !important;
+    transform: none !important;
+  }
+
+  .app-shell .hero-arrow-prev { left: 12px !important; }
+  .app-shell .hero-arrow-next { right: 12px !important; }
+
+  .app-shell .hero-dots {
+    position: absolute;
+    z-index: 3;
+    left: 50%;
+    bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    margin: 0 !important;
+    transform: translateX(-50%);
+  }
+
+  .app-shell .hero-dots i {
+    display: block;
+    width: 7px;
+    height: 7px;
+  }
+
+  .app-shell .hero-dots i.on { width: 20px; }
+}
+
+/* Ensure the admin dashboard always has a visible, usable content column on phones. */
+@media (max-width: 600px) {
+  .app-shell.admin-mode .admin-layout {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    width: 100% !important;
+    min-height: 0 !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  .app-shell.admin-mode .admin-sidebar {
+    flex: 0 0 auto;
+    position: static !important;
+    min-height: 0 !important;
+    height: auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .app-shell.admin-mode .admin-content {
+    display: block !important;
+    flex: 1 1 auto !important;
+    align-self: stretch !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    min-height: 60vh;
+    height: auto !important;
+    margin: 0 !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    overflow-x: auto !important;
+    overflow-y: visible !important;
+    box-sizing: border-box;
+  }
+
+  .app-shell.admin-mode .admin-content > .admin-title-row,
+  .app-shell.admin-mode .admin-content > .stat-grid,
+  .app-shell.admin-mode .admin-content > .admin-table-card,
+  .app-shell.admin-mode .admin-content > section,
+  .app-shell.admin-mode .admin-content > div {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
+  .app-shell.admin-mode .admin-title-row {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 10px;
+  }
+
+  .app-shell.admin-mode .admin-title-row h1 {
+    font-size: 25px !important;
+    line-height: 1.2 !important;
+  }
+
+  .app-shell.admin-mode .stat-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 9px !important;
+  }
+
+  .app-shell.admin-mode .stat-card {
+    min-width: 0;
+    padding: 12px !important;
+    overflow-wrap: anywhere;
+  }
+
+  .app-shell.admin-mode .admin-content table {
+    min-width: 600px;
+  }
+}
