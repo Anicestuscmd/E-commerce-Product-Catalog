@@ -271,10 +271,13 @@ async function readApiJson(response, fallbackMessage = "The server returned an u
 
 async function fetchAllProducts() {
   const firstResponse = await fetch("/api/products?page=1&pageSize=100");
+  const firstData = await readApiJson(
+    firstResponse,
+    `Could not retrieve products (HTTP ${firstResponse.status}).`,
+  );
   if (!firstResponse.ok) {
     throw new Error(`Could not retrieve products (HTTP ${firstResponse.status}).`);
   }
-  const firstData = await readApiJson(firstResponse, "Could not retrieve products.");
   if (Array.isArray(firstData)) return firstData;
   const allProducts = [...(firstData.items || [])];
   const pageSize = firstData.pageSize || 100;
@@ -285,8 +288,13 @@ async function fetchAllProducts() {
     const response = await fetch(
       `/api/products?page=${page}&pageSize=${pageSize}`,
     );
-    if (!response.ok) throw new Error(`Could not load product page ${page} (HTTP ${response.status}).`);
-    const data = await readApiJson(response, `Could not load product page ${page}.`);
+    const data = await readApiJson(
+      response,
+      `Could not load product page ${page} (HTTP ${response.status}).`,
+    );
+    if (!response.ok) {
+      throw new Error(`Could not load product page ${page} (HTTP ${response.status}).`);
+    }
     allProducts.push(...(data.items || []));
   }
   return allProducts;
