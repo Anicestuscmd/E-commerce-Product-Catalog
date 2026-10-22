@@ -3,7 +3,9 @@ const fs = require("fs");
 const csv = require("csv-parser");
 const { MongoClient } = require("mongodb");
 
-const uri = "mongodb://127.0.0.1:27017";
+require("dotenv").config();
+
+const uri = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017";
 const client = new MongoClient(uri);
 
 const products = [];
@@ -46,7 +48,7 @@ async function importProducts() {
 
     await client.connect();
 
-    const db = client.db("shopsense");
+    const db = client.db(process.env.MONGODB_DB || "shopsense");
     const collection = db.collection("products");
 
     // Use Gadget_ID to identify each product
