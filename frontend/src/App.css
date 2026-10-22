@@ -6356,3 +6356,29 @@ body,
     width: 100%;
   }
 }
+
+
+/* Admin sidebar hover contrast fix — keep labels readable on every state. */
+.app-shell .admin-sidebar > button:hover,
+.app-shell .admin-sidebar > button:focus,
+.app-shell .admin-sidebar > button:focus-visible,
+.app-shell .admin-sidebar > button.selected {
+  background-color: #176cf0 !important;
+  color: #fff !important;
+  opacity: 1 !important;
+}
+.app-shell .admin-sidebar > button:hover .app-icon,
+.app-shell .admin-sidebar > button:focus .app-icon,
+.app-shell .admin-sidebar > button:focus-visible .app-icon,
+.app-shell .admin-sidebar > button.selected .app-icon {
+  color: #fff !important;
+  stroke: #fff !important;
+  opacity: 1 !important;
+}
+.app-shell .admin-sidebar > button:hover *,
+.app-shell .admin-sidebar > button:focus *,
+.app-shell .admin-sidebar > button:focus-visible *,
+.app-shell .admin-sidebar > button.selected * {
+  color: #fff !important;
+  opacity: 1 !important;
+}
