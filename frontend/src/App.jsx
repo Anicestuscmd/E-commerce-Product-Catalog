@@ -282,8 +282,24 @@ async function fetchWithRetry(url, attempts = 3) {
   return lastResponse;
 }
 
+async function fetchProductPage(url) {
+  const response = await fetchWithRetry(url);
+  if (![502, 503, 504].includes(response.status)) return response;
+
+  // If Vercel's external rewrite is failing, try the same public endpoint on Render.
+  const directUrl = url.replace(
+    /^\/api\//,
+    "https://shopsense-api-syrq.onrender.com/api/",
+  );
+  try {
+    return await fetchWithRetry(directUrl, 2);
+  } catch {
+    return response;
+  }
+}
+
 async function fetchAllProducts() {
-  const firstResponse = await fetchWithRetry("/api/products?page=1&pageSize=100");
+  const firstResponse = await fetchProductPage("/api/products?page=1&pageSize=100");
   const firstData = await readApiJson(
     firstResponse,
     `Could not retrieve products (HTTP ${firstResponse.status}).`,
@@ -298,7 +314,7 @@ async function fetchAllProducts() {
     (firstData.total || allProducts.length) / pageSize,
   );
   for (let page = 2; page <= totalPages; page++) {
-    const response = await fetchWithRetry(
+    const response = await fetchProductPage(
       `/api/products?page=${page}&pageSize=${pageSize}`,
     );
     const data = await readApiJson(
