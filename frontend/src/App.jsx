@@ -4381,7 +4381,7 @@ function SignUpPage() {
 function AuthenticatedCatalog() {
   const { isLoaded, isSignedIn } = useUser();
   if (!isLoaded) return <p className="loading-screen">Loading ShopSense...</p>;
-  if (!isSignedIn) return <SignIn routing="hash" />;
+  if (!isSignedIn) return <SignInPage />;
   return <App />;
 }
 function RootApp() {
