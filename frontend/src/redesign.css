@@ -251,3 +251,37 @@ main#home { max-width: 1600px; padding: 10px clamp(8px, 1.25vw, 20px) 48px; }
   .hero-image { max-width: 70%; max-height: 48%; }
   .product-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
 }
+
+
+/* Fix admin sidebar hover contrast: override generic button hover rules explicitly. */
+.app-shell .admin-sidebar > button,
+.app-shell .admin-sidebar > button:visited {
+  color: #a8b6cc;
+  background: transparent;
+  border: 0;
+}
+.app-shell .admin-sidebar > button:hover,
+.app-shell .admin-sidebar > button:focus-visible,
+.app-shell .admin-sidebar > button.selected {
+  color: #ffffff !important;
+  background: #176cf0 !important;
+  border-color: transparent !important;
+}
+.app-shell .admin-sidebar > button:hover .app-icon,
+.app-shell .admin-sidebar > button:focus-visible .app-icon,
+.app-shell .admin-sidebar > button.selected .app-icon {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+  opacity: 1 !important;
+}
+.app-shell .admin-sidebar > button:hover *,
+.app-shell .admin-sidebar > button.selected * {
+  color: #ffffff !important;
+}
+.app-shell .admin-sidebar > button.sidebar-bottom:hover {
+  background: #eaf1ff !important;
+  color: #174db5 !important;
+}
+.app-shell .admin-sidebar > button.sidebar-bottom:hover * {
+  color: #174db5 !important;
+}
