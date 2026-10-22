@@ -309,3 +309,134 @@
     font-size: 13px;
   }
 }
+
+
+/* Mobile layout corrections based on real-device screenshot; desktop remains unchanged. */
+.mobile-admin-link { display: none; }
+
+@media (max-width: 600px) {
+  .topbar {
+    position: relative !important;
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    height: auto !important;
+    min-height: 0 !important;
+    gap: 10px !important;
+    padding: 12px !important;
+  }
+
+  .topbar > .brand-logo { grid-column: 1; grid-row: 1; }
+  .topbar > .profile-wrap { grid-column: 2; grid-row: 1; margin: 0 !important; }
+  .topbar > .header-search-container {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    order: initial !important;
+    width: 100%;
+    flex-basis: auto !important;
+  }
+
+  .topbar > .main-nav {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    order: initial !important;
+    display: flex;
+    width: 100%;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: 6px;
+    overflow-x: auto;
+    padding: 2px 0 5px;
+  }
+
+  .topbar > .main-nav button {
+    flex: 0 0 auto;
+    min-height: 40px;
+    padding: 8px 10px;
+    font-size: 13px;
+  }
+
+  .mobile-admin-link { display: inline-flex !important; }
+
+  .hero-banner {
+    height: auto !important;
+    min-height: 340px !important;
+    margin-top: 12px !important;
+  }
+
+  .hero-copy {
+    max-width: 100% !important;
+    padding: 24px 18px 145px !important;
+  }
+
+  .hero-copy h1 {
+    font-size: clamp(30px, 8vw, 40px) !important;
+    line-height: 1.08 !important;
+  }
+
+  .hero-copy p {
+    font-size: 14px !important;
+    line-height: 1.55 !important;
+  }
+
+  .hero-image {
+    max-width: 65% !important;
+    max-height: 40% !important;
+    bottom: 24px !important;
+  }
+
+  .admin-layout {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    gap: 12px;
+  }
+
+  .admin-sidebar {
+    position: static !important;
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 6px;
+    width: 100% !important;
+    height: auto !important;
+    padding: 10px !important;
+    overflow-x: auto !important;
+    border-right: 0 !important;
+    border-bottom: 1px solid var(--ss-line);
+  }
+
+  .admin-sidebar > .admin-brand,
+  .admin-sidebar > p {
+    display: none !important;
+  }
+
+  .admin-sidebar > button {
+    flex: 0 0 auto;
+    width: auto !important;
+    min-height: 38px;
+    padding: 8px 10px !important;
+    white-space: nowrap;
+    font-size: 12px;
+  }
+
+  .admin-content {
+    width: 100% !important;
+    min-width: 0 !important;
+    padding: 12px !important;
+  }
+
+  .admin-content > *,
+  .admin-content section,
+  .admin-content .admin-table-card {
+    max-width: 100%;
+  }
+
+  .admin-content .stats-grid,
+  .admin-content .stat-grid,
+  .admin-content .analytics-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
