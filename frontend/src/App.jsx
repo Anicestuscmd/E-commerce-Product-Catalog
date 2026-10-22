@@ -487,7 +487,7 @@ function App() {
         `/api/products/${encodeURIComponent(productId)}`,
       );
       if (!response.ok) throw new Error("Could not load product details.");
-      setSelectedProduct(await response.json());
+      setSelectedProduct(await readApiJson(response));
     } catch (err) {
       setError(err.message);
     } finally {
@@ -835,7 +835,7 @@ function App() {
 
       const response = await fetch(`/api/semantic-search?${params.toString()}`);
 
-      const data = await response.json();
+      const data = await readApiJson(response);
 
       if (!response.ok) {
         throw new Error(data.error || "AI search failed.");
@@ -877,7 +877,7 @@ function App() {
         throw new Error("Could not find alternatives. Please try again.");
       }
 
-      const data = await response.json();
+      const data = await readApiJson(response);
 
       const alternatives = (data.items || []).filter(
         (item) => String(item.Gadget_ID) !== String(product.Gadget_ID),
@@ -922,7 +922,7 @@ function App() {
         },
       );
 
-      const data = await response.json();
+      const data = await readApiJson(response);
 
       if (!response.ok) {
         throw new Error(data.error || "Could not update user role.");
@@ -992,7 +992,7 @@ function App() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-      const result = await response.json().catch(() => ({}));
+      const result = await readApiJson(response).catch(() => ({}));
       if (!response.ok)
         throw new Error(result.error || "Could not save product.");
       setShowProductForm(false);
@@ -1018,7 +1018,7 @@ function App() {
         `/api/products/${encodeURIComponent(product.Gadget_ID)}`,
         { method: "DELETE", credentials: "include" },
       );
-      const result = await response.json().catch(() => ({}));
+      const result = await readApiJson(response).catch(() => ({}));
       if (!response.ok)
         throw new Error(result.error || "Could not delete product.");
       setProducts((current) =>
@@ -1059,7 +1059,7 @@ function App() {
           credentials: "include",
         });
 
-        const data = await response.json();
+        const data = await readApiJson(response);
 
         if (!response.ok) {
           throw new Error(data.error || "Could not load wishlist.");
@@ -1104,7 +1104,7 @@ function App() {
           credentials: "include",
         });
 
-        const data = await response.json();
+        const data = await readApiJson(response);
 
         if (!response.ok) {
           throw new Error(data.error || "Could not load cart.");
@@ -1149,7 +1149,7 @@ function App() {
           credentials: "include",
         });
 
-        const data = await response.json();
+        const data = await readApiJson(response);
 
         if (!response.ok) {
           throw new Error(data.error || "Could not load users.");
@@ -1192,7 +1192,7 @@ function App() {
           credentials: "include",
         });
 
-        const data = await response.json();
+        const data = await readApiJson(response);
 
         if (!response.ok) {
           throw new Error(data.error || "Could not load order analytics.");
@@ -1248,11 +1248,11 @@ function App() {
         const response = await fetch("/api/admin/orders");
 
         if (!response.ok) {
-          const data = await response.json().catch(() => ({}));
+          const data = await readApiJson(response).catch(() => ({}));
           throw new Error(data.error || "Could not load orders.");
         }
 
-        const data = await response.json();
+        const data = await readApiJson(response);
 
         if (!cancelled) {
           setAdminOrders(data.orders || []);
@@ -1292,7 +1292,7 @@ function App() {
           credentials: "include",
         });
 
-        const data = await response.json();
+        const data = await readApiJson(response);
 
         if (!response.ok) {
           throw new Error(data.error || "Could not load order history.");
@@ -1412,7 +1412,7 @@ function App() {
         credentials: "include",
       });
 
-      const data = await response.json();
+      const data = await readApiJson(response);
 
       if (!response.ok) {
         throw new Error(data.error || "Could not update wishlist.");
@@ -1446,7 +1446,7 @@ function App() {
         body: JSON.stringify({}),
       });
 
-      const data = await response.json();
+      const data = await readApiJson(response);
 
       if (!response.ok) {
         throw new Error(data.error || "Could not place order.");
@@ -1466,7 +1466,7 @@ function App() {
 
   async function refreshCart() {
     const cartResponse = await fetch("/api/cart", { credentials: "include" });
-    const cartData = await cartResponse.json();
+    const cartData = await readApiJson(cartResponse);
     if (!cartResponse.ok) throw new Error(cartData.error || "Could not refresh cart.");
     const items = cartData.items || [];
     setCartItems(items);
@@ -1514,13 +1514,13 @@ function App() {
           `/api/cart/${encodeURIComponent(selectedProduct.Gadget_ID)}`,
           { method: "POST", credentials: "include" },
         );
-        const data = await response.json();
+        const data = await readApiJson(response);
         if (!response.ok) {
           throw new Error(data.error || "Could not add product to cart.");
         }
       }
       const cartResponse = await fetch("/api/cart", { credentials: "include" });
-      const cartData = await cartResponse.json();
+      const cartData = await readApiJson(cartResponse);
       if (!cartResponse.ok) {
         throw new Error(cartData.error || "Could not refresh cart.");
       }
@@ -1927,7 +1927,7 @@ function App() {
                                         },
                                       );
 
-                                      const data = await response.json();
+                                      const data = await readApiJson(response);
 
                                       if (!response.ok) {
                                         throw new Error(
@@ -3215,7 +3215,7 @@ function App() {
                             `/api/cart/${encodeURIComponent(product.Gadget_ID)}`,
                             { method: "DELETE", credentials: "include" },
                           );
-                          const data = await response.json();
+                          const data = await readApiJson(response);
                           if (!response.ok) {
                             throw new Error(data.error || "Could not remove product.");
                           }
