@@ -247,20 +247,25 @@ async function readApiJson(response, fallbackMessage = "The server returned an u
   const bodyText = await response.text();
 
   if (!contentType.toLowerCase().includes("application/json")) {
-    if (bodyText.trimStart().startsWith("<!DOCTYPE") || bodyText.trimStart().startsWith("<html")) {
+    const looksLikeHtml = /^(?:<!doctype\\s+html|<html)\\b/i.test(bodyText.trimStart());
+    if (looksLikeHtml) {
+      const title = bodyText.match(/<title[^>]*>(.*?)<\\/title>/is)?.[1]?.trim();
+      const detail = [
+        `HTTP ${response.status}`,
+        response.url ? `URL: ${response.url}` : "",
+        title ? `Page: ${title}` : "",
+      ].filter(Boolean).join(" — ");
       throw new Error(
-        response.status === 404
-          ? "The ShopSense API route returned a webpage (404), not JSON. Check the Vercel /api rewrite and redeploy the backend if needed."
-          : "The ShopSense backend returned an HTML page instead of JSON. It may be starting, unavailable, or its API route may be misconfigured. Please retry in a moment."
+        `ShopSense expected JSON but received an HTML page (${detail}). This usually means the request reached the frontend fallback instead of the API. Check the Vercel deployment and /api rewrite.`
       );
     }
-    throw new Error(fallbackMessage);
+    throw new Error(`${fallbackMessage} (HTTP ${response.status}; content type: ${contentType || "unknown"}).`);
   }
 
   try {
     return JSON.parse(bodyText);
   } catch {
-    throw new Error("The ShopSense backend returned invalid JSON. Please retry in a moment.");
+    throw new Error(`ShopSense received invalid JSON from ${response.url || "the API"} (HTTP ${response.status}).`);
   }
 }
 
