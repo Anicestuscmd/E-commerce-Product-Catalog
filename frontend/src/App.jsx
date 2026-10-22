@@ -269,8 +269,21 @@ async function readApiJson(response, fallbackMessage = "The server returned an u
   }
 }
 
+async function fetchWithRetry(url, attempts = 3) {
+  let lastResponse;
+  for (let attempt = 1; attempt <= attempts; attempt++) {
+    lastResponse = await fetch(url, { cache: "no-store" });
+    if (![502, 503, 504].includes(lastResponse.status) || attempt === attempts) {
+      return lastResponse;
+    }
+    // Render/Vercel transient gateway errors can occur while the free backend wakes up.
+    await new Promise((resolve) => setTimeout(resolve, 700 * attempt));
+  }
+  return lastResponse;
+}
+
 async function fetchAllProducts() {
-  const firstResponse = await fetch("/api/products?page=1&pageSize=100");
+  const firstResponse = await fetchWithRetry("/api/products?page=1&pageSize=100");
   const firstData = await readApiJson(
     firstResponse,
     `Could not retrieve products (HTTP ${firstResponse.status}).`,
@@ -285,7 +298,7 @@ async function fetchAllProducts() {
     (firstData.total || allProducts.length) / pageSize,
   );
   for (let page = 2; page <= totalPages; page++) {
-    const response = await fetch(
+    const response = await fetchWithRetry(
       `/api/products?page=${page}&pageSize=${pageSize}`,
     );
     const data = await readApiJson(
