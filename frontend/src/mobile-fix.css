@@ -440,3 +440,223 @@
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
   }
 }
+
+
+/* My Orders mobile repair: stack the account navigation and content vertically. */
+@media (max-width: 600px) {
+  .app-shell .cart-page.account-page {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    padding: 18px 12px 36px !important;
+    box-sizing: border-box;
+    overflow-x: clip;
+  }
+
+  .app-shell .account-layout {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 18px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+  }
+
+  .app-shell .account-sidebar {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center;
+    align-self: stretch !important;
+    gap: 8px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    padding: 8px !important;
+    overflow-x: auto !important;
+    overscroll-behavior-x: contain;
+    box-sizing: border-box;
+    border: 1px solid #e4e9f2;
+    border-radius: 14px;
+    background: #fff;
+    scrollbar-width: thin;
+  }
+
+  .app-shell .account-sidebar button {
+    display: inline-flex !important;
+    flex: 0 0 auto !important;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    width: auto !important;
+    min-width: max-content !important;
+    min-height: 42px;
+    margin: 0 !important;
+    padding: 10px 12px !important;
+    border-radius: 10px;
+    font-size: 13px !important;
+    white-space: nowrap;
+  }
+
+  .app-shell .account-content {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box;
+  }
+
+  .app-shell .orders-heading {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 12px !important;
+    width: 100%;
+    margin: 0 0 16px !important;
+  }
+
+  .app-shell .orders-heading h1 {
+    margin: 0 !important;
+    font-size: clamp(28px, 8vw, 36px) !important;
+    line-height: 1.15 !important;
+    overflow-wrap: anywhere;
+  }
+
+  .app-shell .orders-heading .button-outline {
+    align-self: flex-start;
+    min-height: 42px;
+    padding: 10px 14px;
+    font-size: 14px;
+    white-space: normal;
+  }
+
+  .app-shell .order-filter-tabs {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    gap: 8px !important;
+    width: 100%;
+    margin: 0 0 16px !important;
+    padding: 2px 0 7px;
+    overflow-x: auto !important;
+    overscroll-behavior-x: contain;
+    scrollbar-width: thin;
+  }
+
+  .app-shell .order-filter-tabs button {
+    flex: 0 0 auto !important;
+    min-height: 40px;
+    padding: 9px 13px !important;
+    border-radius: 10px;
+    font-size: 13px !important;
+    white-space: nowrap;
+  }
+
+  .app-shell .order-history-list {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 12px !important;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .app-shell .order-history-card {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 14px !important;
+    width: 100%;
+    min-width: 0;
+    padding: 14px !important;
+    border-radius: 14px !important;
+    box-sizing: border-box;
+  }
+
+  .app-shell .order-history-details,
+  .app-shell .order-history-card-heading {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .app-shell .order-history-card-heading h3 {
+    font-size: 14px !important;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+  }
+
+  .app-shell .order-history-date {
+    font-size: 12px !important;
+    line-height: 1.5;
+  }
+
+  .app-shell .order-history-thumbs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+  }
+
+  .app-shell .order-history-thumbs img {
+    width: 48px;
+    height: 48px;
+    flex: 0 0 48px;
+    box-sizing: border-box;
+  }
+
+  .app-shell .order-history-names {
+    font-size: 12px !important;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+    word-break: normal;
+  }
+
+  .app-shell .order-history-summary {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap;
+    align-items: center !important;
+    justify-content: space-between;
+    gap: 8px 12px !important;
+    width: 100%;
+    min-width: 0 !important;
+    padding-top: 12px !important;
+    border-top: 1px solid #e8edf5 !important;
+    box-sizing: border-box;
+  }
+
+  .app-shell .order-history-total-label {
+    display: inline !important;
+    color: #68758b;
+    font-size: 12px;
+  }
+
+  .app-shell .order-history-total {
+    font-size: 17px !important;
+  }
+
+  .app-shell .order-status-badge {
+    margin-left: auto;
+    padding: 6px 10px !important;
+    border-radius: 999px !important;
+    font-size: 12px !important;
+  }
+
+  .app-shell .account-content .cart-empty {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 28px 16px !important;
+    border-radius: 16px;
+    text-align: center;
+  }
+
+  .app-shell .account-content > p {
+    max-width: 100%;
+    font-size: 15px;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+  }
+}
