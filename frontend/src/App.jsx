@@ -4337,7 +4337,7 @@ function SignInPage() {
         </a>
         <p>Your next favorite piece of tech is waiting.</p>
       </div>
-      <SignIn routing="path" path="/sign-in" signUpUrl="/sign-up" />
+      <SignIn routing="path" path="/sign-in" signUpUrl="/sign-up" forceRedirectUrl="/" fallbackRedirectUrl="/" />
     </main>
   );
 }
@@ -4353,7 +4353,7 @@ function SignUpPage() {
         </a>
         <p>Create your account and discover smarter shopping.</p>
       </div>
-      <SignUp routing="path" path="/sign-up" signInUrl="/sign-in" />
+      <SignUp routing="path" path="/sign-up" signInUrl="/sign-in" forceRedirectUrl="/" fallbackRedirectUrl="/" />
     </main>
   );
 }
