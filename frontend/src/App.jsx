@@ -249,7 +249,7 @@ async function readApiJson(response, fallbackMessage = "The server returned an u
   if (!contentType.toLowerCase().includes("application/json")) {
     const looksLikeHtml = /^(?:<!doctype\\s+html|<html)\\b/i.test(bodyText.trimStart());
     if (looksLikeHtml) {
-      const title = bodyText.match(/<title[^>]*>(.*?)<\\/title>/is)?.[1]?.trim();
+      const title = bodyText.match(/<title[^>]*>(.*?)<\/title>/is)?.[1]?.trim();
       const detail = [
         `HTTP ${response.status}`,
         response.url ? `URL: ${response.url}` : "",
