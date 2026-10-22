@@ -1625,6 +1625,27 @@ function App() {
             {cartCount > 0 && <b className="nav-count">{cartCount}</b>}
           </button>
 
+          {isAdmin && (
+            <button
+              className="mobile-admin-link"
+              onClick={() => {
+                setShowAdmin(true);
+                setShowProfile(false);
+                setShowCart(false);
+                setShowWishlist(false);
+                setShowOrderHistory(false);
+                setSelectedProduct(null);
+                setShowUsers(false);
+                setShowOrders(false);
+                setShowAnalytics(false);
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+            >
+              <Icon name="chart-no-axes-combined" />
+              Admin
+            </button>
+          )}
+
         </nav>
 
         <div className="profile-wrap">
