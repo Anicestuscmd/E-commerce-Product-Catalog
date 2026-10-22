@@ -378,6 +378,32 @@ function sendError(res, error, fallback) {
   });
 }
 
+async function rebuildSemanticIndex() {
+  if (!qdrantReady || !products) return;
+
+  try {
+    const allProducts = await products.find({}).toArray();
+    console.log(`Rebuilding Qdrant semantic index for ${allProducts.length} products...`);
+
+    for (let start = 0; start < allProducts.length; start += 8) {
+      const points = await Promise.all(
+        allProducts
+          .slice(start, start + 8)
+          .map((product) => makePoint(publicProduct(product))),
+      );
+
+      await qdrantJson(
+        `/collections/${encodeURIComponent(QDRANT_COLLECTION)}/points?wait=true`,
+        { method: "PUT", body: { points } },
+      );
+    }
+
+    console.log(`Qdrant semantic index ready: ${allProducts.length} products indexed.`);
+  } catch (error) {
+    console.error("Qdrant semantic index rebuild failed:", error.message);
+  }
+}
+
 async function startServer() {
   if (!process.env.MONGODB_URI) {
     throw new Error(
@@ -1436,6 +1462,11 @@ async function startServer() {
 
   app.listen(PORT, "0.0.0.0", () => {
     console.log(`ShopSense API listening on port ${PORT}`);
+    if (qdrantReady) {
+      void rebuildSemanticIndex();
+    } else {
+      console.warn("AI semantic search is disabled until QDRANT_URL is configured and reachable.");
+    }
   });
 }
 
