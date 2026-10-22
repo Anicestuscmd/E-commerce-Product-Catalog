@@ -1,34 +1,73 @@
-/* Keep Clerk sign-in and sign-up screens centered across desktop and mobile. */
+/* Center Clerk sign-in/sign-up in every entry path, including the first unauthenticated visit. */
 html,
 body,
 #root {
+  width: 100%;
+  min-width: 0;
   min-height: 100%;
+  margin: 0;
 }
 
-.auth-page {
-  box-sizing: border-box;
-  width: 100%;
+body {
   min-height: 100vh;
   min-height: 100dvh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  padding: 32px 16px;
 }
 
-.auth-page .cl-rootBox {
+#root {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+main.auth-page {
+  box-sizing: border-box;
+  display: flex !important;
+  flex-direction: column;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 24px;
+  width: 100% !important;
+  max-width: none !important;
+  min-width: 0;
+  min-height: 100vh !important;
+  min-height: 100dvh !important;
+  margin: 0 !important;
+  padding: 32px 16px !important;
+  text-align: center;
+}
+
+.auth-page .auth-brand {
   width: 100%;
   max-width: 440px;
   margin: 0 auto;
+  text-align: center;
+}
+
+.auth-page .auth-brand .brand-logo {
+  display: inline-flex;
   align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.auth-page .auth-brand p {
+  margin: 10px auto 0;
+  max-width: 360px;
+}
+
+.auth-page .cl-rootBox {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center !important;
+  width: 100% !important;
+  max-width: 440px !important;
+  margin: 0 auto !important;
 }
 
 .auth-page .cl-card {
-  width: 100%;
+  width: 100% !important;
+  max-width: 440px;
   box-sizing: border-box;
-  margin: 0 auto;
+  margin: 0 auto !important;
 }
 
 .auth-page .cl-footer,
@@ -36,13 +75,15 @@ body,
   justify-content: center;
 }
 
-@media (max-width: 480px) {
-  .auth-page {
-    padding: 24px 12px;
-    gap: 16px;
+@media (max-width: 600px) {
+  main.auth-page {
+    gap: 18px;
+    padding: 24px 12px !important;
   }
 
-  .auth-page .cl-rootBox {
-    max-width: 100%;
+  .auth-page .auth-brand,
+  .auth-page .cl-rootBox,
+  .auth-page .cl-card {
+    max-width: 100% !important;
   }
 }
