@@ -84,7 +84,7 @@ Open the local URL printed by Vite, usually `http://localhost:5173`.
 2. Restart the API after changing environment variables.
 3. Check `http://localhost:5000/api/status`; the response should show `"qdrant": true`.
 4. The AI search model (`Xenova/all-MiniLM-L6-v2`) is downloaded by Transformers.js on first use, so the first AI search may take longer.
-5. The product vectors must be indexed in the `shopsense_products` Qdrant collection. Sign in with an administrator account and use the project's admin reindex action if the collection is empty.
+5. When Qdrant is reachable, the API now rebuilds the `shopsense_products` collection from MongoDB using the same sentence-embedding model used for search. Watch the API terminal for `Qdrant semantic index ready`; this can take a little while for the first 500 products.
 
 If Qdrant is not configured/reachable, keyword search can still work, but AI semantic search and vector recommendations will not work.
 
