@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://shopsense-api-syrq.onrender.com/api/:path*"
+    }
+  ]
+}
