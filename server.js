@@ -253,14 +253,45 @@ async function ensureQdrantCollection() {
   qdrantReady = true;
 }
 
-function makePoint(product) {
+let embeddingExtractorPromise;
+
+function getEmbeddingExtractor() {
+  if (!embeddingExtractorPromise) {
+    embeddingExtractorPromise = pipeline(
+      "feature-extraction",
+      "Xenova/all-MiniLM-L6-v2",
+    );
+  }
+
+  return embeddingExtractorPromise;
+}
+
+async function productVector(product) {
+  const extractor = await getEmbeddingExtractor();
+  const text = [
+    product.Category,
+    product.Brand,
+    product.Model_Name,
+    product.Processor,
+    product.OS,
+    product.Connectivity,
+    product.Description,
+  ].filter(Boolean).join(". ");
+  const output = await extractor(text, { pooling: "mean", normalize: true });
+  return Array.from(output.data);
+}
+
+async function makePoint(product) {
   return {
     id: pointId(product.Gadget_ID),
-    vector: productVector(product),
+    vector: await productVector(product),
     payload: {
       productId: product.Gadget_ID,
+      gadgetId: product.Gadget_ID,
       Category: product.Category,
+      category: product.Category,
       Price_INR: product.Price_INR,
+      priceINR: product.Price_INR,
       RAM_GB: product.RAM_GB,
       Storage_GB: product.Storage_GB,
       Available: product.Available ?? true,
@@ -276,7 +307,7 @@ async function indexProduct(product) {
       `/collections/${encodeURIComponent(QDRANT_COLLECTION)}/points?wait=true`,
       {
         method: "PUT",
-        body: { points: [makePoint(publicProduct(product))] },
+        body: { points: [await makePoint(publicProduct(product))] },
       },
     );
     return true;
@@ -492,19 +523,6 @@ async function startServer() {
       sendError(res, error, "Could not load products.");
     }
   });
-
-  let embeddingExtractorPromise;
-
-  function getEmbeddingExtractor() {
-    if (!embeddingExtractorPromise) {
-      embeddingExtractorPromise = pipeline(
-        "feature-extraction",
-        "Xenova/all-MiniLM-L6-v2",
-      );
-    }
-
-    return embeddingExtractorPromise;
-  }
 
   app.get("/api/semantic-search", async (req, res) => {
     try {
@@ -1251,9 +1269,11 @@ async function startServer() {
       const allProducts = await products.find({}).toArray();
 
       for (let start = 0; start < allProducts.length; start += 64) {
-        const points = allProducts
-          .slice(start, start + 64)
-          .map((product) => makePoint(publicProduct(product)));
+        const points = await Promise.all(
+          allProducts
+            .slice(start, start + 64)
+            .map((product) => makePoint(publicProduct(product))),
+        );
 
         await qdrantJson(
           `/collections/${encodeURIComponent(QDRANT_COLLECTION)}/points?wait=true`,
@@ -1333,12 +1353,25 @@ async function startServer() {
         });
       }
 
+      const extractor = await getEmbeddingExtractor();
+      const recommendationQuery = [
+        preferences.requirements,
+        preferences.category,
+        preferences.budget ? `budget up to ${preferences.budget} rupees` : "",
+        preferences.minRamGb ? `at least ${preferences.minRamGb} GB RAM` : "",
+        preferences.minStorageGb ? `at least ${preferences.minStorageGb} GB storage` : "",
+      ].filter(Boolean).join(". ");
+      const queryOutput = await extractor(recommendationQuery, {
+        pooling: "mean",
+        normalize: true,
+      });
+
       const result = await qdrantJson(
         `/collections/${encodeURIComponent(QDRANT_COLLECTION)}/points/query`,
         {
           method: "POST",
           body: {
-            query: preferenceVector(preferences),
+            query: Array.from(queryOutput.data),
             limit: 40,
             with_payload: true,
             ...(must.length ? { filter: { must } } : {}),
@@ -1411,4 +1444,3 @@ startServer().catch((error) => {
   process.exitCode = 1;
 });
 
-startServer();
