@@ -3,6 +3,7 @@ import { ClerkProvider } from "@clerk/react";
 import App from "./App.jsx";
 import "./index.css";
 import "./redesign.css";
+import "./auth-fix.css";
 
 const publishableKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
