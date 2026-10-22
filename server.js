@@ -434,6 +434,16 @@ async function startServer() {
   await products.createIndex({ Gadget_ID: 1 }, { unique: true });
   await wishlists.createIndex({ userId: 1 }, { unique: true });
 
+  // Allow the deployed Vercel frontend to call the public product API directly
+  // if the Vercel-to-Render rewrite returns a transient gateway error.
+  app.use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE, OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    if (req.method === "OPTIONS") return res.sendStatus(204);
+    next();
+  });
+
   app.use(clerkMiddleware());
   app.use(express.json({ limit: "1mb" }));
 
