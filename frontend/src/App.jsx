@@ -242,10 +242,34 @@ function formatPrice(price) {
   }).format(Number(price) || 0);
 }
 
+async function readApiJson(response, fallbackMessage = "The server returned an unexpected response.") {
+  const contentType = response.headers.get("content-type") || "";
+  const bodyText = await response.text();
+
+  if (!contentType.toLowerCase().includes("application/json")) {
+    if (bodyText.trimStart().startsWith("<!DOCTYPE") || bodyText.trimStart().startsWith("<html")) {
+      throw new Error(
+        response.status === 404
+          ? "The ShopSense API route returned a webpage (404), not JSON. Check the Vercel /api rewrite and redeploy the backend if needed."
+          : "The ShopSense backend returned an HTML page instead of JSON. It may be starting, unavailable, or its API route may be misconfigured. Please retry in a moment."
+      );
+    }
+    throw new Error(fallbackMessage);
+  }
+
+  try {
+    return JSON.parse(bodyText);
+  } catch {
+    throw new Error("The ShopSense backend returned invalid JSON. Please retry in a moment.");
+  }
+}
+
 async function fetchAllProducts() {
   const firstResponse = await fetch("/api/products?page=1&pageSize=100");
-  if (!firstResponse.ok) throw new Error("Could not retrieve products.");
-  const firstData = await firstResponse.json();
+  if (!firstResponse.ok) {
+    throw new Error(`Could not retrieve products (HTTP ${firstResponse.status}).`);
+  }
+  const firstData = await readApiJson(firstResponse, "Could not retrieve products.");
   if (Array.isArray(firstData)) return firstData;
   const allProducts = [...(firstData.items || [])];
   const pageSize = firstData.pageSize || 100;
@@ -256,8 +280,8 @@ async function fetchAllProducts() {
     const response = await fetch(
       `/api/products?page=${page}&pageSize=${pageSize}`,
     );
-    if (!response.ok) throw new Error(`Could not load product page ${page}.`);
-    const data = await response.json();
+    if (!response.ok) throw new Error(`Could not load product page ${page} (HTTP ${response.status}).`);
+    const data = await readApiJson(response, `Could not load product page ${page}.`);
     allProducts.push(...(data.items || []));
   }
   return allProducts;
