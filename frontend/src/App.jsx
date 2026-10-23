@@ -1977,6 +1977,15 @@ function App() {
 
                   <button
                     className="button-outline"
+                    onClick={() => {
+                      setShowOrders(false);
+                      window.setTimeout(() => setShowOrders(true), 0);
+                    }}
+                  >
+                    Refresh Orders
+                  </button>
+                  <button
+                    className="button-outline"
                     onClick={() => setShowOrders(false)}
                   >
                     Back to Dashboard
