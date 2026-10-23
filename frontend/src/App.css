@@ -6382,3 +6382,199 @@ body,
   color: #fff !important;
   opacity: 1 !important;
 }
+
+
+/* Refined My Orders layout: spacious desktop content with compact mobile adaptation. */
+.app-shell .account-page {
+  width: min(1240px, calc(100% - 64px));
+  max-width: 1240px;
+  margin: 36px auto 56px;
+  font-size: 15px;
+}
+.app-shell .account-layout {
+  width: 100%;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 28px;
+  align-items: start;
+}
+.app-shell .account-sidebar {
+  padding: 12px;
+  border-radius: 14px;
+  box-shadow: 0 6px 22px rgb(15 23 42 / 4%);
+}
+.app-shell .account-sidebar button {
+  min-height: 42px;
+  padding: 11px 13px;
+  font-size: 13px;
+}
+.app-shell .account-content {
+  min-width: 0;
+  width: 100%;
+}
+.app-shell .orders-heading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 0 0 18px;
+}
+.app-shell .orders-heading h1 {
+  margin: 0 auto 0 0;
+  font-size: 26px !important;
+  line-height: 1.25;
+  letter-spacing: -0.03em;
+}
+.app-shell .orders-heading .button-outline {
+  min-height: 38px;
+  height: auto;
+  padding: 9px 15px;
+  border-radius: 9px;
+  font-size: 13px;
+  white-space: nowrap;
+}
+.app-shell .order-filter-tabs {
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-bottom: 18px;
+}
+.app-shell .order-filter-tabs button {
+  padding: 8px 16px;
+  border-radius: 9px;
+  font-size: 13px;
+}
+.app-shell .order-history-list {
+  gap: 16px;
+}
+.app-shell .order-history-card {
+  align-items: center;
+  gap: 24px;
+  padding: 22px 24px;
+  border-radius: 14px;
+  box-shadow: 0 5px 18px rgb(15 23 42 / 4%);
+}
+.app-shell .order-history-card-heading {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+}
+.app-shell .order-history-card-heading h3 {
+  font-size: 16px;
+  line-height: 1.4;
+}
+.app-shell .order-history-date {
+  display: inline;
+  margin: 0;
+  font-size: 13px;
+}
+.app-shell .order-history-thumbs {
+  gap: 10px;
+  margin-top: 14px;
+}
+.app-shell .order-history-thumbs img {
+  width: 58px;
+  height: 58px;
+  border-radius: 9px;
+}
+.app-shell .order-history-names {
+  margin-top: 10px;
+  font-size: 13px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+.app-shell .order-history-summary {
+  flex: 0 0 175px;
+  min-width: 175px;
+  align-items: flex-end;
+  gap: 9px;
+  padding-left: 24px;
+  border-left: 1px solid #e6eaf0;
+}
+.app-shell .order-history-total-label {
+  font-size: 12px;
+}
+.app-shell .order-history-total {
+  font-size: 23px !important;
+}
+.app-shell .order-history-summary .button-outline {
+  min-height: 38px;
+  padding: 9px 13px;
+  border-radius: 9px;
+  font-size: 13px;
+  white-space: nowrap;
+}
+@media (max-width: 900px) {
+  .app-shell .account-page {
+    width: calc(100% - 32px);
+    margin: 24px auto 36px;
+  }
+  .app-shell .account-layout {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .app-shell .account-sidebar {
+    position: static;
+    grid-auto-flow: column;
+    grid-template-columns: repeat(3, minmax(max-content, 1fr));
+    overflow-x: auto;
+  }
+  .app-shell .order-history-summary {
+    flex-basis: 150px;
+    min-width: 150px;
+    padding-left: 16px;
+  }
+}
+@media (max-width: 600px) {
+  .app-shell .account-page {
+    width: calc(100% - 24px);
+    margin: 18px auto 28px;
+  }
+  .app-shell .orders-heading {
+    gap: 8px;
+  }
+  .app-shell .orders-heading h1 {
+    flex-basis: 100%;
+    font-size: 23px !important;
+  }
+  .app-shell .orders-heading .button-outline {
+    flex: 1 1 auto;
+    justify-content: center;
+    font-size: 12px;
+  }
+  .app-shell .order-filter-tabs {
+    gap: 7px;
+  }
+  .app-shell .order-filter-tabs button {
+    padding: 8px 11px;
+    font-size: 12px;
+  }
+  .app-shell .order-history-card {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px;
+  }
+  .app-shell .order-history-card-heading {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .app-shell .order-history-card-heading h3 {
+    font-size: 15px;
+  }
+  .app-shell .order-history-date {
+    font-size: 12px;
+  }
+  .app-shell .order-history-summary {
+    flex: auto;
+    min-width: 0;
+    align-items: flex-start;
+    padding: 14px 0 0;
+    border-left: 0;
+    border-top: 1px solid #e6eaf0;
+  }
+  .app-shell .order-history-total {
+    font-size: 21px !important;
+  }
+}
