@@ -287,8 +287,8 @@ function printDemoInvoice(order) {
 <style>
   * { box-sizing: border-box; }
   html { width: 100%; min-height: 100%; }
-  body { margin: 0; padding: 24px; min-height: 100vh; min-height: 100dvh; width: 100%; display: grid; place-items: center; color: #1d2a38; font: 14px/1.5 Arial, sans-serif; }
-  .invoice { width: 100%; max-width: 780px; min-width: 0; margin: auto; }
+  body { margin: 0; padding: 24px; min-height: 100vh; min-height: 100dvh; width: 100%; display: grid; grid-template-columns: minmax(0, 1fr); place-items: center; color: #1d2a38; font: 14px/1.5 Arial, sans-serif; }
+  .invoice { display: block; width: min(100%, 780px); max-width: 780px; min-width: 0; justify-self: center; margin: 0 auto; }
   header { display: flex; justify-content: space-between; gap: 20px; align-items: flex-start; border-bottom: 2px solid #17364f; padding-bottom: 18px; }
   h1 { margin: 0; color: #17364f; font-size: 30px; }
   h2 { margin: 0 0 6px; font-size: 18px; }
