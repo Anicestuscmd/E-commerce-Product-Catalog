@@ -286,8 +286,8 @@ function printDemoInvoice(order) {
 <title>${invoiceNumber} — ShopSense Demo Invoice</title>
 <style>
   * { box-sizing: border-box; }
-  body { margin: 0; padding: 32px; color: #1d2a38; font: 14px/1.5 Arial, sans-serif; }
-  .invoice { max-width: 780px; margin: auto; }
+  body { margin: 0; padding: 32px; min-height: 100vh; display: flex; align-items: center; justify-content: center; color: #1d2a38; font: 14px/1.5 Arial, sans-serif; }
+  .invoice { width: 100%; max-width: 780px; margin: auto; }
   header { display: flex; justify-content: space-between; gap: 20px; align-items: flex-start; border-bottom: 2px solid #17364f; padding-bottom: 18px; }
   h1 { margin: 0; color: #17364f; font-size: 30px; }
   h2 { margin: 0 0 6px; font-size: 18px; }
@@ -302,7 +302,7 @@ function printDemoInvoice(order) {
   .total { margin-left: auto; width: 260px; display: flex; justify-content: space-between; padding: 14px 0; border-top: 2px solid #17364f; font-size: 18px; font-weight: bold; }
   .actions { margin-top: 28px; display: flex; gap: 10px; }
   button { border: 0; border-radius: 6px; padding: 11px 16px; background: #17364f; color: white; cursor: pointer; font-weight: bold; }
-  @media print { body { padding: 0; } .actions { display: none; } }
+  @media print { body { min-height: auto; display: block; padding: 0; } .invoice { margin: 0 auto; } .actions { display: none; } }
   @media (max-width: 600px) { body { padding: 16px; } header, .meta { flex-direction: column; } }
 </style>
 </head>
