@@ -368,10 +368,10 @@ async function readApiJson(response, fallbackMessage = "The server returned an u
   }
 }
 
-async function fetchWithRetry(url, attempts = 3) {
+async function fetchWithRetry(url, attempts = 3, options = {}) {
   let lastResponse;
   for (let attempt = 1; attempt <= attempts; attempt++) {
-    lastResponse = await fetch(url, { cache: "no-store" });
+    lastResponse = await fetch(url, { ...options, cache: "no-store" });
     if (![502, 503, 504].includes(lastResponse.status) || attempt === attempts) {
       return lastResponse;
     }
