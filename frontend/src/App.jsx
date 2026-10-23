@@ -1768,6 +1768,21 @@ function App() {
 
           <button
             onClick={() => {
+              setShowOrderHistory(true);
+              setShowCart(false);
+              setShowWishlist(false);
+              setShowAdmin(false);
+              setShowProfile(false);
+              setSelectedProduct(null);
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
+          >
+            <Icon name="package" />
+            My Orders
+          </button>
+
+          <button
+            onClick={() => {
               setShowAdmin(false);
               setSelectedProduct(null);
               setShowWishlist(false);
@@ -3142,6 +3157,16 @@ function App() {
             <div className="account-content">
           <div className="cart-heading orders-heading">
             <h1>My Orders</h1>
+            <button
+              className="button-outline"
+              onClick={() => {
+                setCustomerOrdersError("");
+                setShowOrderHistory(false);
+                window.setTimeout(() => setShowOrderHistory(true), 0);
+              }}
+            >
+              Refresh Orders
+            </button>
             <button
               className="button-outline"
               onClick={() => setShowOrderHistory(false)}
