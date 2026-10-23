@@ -286,8 +286,9 @@ function printDemoInvoice(order) {
 <title>${invoiceNumber} — ShopSense Demo Invoice</title>
 <style>
   * { box-sizing: border-box; }
-  body { margin: 0; padding: 32px; min-height: 100vh; display: flex; align-items: center; justify-content: center; color: #1d2a38; font: 14px/1.5 Arial, sans-serif; }
-  .invoice { width: 100%; max-width: 780px; margin: auto; }
+  html { width: 100%; min-height: 100%; }
+  body { margin: 0; padding: 24px; min-height: 100vh; min-height: 100dvh; width: 100%; display: grid; place-items: center; color: #1d2a38; font: 14px/1.5 Arial, sans-serif; }
+  .invoice { width: 100%; max-width: 780px; min-width: 0; margin: auto; }
   header { display: flex; justify-content: space-between; gap: 20px; align-items: flex-start; border-bottom: 2px solid #17364f; padding-bottom: 18px; }
   h1 { margin: 0; color: #17364f; font-size: 30px; }
   h2 { margin: 0 0 6px; font-size: 18px; }
@@ -295,15 +296,17 @@ function printDemoInvoice(order) {
   .muted { color: #617182; }
   .demo { margin: 20px 0; padding: 10px 12px; background: #fff4d6; border: 1px solid #e7c76a; border-radius: 6px; font-weight: bold; }
   .meta { display: flex; justify-content: space-between; gap: 20px; margin: 24px 0; }
-  table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+  table { width: 100%; table-layout: fixed; border-collapse: collapse; margin: 20px 0; }
+  th:first-child, td:first-child { width: 40%; overflow-wrap: anywhere; }
+  th, td { overflow-wrap: anywhere; }
   th { background: #17364f; color: white; text-align: left; }
   th, td { padding: 11px 10px; border-bottom: 1px solid #dbe2e8; }
   .number { text-align: right; white-space: nowrap; }
   .total { margin-left: auto; width: 260px; display: flex; justify-content: space-between; padding: 14px 0; border-top: 2px solid #17364f; font-size: 18px; font-weight: bold; }
   .actions { margin-top: 28px; display: flex; gap: 10px; }
   button { border: 0; border-radius: 6px; padding: 11px 16px; background: #17364f; color: white; cursor: pointer; font-weight: bold; }
-  @media print { body { min-height: auto; display: block; padding: 0; } .invoice { margin: 0 auto; } .actions { display: none; } }
-  @media (max-width: 600px) { body { padding: 16px; } header, .meta { flex-direction: column; } }
+  @media print { body { width: auto; min-height: auto; display: block; padding: 0; } .invoice { width: 100%; max-width: none; margin: 0 auto; } .actions { display: none; } }
+  @media (max-width: 600px) { body { padding: 16px; } .invoice { width: 100%; } header, .meta { flex-direction: column; } th, td { padding: 8px 5px; font-size: 12px; } .total { max-width: 100%; } }
 </style>
 </head>
 <body>
