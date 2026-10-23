@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { SignIn, SignUp, useUser, useClerk } from "@clerk/react";
+import { SignIn, SignUp, useUser, useClerk, useAuth } from "@clerk/react";
 import { Route, Switch } from "wouter";
 import "./App.css";
 
@@ -397,6 +397,32 @@ async function fetchProductPage(url) {
   }
 }
 
+async function fetchAuthenticatedApi(url, getToken, options = {}) {
+  // Retry the same-origin Vercel route first so normal same-site authentication is preserved.
+  const response = await fetchWithRetry(url, 3, options);
+  if (![502, 503, 504].includes(response.status)) return response;
+
+  // If Vercel's proxy is returning a gateway error, call Render directly with a Clerk session token.
+  const token = await getToken().catch(() => null);
+  if (!token) return response;
+
+  const directUrl = url.replace(
+    /^\/api\//,
+    "https://shopsense-api-syrq.onrender.com/api/",
+  );
+  try {
+    return await fetchWithRetry(directUrl, 2, {
+      ...options,
+      headers: {
+        ...(options.headers || {}),
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  } catch {
+    return response;
+  }
+}
+
 async function fetchAllProducts() {
   const firstResponse = await fetchProductPage("/api/products?page=1&pageSize=100");
   const firstData = await readApiJson(
@@ -442,6 +468,7 @@ const categoryIcon = (category) =>
 
 function App() {
   const { signOut } = useClerk();
+  const { getToken } = useAuth();
   const { isLoaded, isSignedIn, user } = useUser();
   const isAdmin = user?.publicMetadata?.role === "admin";
   const [products, setProducts] = useState([]);
@@ -1386,7 +1413,7 @@ function App() {
       setOrdersError("");
 
       try {
-        const response = await fetch("/api/admin/orders");
+        const response = await fetchAuthenticatedApi("/api/admin/orders", getToken);
 
         if (!response.ok) {
           const data = await readApiJson(response).catch(() => ({}));
@@ -1414,7 +1441,7 @@ function App() {
     return () => {
       cancelled = true;
     };
-  }, [isLoaded, isSignedIn, isAdmin, showOrders, showAnalytics, user?.id]);
+  }, [isLoaded, isSignedIn, isAdmin, showOrders, showAnalytics, user?.id, getToken]);
 
   // Load order history for the signed-in customer
   useEffect(() => {
@@ -1429,7 +1456,7 @@ function App() {
       setCustomerOrdersError("");
 
       try {
-        const response = await fetch("/api/orders", {
+        const response = await fetchAuthenticatedApi("/api/orders", getToken, {
           credentials: "include",
         });
 
@@ -1460,7 +1487,7 @@ function App() {
     return () => {
       cancelled = true;
     };
-  }, [isLoaded, isSignedIn, showOrderHistory, user?.id]);
+  }, [isLoaded, isSignedIn, showOrderHistory, user?.id, getToken]);
 
   const categories = useMemo(
     () => ["All", ...new Set(products.map((p) => p.Category).filter(Boolean))],
