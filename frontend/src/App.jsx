@@ -306,7 +306,14 @@ function printDemoInvoice(order) {
   .actions { margin-top: 28px; display: flex; gap: 10px; }
   button { border: 0; border-radius: 6px; padding: 11px 16px; background: #17364f; color: white; cursor: pointer; font-weight: bold; }
   @media print { body { width: auto; min-height: auto; display: block; padding: 0; } .invoice { width: 100%; max-width: none; margin: 0 auto; } .actions { display: none; } }
-  @media (max-width: 600px) { body { padding: 16px; } .invoice { width: 100%; } header, .meta { flex-direction: column; } th, td { padding: 8px 5px; font-size: 12px; } .total { max-width: 100%; } }
+  /* Explicit screen layout: center the invoice in the actual viewport on desktop and mobile. */
+  @media screen {
+    html, body { width: 100%; }
+    body { display: flex !important; flex-direction: column; justify-content: center !important; align-items: center !important; padding: 24px 16px; }
+    .invoice { display: block; flex: 0 1 780px; width: 100% !important; max-width: 780px !important; min-width: 0; margin: auto !important; }
+  }
+  @media print { body { display: block !important; padding: 0; } .invoice { width: 100% !important; max-width: none !important; margin: 0 auto !important; } }
+  @media screen and (max-width: 600px) { body { padding: 20px 16px; } .invoice { flex-basis: auto; width: 100% !important; max-width: 100% !important; } header, .meta { flex-direction: column; } th, td { padding: 8px 5px; font-size: 12px; } .total { max-width: 100%; } }
 </style>
 </head>
 <body>
