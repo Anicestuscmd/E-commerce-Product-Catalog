@@ -242,6 +242,95 @@ function formatPrice(price) {
   }).format(Number(price) || 0);
 }
 
+function printDemoInvoice(order) {
+  if (!order) return;
+
+  const escapeHtml = (value) =>
+    String(value ?? "").replace(/[&<>"']/g, (character) => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;",
+    })[character]);
+
+  const orderId = String(order._id || "DEMO").slice(-8).toUpperCase();
+  const invoiceNumber = `SS-DEMO-${orderId}`;
+  const orderDate = order.createdAt
+    ? new Date(order.createdAt).toLocaleDateString("en-IN", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      })
+    : new Date().toLocaleDateString("en-IN");
+  const items = Array.isArray(order.items) ? order.items : [];
+  const rows = items.map((item) => `
+    <tr>
+      <td>${escapeHtml(item.brand)} ${escapeHtml(item.modelName)}<br><small>${escapeHtml(item.category || "")}</small></td>
+      <td class="number">${Number(item.quantity || 0)}</td>
+      <td class="number">${escapeHtml(formatPrice(item.priceINR))}</td>
+      <td class="number">${escapeHtml(formatPrice(item.subtotalINR ?? Number(item.priceINR || 0) * Number(item.quantity || 0)))}</td>
+    </tr>`).join("");
+
+  const invoiceWindow = window.open("", "_blank", "width=900,height=700");
+  if (!invoiceWindow) {
+    alert("Please allow pop-ups for ShopSense to open the demo invoice.");
+    return;
+  }
+
+  invoiceWindow.document.write(`<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>${invoiceNumber} — ShopSense Demo Invoice</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 32px; color: #1d2a38; font: 14px/1.5 Arial, sans-serif; }
+  .invoice { max-width: 780px; margin: auto; }
+  header { display: flex; justify-content: space-between; gap: 20px; align-items: flex-start; border-bottom: 2px solid #17364f; padding-bottom: 18px; }
+  h1 { margin: 0; color: #17364f; font-size: 30px; }
+  h2 { margin: 0 0 6px; font-size: 18px; }
+  p { margin: 4px 0; }
+  .muted { color: #617182; }
+  .demo { margin: 20px 0; padding: 10px 12px; background: #fff4d6; border: 1px solid #e7c76a; border-radius: 6px; font-weight: bold; }
+  .meta { display: flex; justify-content: space-between; gap: 20px; margin: 24px 0; }
+  table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+  th { background: #17364f; color: white; text-align: left; }
+  th, td { padding: 11px 10px; border-bottom: 1px solid #dbe2e8; }
+  .number { text-align: right; white-space: nowrap; }
+  .total { margin-left: auto; width: 260px; display: flex; justify-content: space-between; padding: 14px 0; border-top: 2px solid #17364f; font-size: 18px; font-weight: bold; }
+  .actions { margin-top: 28px; display: flex; gap: 10px; }
+  button { border: 0; border-radius: 6px; padding: 11px 16px; background: #17364f; color: white; cursor: pointer; font-weight: bold; }
+  @media print { body { padding: 0; } .actions { display: none; } }
+  @media (max-width: 600px) { body { padding: 16px; } header, .meta { flex-direction: column; } }
+</style>
+</head>
+<body>
+<div class="invoice">
+<header>
+  <div><h1>ShopSense</h1><p class="muted">E-commerce Product Catalog</p></div>
+  <div><h2>INVOICE</h2><p><strong>${invoiceNumber}</strong></p><p class="muted">Date: ${escapeHtml(orderDate)}</p></div>
+</header>
+<div class="demo">DEMO INVOICE — No online payment was processed. This is not a tax invoice or proof of payment.</div>
+<div class="meta">
+  <div><h2>Bill to</h2><p>${escapeHtml(order.customerName || "ShopSense Customer")}</p><p>${escapeHtml(order.customerEmail || "")}</p></div>
+  <div><h2>Order details</h2><p>Order ID: #${orderId}</p><p>Status: ${escapeHtml(order.status || "Pending")}</p></div>
+</div>
+<table>
+<thead><tr><th>Product</th><th class="number">Qty</th><th class="number">Unit price</th><th class="number">Subtotal</th></tr></thead>
+<tbody>${rows || '<tr><td colspan="4">No items found for this order.</td></tr>'}</tbody>
+</table>
+<div class="total"><span>Total</span><span>${escapeHtml(formatPrice(order.totalINR))}</span></div>
+<p class="muted">Prepared for project demonstration. Taxes, shipping, and payment settlement are not calculated in this demo invoice.</p>
+<div class="actions"><button onclick="window.print()">Print / Save as PDF</button><button onclick="window.close()">Close</button></div>
+</div>
+<script>window.onload = () => { window.focus(); };</script>
+</body>
+</html>`);
+  invoiceWindow.document.close();
+}
+
 async function readApiJson(response, fallbackMessage = "The server returned an unexpected response.") {
   const contentType = response.headers.get("content-type") || "";
   const bodyText = await response.text();
@@ -3163,6 +3252,13 @@ function App() {
                     >
                       {order.status || "Pending"}
                     </span>
+                    <button
+                      className="button-outline"
+                      type="button"
+                      onClick={() => printDemoInvoice(order)}
+                    >
+                      Download Invoice
+                    </button>
                   </div>
                 </article>
               ))}
@@ -3327,6 +3423,13 @@ function App() {
                       )}
                     </p>
                     <p>Status: {orderConfirmation.status}</p>
+                    <button
+                      className="button-primary"
+                      type="button"
+                      onClick={() => printDemoInvoice(orderConfirmation)}
+                    >
+                      Download Demo Invoice (PDF)
+                    </button>
                   </div>
                 )}
               </div>
