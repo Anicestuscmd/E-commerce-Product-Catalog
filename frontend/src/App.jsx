@@ -286,9 +286,10 @@ function printDemoInvoice(order) {
 <title>${invoiceNumber} — ShopSense Demo Invoice</title>
 <style>
   * { box-sizing: border-box; }
-  html { width: 100%; min-height: 100%; }
-  body { margin: 0; padding: 24px; min-height: 100vh; min-height: 100dvh; width: 100%; display: grid; grid-template-columns: minmax(0, 1fr); place-items: center; color: #1d2a38; font: 14px/1.5 Arial, sans-serif; }
-  .invoice { display: block; width: min(100%, 780px); max-width: 780px; min-width: 0; justify-self: center; margin: 0 auto; }
+  html, body { margin: 0; width: 100%; min-height: 100%; }
+  body { color: #1d2a38; font: 14px/1.5 Arial, sans-serif; }
+  .invoice-shell { position: fixed; inset: 0; width: 100vw; height: 100vh; height: 100dvh; overflow: auto; display: grid; place-items: center; padding: 24px 16px; }
+  .invoice { width: 100%; max-width: 780px; min-width: 0; margin: auto; justify-self: center; align-self: center; }
   header { display: flex; justify-content: space-between; gap: 20px; align-items: flex-start; border-bottom: 2px solid #17364f; padding-bottom: 18px; }
   h1 { margin: 0; color: #17364f; font-size: 30px; }
   h2 { margin: 0 0 6px; font-size: 18px; }
@@ -302,21 +303,15 @@ function printDemoInvoice(order) {
   th { background: #17364f; color: white; text-align: left; }
   th, td { padding: 11px 10px; border-bottom: 1px solid #dbe2e8; }
   .number { text-align: right; white-space: nowrap; }
-  .total { margin-left: auto; width: 260px; display: flex; justify-content: space-between; padding: 14px 0; border-top: 2px solid #17364f; font-size: 18px; font-weight: bold; }
-  .actions { margin-top: 28px; display: flex; gap: 10px; }
+  .total { margin-left: auto; width: 260px; max-width: 100%; display: flex; justify-content: space-between; padding: 14px 0; border-top: 2px solid #17364f; font-size: 18px; font-weight: bold; }
+  .actions { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 10px; }
   button { border: 0; border-radius: 6px; padding: 11px 16px; background: #17364f; color: white; cursor: pointer; font-weight: bold; }
-  @media print { body { width: auto; min-height: auto; display: block; padding: 0; } .invoice { width: 100%; max-width: none; margin: 0 auto; } .actions { display: none; } }
-  /* Explicit screen layout: center the invoice in the actual viewport on desktop and mobile. */
-  @media screen {
-    html, body { width: 100%; }
-    body { display: flex !important; flex-direction: column; justify-content: center !important; align-items: center !important; padding: 24px 16px; }
-    .invoice { display: block; flex: 0 1 780px; width: 100% !important; max-width: 780px !important; min-width: 0; margin: auto !important; }
-  }
-  @media print { body { display: block !important; padding: 0; } .invoice { width: 100% !important; max-width: none !important; margin: 0 auto !important; } }
-  @media screen and (max-width: 600px) { body { padding: 20px 16px; } .invoice { flex-basis: auto; width: 100% !important; max-width: 100% !important; } header, .meta { flex-direction: column; } th, td { padding: 8px 5px; font-size: 12px; } .total { max-width: 100%; } }
+  @media screen and (max-width: 600px) { .invoice-shell { padding: 20px 16px; } .invoice { width: 100%; max-width: 100%; } header, .meta { flex-direction: column; } th, td { padding: 8px 5px; font-size: 12px; } }
+  @media print { html, body { width: auto; min-height: auto; } .invoice-shell { position: static; display: block; width: auto; height: auto; min-height: 0; overflow: visible; padding: 0; } .invoice { width: 100%; max-width: none; margin: 0 auto; } .actions { display: none; } }
 </style>
 </head>
 <body>
+<div class="invoice-shell">
 <div class="invoice">
 <header>
   <div><h1>ShopSense</h1><p class="muted">E-commerce Product Catalog</p></div>
@@ -334,6 +329,7 @@ function printDemoInvoice(order) {
 <div class="total"><span>Total</span><span>${escapeHtml(formatPrice(order.totalINR))}</span></div>
 <p class="muted">Prepared for project demonstration. Taxes, shipping, and payment settlement are not calculated in this demo invoice.</p>
 <div class="actions"><button onclick="window.print()">Print / Save as PDF</button><button onclick="window.close()">Close</button></div>
+</div>
 </div>
 <script>window.onload = () => { window.focus(); };</script>
 </body>
